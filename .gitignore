@@ -1,2 +1,15 @@
 
 .DS_Store
+*.ini
+*.xml
+Code/.metadata/.plugins/org.eclipse.ui.intro/introstate
+*.setup
+*.log
+*.prefs
+*.index
+Code/.metadata/.plugins/org.eclipse.core.resources/.projects/.org.eclipse.egit.core.cmp/.location
+*.resources
+*.dat
+*.ser
+Code/.metadata/.plugins/org.eclipse.egit.core/.org.eclipse.egit.core.cmp/.project
+Code/.metadata/.lock
