@@ -5,13 +5,11 @@ import java.util.List;
 
 
 public class CalendarEventUtil {
-    public static List<LocalDateTime> getRepeatedDates(LocalDateTime startTime, LocalDateTime endTime,int intervalInDays){
+    public static List<LocalDateTime> getRepeatedDates(LocalDateTime start, LocalDateTime end,int intervalInDays){
         List<LocalDateTime> repeatedDates = new ArrayList<>();
-        LocalDateTime currentDate = startTime;
-        while (currentDate.isBefore(endTime)) {
-            repeatedDates.add(currentDate);
-            currentDate = currentDate.plusDays(intervalInDays);
-          }
+        LocalDateTime currentDate = start;
+      
+      
       
           return repeatedDates;
         }
