@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch DayCalendarTest",
+            "request": "launch",
+            "mainClass": "DayCalendarTest",
+            "projectName": "EECS2311Project-Calendar_bbb2f47b"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
