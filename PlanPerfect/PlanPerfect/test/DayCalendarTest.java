@@ -38,12 +38,21 @@ public class DayCalendarTest {
 		JButton prevDayBtn = new JButton("<");
 		prevDayBtn.addActionListener(e -> cal.prevDay());
 		
+		//This button allows the user to change to change the font size.
+        JButton fontSize = new JButton("Font Sizes");
+        fontSize.addActionListener(e -> {
+            String[] sizes = {"10", "12", "14", "16", "18", "20"};
+            String selectedSize = (String) JOptionPane.showInputDialog(frm, "Select font size", "Font Size", JOptionPane.PLAIN_MESSAGE, null, sizes, sizes[0]);
+            if (selectedSize != null) {
+                cal.setFontSize(Integer.parseInt(selectedSize));
+            }
+        });
 
 		JPanel weekControls = new JPanel();
 		weekControls.add(prevDayBtn);
 		weekControls.add(goToTodayBtn);
 		weekControls.add(nextDayBtn);
-		
+		weekControls.add(fontSize);
 	
 
 		frm.add(weekControls, BorderLayout.NORTH);
