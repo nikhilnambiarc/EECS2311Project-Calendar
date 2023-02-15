@@ -28,7 +28,7 @@ public class WeekCalendarTest {
 			System.out.println(e.getDateTime());
 			System.out.println(Calendar.roundTime(e.getDateTime().toLocalTime(), 30));
 		});
-
+		
 		JButton goToTodayBtn = new JButton("Today");
 		goToTodayBtn.addActionListener(e -> cal.goToToday());
 
@@ -44,12 +44,36 @@ public class WeekCalendarTest {
 		JButton prevMonthBtn = new JButton("<<");
 		prevMonthBtn.addActionListener(e -> cal.prevMonth());
 
+		//This button allows the user to change to change the font size.
+        JButton fontSizes = new JButton("Font Sizes");
+        fontSizes.addActionListener(e -> {
+            String[] sizes = {"10", "12", "14", "16", "18", "20"};
+            String selectedSize = (String) JOptionPane.showInputDialog(frm, "Select font size", "Font Size", JOptionPane.PLAIN_MESSAGE, null, sizes, sizes[0]);
+            if (selectedSize != null) {
+                cal.setFontSize(Integer.parseInt(selectedSize));
+            }
+        });
+		//This button allows the user to change to change the font Type.
+        JButton fontTypes = new JButton("Font Types");
+        fontTypes.addActionListener(e -> {
+            String[] fonts = {"Arial", "Helvetica", "Times New Roman", "Courier New", "Verdana", 
+            "Lucida Console","Tahoma","Georgia" };
+            String selectedFont = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fonts, fonts[0]);
+            if (selectedFont != null) {
+                cal.setFontType(selectedFont);
+            }
+        });
+	
+
+
 		JPanel weekControls = new JPanel();
 		weekControls.add(prevMonthBtn);
 		weekControls.add(prevWeekBtn);
 		weekControls.add(goToTodayBtn);
 		weekControls.add(nextWeekBtn);
 		weekControls.add(nextMonthBtn);
+		weekControls.add(fontSizes);
+		weekControls.add(fontTypes);
 
 		frm.add(weekControls, BorderLayout.NORTH);
 
