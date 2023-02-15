@@ -9,7 +9,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class DayCalendarTest {
-  	public static void main(String[] args) {
+	public static void main(String[] args) {
 		JFrame frm = new JFrame();
 
 		ArrayList<CalendarEvent> events = new ArrayList<>();
@@ -37,6 +37,7 @@ public class DayCalendarTest {
 
 		JButton prevDayBtn = new JButton("<");
 		prevDayBtn.addActionListener(e -> cal.prevDay());
+
 		
 		//This button allows the user to change to change the font size.
         JButton fontSize = new JButton("Font Sizes");
@@ -59,12 +60,11 @@ public class DayCalendarTest {
             }
         });
 
+
 		JPanel weekControls = new JPanel();
 		weekControls.add(prevDayBtn);
 		weekControls.add(goToTodayBtn);
 		weekControls.add(nextDayBtn);
-		weekControls.add(fontSize);
-		weekControls.add(fontTypes);
 
 		frm.add(weekControls, BorderLayout.NORTH);
 

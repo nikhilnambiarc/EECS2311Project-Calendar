@@ -14,19 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<filteredResources>
-		<filter>
-<<<<<<< Updated upstream
-			<id>1676352533523</id>
-=======
-			<id>1676323884435</id>
->>>>>>> Stashed changes
-			<name></name>
-			<type>30</type>
-			<matcher>
-				<id>org.eclipse.core.resources.regexFilterMatcher</id>
-				<arguments>node_modules|\.git|__CREATED_BY_JAVA_LANGUAGE_SERVER__</arguments>
-			</matcher>
-		</filter>
-	</filteredResources>
 </projectDescription>
