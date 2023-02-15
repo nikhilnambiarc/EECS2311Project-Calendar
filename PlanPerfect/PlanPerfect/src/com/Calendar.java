@@ -391,10 +391,20 @@ public abstract class Calendar extends JComponent {
 
     public void setEvents(ArrayList<CalendarEvent> events) {
         this.events = events;
-        repaint();
+        repaint();   
     }
+
     public void setFontSize(int size) {
         Font font = getFont().deriveFont((float) size);
         setFont(font);
     }
+
+
+    public void setFontType(String type) {
+        Font font = getFont();
+        font = new Font(type, font.getStyle(), font.getSize());
+        setFont(font);
+    }
+
+
 }
