@@ -50,6 +50,7 @@ public class DayCalendarTest {
 		//This button allows the user to change to change the font Type.
         JButton fontTypes = new JButton("Font Types");
         fontTypes.addActionListener(e -> {
+			//Array list of font types
             String[] fonts = {"Arial", "Helvetica", "Times New Roman", "Courier New", "Verdana", 
             "Lucida Console","Tahoma","Georgia" };
             String selectedFont = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fonts, fonts[0]);
