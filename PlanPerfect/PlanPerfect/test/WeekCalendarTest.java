@@ -53,7 +53,16 @@ public class WeekCalendarTest {
                 cal.setFontSize(Integer.parseInt(selectedSize));
             }
         });
-		
+		//This button allows the user to change to change the font Type.
+        JButton fontTypes = new JButton("Font Types");
+        fontTypes.addActionListener(e -> {
+            String[] fonts = {"Arial", "Helvetica", "Times New Roman", "Courier New", "Verdana", 
+            "Lucida Console","Tahoma","Georgia" };
+            String selectedFont = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fonts, fonts[0]);
+            if (selectedFont != null) {
+                cal.setFontType(selectedFont);
+            }
+        });
 	
 
 
@@ -64,7 +73,7 @@ public class WeekCalendarTest {
 		weekControls.add(nextWeekBtn);
 		weekControls.add(nextMonthBtn);
 		weekControls.add(fontSizes);
-	
+		weekControls.add(fontTypes);
 
 		frm.add(weekControls, BorderLayout.NORTH);
 
