@@ -398,7 +398,11 @@ public abstract class Calendar extends JComponent {
         Font font = getFont().deriveFont((float) size);
         setFont(font);
     }
-
+    public void setFontType(String fonttype) {
+        Font font = getFont();
+        font = new Font(fonttype, font.getStyle(), font.getSize());
+        setFont(font);
+    }
 
   
 
