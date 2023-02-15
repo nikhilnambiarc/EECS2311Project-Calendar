@@ -65,7 +65,9 @@ public class DayCalendarTest {
 		weekControls.add(prevDayBtn);
 		weekControls.add(goToTodayBtn);
 		weekControls.add(nextDayBtn);
-
+		weekControls.add(fontSize);
+        weekControls.add(fontTypes);
+		
 		frm.add(weekControls, BorderLayout.NORTH);
 
 		frm.add(cal, BorderLayout.CENTER);
