@@ -9,6 +9,10 @@ public class CalendarEventUtil {
         List<LocalDateTime> repeatedDates = new ArrayList<>();
         LocalDateTime currentDate = start;
        
+    while (currentDate.isBefore(end)) {
+      repeatedDates.add(currentDate);
+      currentDate = currentDate.plusDays(intervalInDays);
+    }
       
       
           return repeatedDates;

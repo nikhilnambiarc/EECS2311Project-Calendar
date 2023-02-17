@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
+import java.time.Clock;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Locale;
+
 
 public abstract class Calendar extends JComponent {
     protected static final LocalTime START_TIME = LocalTime.of(9, 0);
@@ -25,6 +27,7 @@ public abstract class Calendar extends JComponent {
 
     protected static final int HEADER_HEIGHT = 30;
     protected static final int TIME_COL_WIDTH = 100;
+    JFrame frm = new JFrame();
 
     // An estimate of the width of a single character (not exact but good
     // enough)
@@ -38,6 +41,9 @@ public abstract class Calendar extends JComponent {
 
     public Calendar() {
         this(new ArrayList<>());
+    }
+    public Calendar(Calendar calendar,Clock clock){
+ 
     }
 
     Calendar(ArrayList<CalendarEvent> events) {
@@ -393,4 +399,6 @@ public abstract class Calendar extends JComponent {
         this.events = events;
         repaint();
     }
+
+   
 }
