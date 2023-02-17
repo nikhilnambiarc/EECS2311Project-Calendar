@@ -23,7 +23,7 @@ public final class NewEventPanel extends JPanel {
  
   private final JTextArea descriptionArea = new JTextArea();
  
-  NewEventPanel(LocalDate date) {
+  public NewEventPanel(LocalDate date) {
     super(new GridBagLayout());
  
     if (date == null)

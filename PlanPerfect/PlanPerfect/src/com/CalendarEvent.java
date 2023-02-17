@@ -94,12 +94,6 @@ public class CalendarEvent {
         result = 31 * result + end.hashCode();
         return result;
     }
-    public String addNewEvent(LocalDate selectedDate,  String description2) {
-        var newEventPanel = new NewEventPanel(selectedDate);
-    String description = newEventPanel.description();
-    return selectedDate+ description2;
  
-   
-}
    
 }
