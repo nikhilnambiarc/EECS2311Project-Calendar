@@ -11,16 +11,16 @@ public class Week {
     // Gets week variables from any date (can be within week)
     public Week(LocalDate date) {
         days = new ArrayList<>();
-        LocalDate monday = getStartOfWeek(date);
-        days.add(monday);
+        LocalDate sunday = getStartOfWeek(date);
+        days.add(sunday);
         for (int i = 1; i < 5; i++) {
-            days.add(monday.plusDays(i));
+            days.add(sunday.plusDays(i));
         }
     }
 
     public static LocalDate getStartOfWeek(LocalDate date) {
         LocalDate day = date;
-        while (day.getDayOfWeek() != DayOfWeek.MONDAY) {
+        while (day.getDayOfWeek() != DayOfWeek.SUNDAY) {
             day = day.minusDays(1);
         }
         return day;
@@ -37,12 +37,12 @@ public class Week {
     }
 
     public Week prevWeek() {
-        final LocalDate monday = getDay(DayOfWeek.MONDAY);
-        return new Week(monday.minusDays(3));
+        final LocalDate sunday= getDay(DayOfWeek.SUNDAY);
+        return new Week(sunday.minusDays(3));
     }
 
     public String toString() {
-        return "Week of the " + getDay(DayOfWeek.MONDAY);
+        return "Week of the " + getDay(DayOfWeek.SUNDAY);
     }
 
     public static void main(String[] args) {

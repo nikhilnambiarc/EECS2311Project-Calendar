@@ -15,7 +15,7 @@ public class WeekCalendar extends Calendar {
 
     @Override
     protected boolean dateInRange(LocalDate date) {
-        return Week.getStartOfWeek(date).equals(week.getDay(DayOfWeek.MONDAY));
+        return Week.getStartOfWeek(date).equals(week.getDay(DayOfWeek.SUNDAY));
     }
 
     @Override
@@ -24,17 +24,17 @@ public class WeekCalendar extends Calendar {
     }
 
     protected int numDaysToShow() {
-        return 5;
+        return 7;
     }
 
     @Override
     protected DayOfWeek getStartDay() {
-        return DayOfWeek.MONDAY;
+        return DayOfWeek.SUNDAY;
     }
 
     @Override
     protected DayOfWeek getEndDay() {
-        return DayOfWeek.FRIDAY;
+        return DayOfWeek.SATURDAY;
     }
 
     @Override
@@ -58,12 +58,12 @@ public class WeekCalendar extends Calendar {
     }
 
     public void nextMonth() {
-        week = new Week(week.getDay(DayOfWeek.MONDAY).plusWeeks(4));
+        week = new Week(week.getDay(DayOfWeek.SUNDAY).plusWeeks(4));
         repaint();
     }
 
     public void prevMonth() {
-        week = new Week(week.getDay(DayOfWeek.MONDAY).minusWeeks(4));
+        week = new Week(week.getDay(DayOfWeek.SUNDAY).minusWeeks(4));
         repaint();
     }
 
