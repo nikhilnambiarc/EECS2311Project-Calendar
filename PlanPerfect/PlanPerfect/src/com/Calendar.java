@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
+import java.time.Clock;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,15 +17,17 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Locale;
 
+
 public abstract class Calendar extends JComponent {
-    protected static final LocalTime START_TIME = LocalTime.of(9, 0);
-    protected static final LocalTime END_TIME = LocalTime.of(17, 0);
+    protected static final LocalTime START_TIME = LocalTime.of(3, 0);
+    protected static final LocalTime END_TIME = LocalTime.of(22, 0);
 
     protected static final int MIN_WIDTH = 600;
     protected static final int MIN_HEIGHT = MIN_WIDTH;
 
     protected static final int HEADER_HEIGHT = 30;
     protected static final int TIME_COL_WIDTH = 100;
+    JFrame frm = new JFrame();
 
     // An estimate of the width of a single character (not exact but good
     // enough)
@@ -38,6 +41,9 @@ public abstract class Calendar extends JComponent {
 
     public Calendar() {
         this(new ArrayList<>());
+    }
+    public Calendar(Calendar calendar,Clock clock){
+ 
     }
 
     Calendar(ArrayList<CalendarEvent> events) {
@@ -391,20 +397,19 @@ public abstract class Calendar extends JComponent {
 
     public void setEvents(ArrayList<CalendarEvent> events) {
         this.events = events;
-        repaint();   
+        repaint();
     }
 
     public void setFontSize(int size) {
         Font font = getFont().deriveFont((float) size);
         setFont(font);
     }
-    public void setFontType(String fonttype) {
+
+
+    public void setFontType(String type) {
         Font font = getFont();
-        font = new Font(fonttype, font.getStyle(), font.getSize());
+        font = new Font(type, font.getStyle(), font.getSize());
         setFont(font);
     }
-
-  
-
 
 }
