@@ -17,10 +17,10 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public abstract class Calendar extends JComponent {
-    protected static final LocalTime START_TIME = LocalTime.of(9, 0);
-    protected static final LocalTime END_TIME = LocalTime.of(17, 0);
+    protected static final LocalTime START_TIME = LocalTime.of(0, 0);
+    protected static final LocalTime END_TIME = LocalTime.of(22, 00);
 
-    protected static final int MIN_WIDTH = 600;
+    protected static final int MIN_WIDTH = 1000;
     protected static final int MIN_HEIGHT = MIN_WIDTH;
 
     protected static final int HEADER_HEIGHT = 30;
