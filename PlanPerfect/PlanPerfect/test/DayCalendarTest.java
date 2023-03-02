@@ -46,7 +46,7 @@ public class DayCalendarTest {
 		frm.add(weekControls, BorderLayout.NORTH);
 
 		frm.add(cal, BorderLayout.CENTER);
-		frm.setSize(1000, 900);
+		frm.setSize(1000, 2000);
 		frm.setVisible(true);
 		frm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
