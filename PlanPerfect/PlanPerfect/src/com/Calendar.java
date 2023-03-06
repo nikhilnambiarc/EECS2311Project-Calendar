@@ -412,4 +412,16 @@ public abstract class Calendar extends JComponent {
         setFont(font);
     }
 
+    public ArrayList<CalendarEvent> getEventAlreadyPassed() {
+        ArrayList<CalendarEvent> eventPassedAlready = new ArrayList<>();
+        LocalDate DateOfToday = LocalDate.now();
+        for (CalendarEvent eventpassed : events) {
+
+            if (eventpassed.getDate().isBefore(DateOfToday)) {
+                eventPassedAlready.add(eventpassed);
+            }
+        }
+        return eventPassedAlready;
+    }
+
 }

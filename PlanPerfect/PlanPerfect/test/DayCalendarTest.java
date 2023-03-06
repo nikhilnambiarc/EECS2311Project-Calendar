@@ -13,7 +13,6 @@ public class DayCalendarTest {
     public static void main(String[] args) {
         JFrame frm = new JFrame();
 
-     
         ArrayList<CalendarEvent> events = new ArrayList<>();
 
         
@@ -102,6 +101,8 @@ public class DayCalendarTest {
                 cal.setFontType(selectedFont);
             }
         });
+        
+        
 
 
 		JPanel weekControls = new JPanel();
@@ -110,8 +111,10 @@ public class DayCalendarTest {
 		weekControls.add(nextDayBtn);
 		weekControls.add(fontSize);
         weekControls.add(fontTypes);
+
 		
 		frm.add(weekControls, BorderLayout.NORTH);
+
 
 		frm.add(cal, BorderLayout.CENTER);
 		frm.setSize(1000, 900);
