@@ -1,14 +1,13 @@
 package com;
 
 import java.awt.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.swing.*;
-import static javax.swing.JOptionPane.OK_CANCEL_OPTION;
-import static javax.swing.JOptionPane.OK_OPTION;
-import static javax.swing.JOptionPane.PLAIN_MESSAGE;
-import static javax.swing.SwingConstants.CENTER;
-import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class CalendarEvent {
 
@@ -30,9 +29,6 @@ public class CalendarEvent {
         this.end = end;
         this.text = text;
         this.color = color;
-    }
-
-    public CalendarEvent(LocalDate selectedDate, LocalDate selectedDate2, LocalDate selectedDate3, String description) {
     }
 
     public LocalDate getDate() {
@@ -95,8 +91,7 @@ public class CalendarEvent {
         result = 31 * result + end.hashCode();
         return result;
     }
- 
-   
+
 
 public class CalendarEventEditor extends JFrame {
 
@@ -187,4 +182,3 @@ public class CalendarEventEditor extends JFrame {
     }
 }
 }
-
