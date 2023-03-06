@@ -70,7 +70,7 @@ public class WeekCalendarTest {
    
 		   //Check if there is any event added that is passed.
 		   if (EventsPassed.isEmpty()) {
-			   JOptionPane.showMessageDialog(frm, "Nothing happened in the past.");
+			   JOptionPane.showMessageDialog(frm, "NO EVENT PASSED");
 		   } else {
    
 			   StringBuilder stringBuilder = new StringBuilder();

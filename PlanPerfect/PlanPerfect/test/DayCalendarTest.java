@@ -17,7 +17,7 @@ public class DayCalendarTest {
 
         
         DayCalendar cal = new DayCalendar(events);
-
+        ImageIcon imageIcon = new ImageIcon("path/to/image.jpg");
         
         
         JLabel dateLabel = new JLabel("Date (yyyy-MM-dd):");
@@ -108,7 +108,7 @@ public class DayCalendarTest {
 
         //Check if there is any event added that is passed.
         if (EventsPassed.isEmpty()) {
-            JOptionPane.showMessageDialog(frm, "Nothing happened in the past.");
+            JOptionPane.showMessageDialog(frm, "NO EVENT PASSED");
         } else {
 
             StringBuilder stringBuilder = new StringBuilder();
@@ -116,7 +116,7 @@ public class DayCalendarTest {
                 stringBuilder.append(event.toString()).append("\n");
             }
             //Display this message at the end
-            JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events", JOptionPane.PLAIN_MESSAGE, imageIcon);
         }
      });
         
