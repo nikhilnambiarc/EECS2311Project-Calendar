@@ -83,6 +83,7 @@ public class WeekCalendarTest {
 		});
 
 		JPanel weekControls = new JPanel();
+		weekControls.add(EventsPassedButton); //Adding "Completed Events" in the GUI
 		weekControls.add(prevMonthBtn);
 		weekControls.add(prevWeekBtn);
 		weekControls.add(goToTodayBtn);
