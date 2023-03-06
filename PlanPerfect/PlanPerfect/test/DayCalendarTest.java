@@ -67,7 +67,6 @@ public class DayCalendarTest {
        
         frm.add(cal, BorderLayout.CENTER);
 
-    
         JButton goToTodayBtn = new JButton("Today");
         goToTodayBtn.addActionListener(e -> cal.goToToday());
 
@@ -101,11 +100,31 @@ public class DayCalendarTest {
                 cal.setFontType(selectedFont);
             }
         });
+
+        //This button display the event that is passed
+     JButton EventsPassedButton = new JButton("Completed Events");
+     EventsPassedButton.addActionListener(e -> {
+        ArrayList<CalendarEvent> EventsPassed = cal.getEventAlreadyPassed();
+
+        //Check if there is any event added that is passed.
+        if (EventsPassed.isEmpty()) {
+            JOptionPane.showMessageDialog(frm, "Nothing happened in the past.");
+        } else {
+
+            StringBuilder stringBuilder = new StringBuilder();
+            for (CalendarEvent event : EventsPassed) {
+                stringBuilder.append(event.toString()).append("\n");
+            }
+            //Display this message at the end
+            JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events", JOptionPane.PLAIN_MESSAGE);
+        }
+     });
         
         
 
 
 		JPanel weekControls = new JPanel();
+        weekControls.add(EventsPassedButton); //Adding "Completed Events" in the GUI
 		weekControls.add(prevDayBtn);
 		weekControls.add(goToTodayBtn);
 		weekControls.add(nextDayBtn);
