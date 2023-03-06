@@ -80,26 +80,50 @@ public class DayCalendarTest {
 		
 
 		
-		//This button allows the user to change to change the font size.
-        JButton fontSize = new JButton("Font Sizes");
-        fontSize.addActionListener(e -> {
-            String[] sizes = {"10", "12", "14", "16", "18", "20"};
-            String selectedSize = (String) JOptionPane.showInputDialog(frm, "Select font size", "Font Size", JOptionPane.PLAIN_MESSAGE, null, sizes, sizes[0]);
-            if (selectedSize != null) {
-                cal.setFontSize(Integer.parseInt(selectedSize));
-            }
-        });
-		//This button allows the user to change to change the font Type.
-        JButton fontTypes = new JButton("Font Types");
-        fontTypes.addActionListener(e -> {
-			//Array list of font types
-            String[] fonts = {"Arial", "Helvetica", "Times New Roman", "Courier New", "Verdana", 
-            "Lucida Console","Tahoma","Georgia" };
-            String selectedFont = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fonts, fonts[0]);
-            if (selectedFont != null) {
-                cal.setFontType(selectedFont);
-            }
-        });
+		// //This button allows the user to change to change the font size.
+        // JButton fontSize = new JButton("Font Sizes");
+        // fontSize.addActionListener(e -> {
+        //     String[] sizes = {"10", "12", "14", "16", "18", "20"};
+        //     String selectedSize = (String) JOptionPane.showInputDialog(frm, "Select font size", "Font Size", JOptionPane.PLAIN_MESSAGE, null, sizes, sizes[0]);
+        //     if (selectedSize != null) {
+        //         cal.setFontSize(Integer.parseInt(selectedSize));
+        //     }
+        // });
+		// //This button allows the user to change to change the font Type.
+        // JButton fontTypes = new JButton("Font Types");
+        // fontTypes.addActionListener(e -> {
+		// 	//Array list of font types
+        //     String[] fonts = {"Arial", "Helvetica", "Times New Roman", "Courier New", "Verdana", 
+        //     "Lucida Console","Tahoma","Georgia" };
+        //     String selectedFont = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fonts, fonts[0]);
+        //     if (selectedFont != null) {
+        //         cal.setFontType(selectedFont);
+        //     }
+        // });
+        JButton fontButton = new JButton("Settings");
+      fontButton.addActionListener(e -> {
+    Object[] GivenOptions = {"Font Type", "Font Size"};
+    int Choosedchoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
+    if (Choosedchoice == 1) {
+        String[] fontsizes = {"10", "12", "14", "16", "18"};
+        String Size = (String) JOptionPane.showInputDialog(frm, "Select the font size", "Font Sizes", JOptionPane.PLAIN_MESSAGE, null, fontsizes, fontsizes[0]);
+        if (Size != null) {
+            cal.setFontSize(Integer.parseInt(Size));
+        }
+    } else if (Choosedchoice == 0) {
+        String[] fontTypes = {"Arial","Times New Roman", "Helvetica", "Courier New", "Verdana", "Lucida Console","Tahoma","Georgia" };
+       
+        String Type = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fontTypes, fontTypes[0]);
+        if (Type != null) {
+            cal.setFontType(Type);
+        }
+    }
+});
+
+
+
+
+
 
         //This button display the event that is passed
      JButton EventsPassedButton = new JButton("Completed Events");
@@ -128,8 +152,8 @@ public class DayCalendarTest {
 		weekControls.add(prevDayBtn);
 		weekControls.add(goToTodayBtn);
 		weekControls.add(nextDayBtn);
-		weekControls.add(fontSize);
-        weekControls.add(fontTypes);
+		weekControls.add(fontButton);
+        //weekControls.add(fontTypes);
 
 		
 		frm.add(weekControls, BorderLayout.NORTH);
