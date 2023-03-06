@@ -63,6 +63,24 @@ public class WeekCalendarTest {
                 cal.setFontType(selectedFont);
             }
         });
+		//This button display the event that is passed
+		JButton EventsPassedButton = new JButton("Completed Events");
+		EventsPassedButton.addActionListener(e -> {
+		   ArrayList<CalendarEvent> EventsPassed = cal.getEventAlreadyPassed();
+   
+		   //Check if there is any event added that is passed.
+		   if (EventsPassed.isEmpty()) {
+			   JOptionPane.showMessageDialog(frm, "Nothing happened in the past.");
+		   } else {
+   
+			   StringBuilder stringBuilder = new StringBuilder();
+			   for (CalendarEvent event : EventsPassed) {
+				   stringBuilder.append(event.toString()).append("\n");
+			   }
+			   //Display this message at the end
+			   JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events", JOptionPane.PLAIN_MESSAGE);
+		   }
+		});
 
 		JPanel weekControls = new JPanel();
 		weekControls.add(prevMonthBtn);
