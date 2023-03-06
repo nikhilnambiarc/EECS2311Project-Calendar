@@ -1,14 +1,13 @@
 package com;
 
 import java.awt.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.swing.*;
-import static javax.swing.JOptionPane.OK_CANCEL_OPTION;
-import static javax.swing.JOptionPane.OK_OPTION;
-import static javax.swing.JOptionPane.PLAIN_MESSAGE;
-import static javax.swing.SwingConstants.CENTER;
-import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class CalendarEvent {
 
@@ -30,9 +29,6 @@ public class CalendarEvent {
         this.end = end;
         this.text = text;
         this.color = color;
-    }
-
-    public CalendarEvent(LocalDate selectedDate, LocalDate selectedDate2, LocalDate selectedDate3, String description) {
     }
 
     public LocalDate getDate() {
@@ -95,6 +91,94 @@ public class CalendarEvent {
         result = 31 * result + end.hashCode();
         return result;
     }
- 
-   
+
+
+public class CalendarEventEditor extends JFrame {
+
+    private CalendarEvent event;
+
+    private JTextField dateField;
+    private JTextField startField;
+    private JTextField endField;
+    private JComboBox<String> formatBox;
+    private JButton saveButton;
+    private JButton cancelButton;
+
+    public CalendarEventEditor(CalendarEvent event) {
+        super("Edit Event");
+        this.event = event;
+        initComponents();
+    }
+
+    private void initComponents() {
+        dateField = new JTextField(10);
+        dateField.setText(event.getDate().toString());
+        startField = new JTextField(5);
+        startField.setText(event.getStart().toString());
+        endField = new JTextField(5);
+        endField.setText(event.getEnd().toString());
+        formatBox = new JComboBox<>(new String[] {"12-hour", "24-hour"});
+        saveButton = new JButton("Save");
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveEvent();
+            }
+        });
+        cancelButton = new JButton("Cancel");
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+
+        JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.insets = new Insets(5, 5, 5, 5);
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        inputPanel.add(new JLabel("Date:"), constraints);
+        constraints.gridx = 1;
+        inputPanel.add(dateField, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        inputPanel.add(new JLabel("Start Time:"), constraints);
+        constraints.gridx = 1;
+        inputPanel.add(startField, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 2;
+        inputPanel.add(new JLabel("End Time:"), constraints);
+        constraints.gridx = 1;
+        inputPanel.add(endField, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 3;
+        inputPanel.add(new JLabel("Format:"), constraints);
+        constraints.gridx = 1;
+        inputPanel.add(formatBox, constraints);
+}
+
+    private void saveEvent() {
+        LocalDate date = LocalDate.parse(dateField.getText());
+        LocalTime start = LocalTime.parse(startField.getText());
+        LocalTime end = LocalTime.parse(endField.getText());
+        String format = (String) formatBox.getSelectedItem();
+
+        // Convert time format to 24-hour if necessary
+        if (format.equals("12-hour")) {
+            start = start.withHour(start.getHour() + (start.getHour() < 12 ? 12 : 0));
+            end = end.withHour(end.getHour() + (end.getHour() < 12 ? 12 : 0));
+        }
+
+        event.setDate(date);
+        event.setStart(start);
+        event.setEnd(end);
+
+        // TODO: Save the event to a data store or perform any necessary actions here
+        System.out.println("Event saved: " + event.toString());
+
+        dispose();
+    }
+}
 }
