@@ -38,11 +38,11 @@ public class WeekCalendarTest {
 		JButton prevWeekBtn = new JButton("<");
 		prevWeekBtn.addActionListener(e -> cal.prevWeek());
 
-		JButton nextMonthBtn = new JButton(">>");
-		nextMonthBtn.addActionListener(e -> cal.nextMonth());
+		// JButton nextMonthBtn = new JButton(">>");
+		// nextMonthBtn.addActionListener(e -> cal.nextMonth());
 
-		JButton prevMonthBtn = new JButton("<<");
-		prevMonthBtn.addActionListener(e -> cal.prevMonth());
+		// JButton prevMonthBtn = new JButton("<<");
+		// prevMonthBtn.addActionListener(e -> cal.prevMonth());
 
 		//This button allows the user to change to change the font size.
         JButton fontSize = new JButton("Font Sizes");
@@ -65,11 +65,11 @@ public class WeekCalendarTest {
         });
 
 		JPanel weekControls = new JPanel();
-		weekControls.add(prevMonthBtn);
+		//weekControls.add(prevMonthBtn);
 		weekControls.add(prevWeekBtn);
 		weekControls.add(goToTodayBtn);
 		weekControls.add(nextWeekBtn);
-		weekControls.add(nextMonthBtn);
+		//weekControls.add(nextMonthBtn);
 		weekControls.add(fontSize);
         weekControls.add(fontTypes);
 
