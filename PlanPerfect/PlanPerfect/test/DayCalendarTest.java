@@ -13,12 +13,11 @@ public class DayCalendarTest {
     public static void main(String[] args) {
         JFrame frm = new JFrame();
 
-     
         ArrayList<CalendarEvent> events = new ArrayList<>();
 
         
         DayCalendar cal = new DayCalendar(events);
-
+        ImageIcon imageIcon = new ImageIcon("path/to/image.jpg");
         
         
         JLabel dateLabel = new JLabel("Date (yyyy-MM-dd):");
@@ -68,7 +67,6 @@ public class DayCalendarTest {
        
         frm.add(cal, BorderLayout.CENTER);
 
-    
         JButton goToTodayBtn = new JButton("Today");
         goToTodayBtn.addActionListener(e -> cal.goToToday());
 
@@ -82,36 +80,63 @@ public class DayCalendarTest {
 		
 
 		
-		//This button allows the user to change to change the font size.
-        JButton fontSize = new JButton("Font Sizes");
-        fontSize.addActionListener(e -> {
-            String[] sizes = {"10", "12", "14", "16", "18", "20"};
-            String selectedSize = (String) JOptionPane.showInputDialog(frm, "Select font size", "Font Size", JOptionPane.PLAIN_MESSAGE, null, sizes, sizes[0]);
-            if (selectedSize != null) {
-                cal.setFontSize(Integer.parseInt(selectedSize));
+        JButton SettingsButton = new JButton("Settings");
+        SettingsButton.addActionListener(e -> {
+    Object[] GivenOptions = {"Font Type", "Font Size"};
+    int Choosedchoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
+    if (Choosedchoice == 1) {
+        String[] fontsizes = {"10", "12", "14", "16", "18"};
+        String Size = (String) JOptionPane.showInputDialog(frm, "Select the font size", "Font Sizes", JOptionPane.PLAIN_MESSAGE, null, fontsizes, fontsizes[0]);
+        if (Size != null) {
+            cal.setFontSize(Integer.parseInt(Size));
+        }
+    } else if (Choosedchoice == 0) {
+        String[] fontTypes = {"Arial","Times New Roman", "Helvetica", "Courier New", "Verdana", "Lucida Console","Tahoma","Georgia" };
+       
+        String Type = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fontTypes, fontTypes[0]);
+        if (Type != null) {
+            cal.setFontType(Type);
+        }
+    }
+});
+
+
+
+
+
+
+        //This button display the event that is passed
+     JButton EventsPassedButton = new JButton("Completed Events");
+     EventsPassedButton.addActionListener(e -> {
+        ArrayList<CalendarEvent> EventsPassed = cal.getEventAlreadyPassed();
+
+        //Check if there is any event added that is passed.
+        if (EventsPassed.isEmpty()) {
+            JOptionPane.showMessageDialog(frm, "NO EVENT PASSED");
+        } else {
+
+            StringBuilder stringBuilder = new StringBuilder();
+            for (CalendarEvent event : EventsPassed) {
+                stringBuilder.append(event.toString()).append("\n");
             }
-        });
-		//This button allows the user to change to change the font Type.
-        JButton fontTypes = new JButton("Font Types");
-        fontTypes.addActionListener(e -> {
-			//Array list of font types
-            String[] fonts = {"Arial", "Helvetica", "Times New Roman", "Courier New", "Verdana", 
-            "Lucida Console","Tahoma","Georgia" };
-            String selectedFont = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fonts, fonts[0]);
-            if (selectedFont != null) {
-                cal.setFontType(selectedFont);
-            }
-        });
+            //Display this message at the end
+            JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events", JOptionPane.PLAIN_MESSAGE, imageIcon);
+        }
+     });
+        
+        
 
 
 		JPanel weekControls = new JPanel();
+        weekControls.add(EventsPassedButton); //Adding "Completed Events" in the GUI
 		weekControls.add(prevDayBtn);
 		weekControls.add(goToTodayBtn);
 		weekControls.add(nextDayBtn);
-		weekControls.add(fontSize);
-        weekControls.add(fontTypes);
+		weekControls.add(SettingsButton);
+
 		
 		frm.add(weekControls, BorderLayout.NORTH);
+
 
 		frm.add(cal, BorderLayout.CENTER);
 		frm.setSize(1000, 900);
