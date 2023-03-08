@@ -38,11 +38,11 @@ public class WeekCalendarTest {
 		JButton prevWeekBtn = new JButton("<");
 		prevWeekBtn.addActionListener(e -> cal.prevWeek());
 
-		JButton nextMonthBtn = new JButton(">>");
-		nextMonthBtn.addActionListener(e -> cal.nextMonth());
+		// JButton nextMonthBtn = new JButton(">>");
+		// nextMonthBtn.addActionListener(e -> cal.nextMonth());
 
-		JButton prevMonthBtn = new JButton("<<");
-		prevMonthBtn.addActionListener(e -> cal.prevMonth());
+		// JButton prevMonthBtn = new JButton("<<");
+		// prevMonthBtn.addActionListener(e -> cal.prevMonth());
 //This is setting button, inside that button we are giving user to customize different things
 		JButton SettingsButton = new JButton("Settings");
 		SettingsButton.addActionListener(e -> {
@@ -84,11 +84,11 @@ public class WeekCalendarTest {
 
 		JPanel weekControls = new JPanel();
 		weekControls.add(EventsPassedButton); //Adding "Completed Events" in the GUI
-		weekControls.add(prevMonthBtn);
+		//weekControls.add(prevMonthBtn);
 		weekControls.add(prevWeekBtn);
 		weekControls.add(goToTodayBtn);
 		weekControls.add(nextWeekBtn);
-		weekControls.add(nextMonthBtn);
+		//weekControls.add(nextMonthBtn);
 		weekControls.add(SettingsButton);
       
 
