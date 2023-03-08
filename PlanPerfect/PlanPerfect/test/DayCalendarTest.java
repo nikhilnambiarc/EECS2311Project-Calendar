@@ -80,28 +80,8 @@ public class DayCalendarTest {
 		
 
 		
-		// //This button allows the user to change to change the font size.
-        // JButton fontSize = new JButton("Font Sizes");
-        // fontSize.addActionListener(e -> {
-        //     String[] sizes = {"10", "12", "14", "16", "18", "20"};
-        //     String selectedSize = (String) JOptionPane.showInputDialog(frm, "Select font size", "Font Size", JOptionPane.PLAIN_MESSAGE, null, sizes, sizes[0]);
-        //     if (selectedSize != null) {
-        //         cal.setFontSize(Integer.parseInt(selectedSize));
-        //     }
-        // });
-		// //This button allows the user to change to change the font Type.
-        // JButton fontTypes = new JButton("Font Types");
-        // fontTypes.addActionListener(e -> {
-		// 	//Array list of font types
-        //     String[] fonts = {"Arial", "Helvetica", "Times New Roman", "Courier New", "Verdana", 
-        //     "Lucida Console","Tahoma","Georgia" };
-        //     String selectedFont = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fonts, fonts[0]);
-        //     if (selectedFont != null) {
-        //         cal.setFontType(selectedFont);
-        //     }
-        // });
-        JButton fontButton = new JButton("Settings");
-      fontButton.addActionListener(e -> {
+        JButton SettingsButton = new JButton("Settings");
+        SettingsButton.addActionListener(e -> {
     Object[] GivenOptions = {"Font Type", "Font Size"};
     int Choosedchoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
     if (Choosedchoice == 1) {
@@ -152,8 +132,7 @@ public class DayCalendarTest {
 		weekControls.add(prevDayBtn);
 		weekControls.add(goToTodayBtn);
 		weekControls.add(nextDayBtn);
-		weekControls.add(fontButton);
-        //weekControls.add(fontTypes);
+		weekControls.add(SettingsButton);
 
 		
 		frm.add(weekControls, BorderLayout.NORTH);
