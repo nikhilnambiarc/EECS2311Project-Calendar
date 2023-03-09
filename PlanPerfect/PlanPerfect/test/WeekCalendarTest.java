@@ -7,6 +7,12 @@ import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+// import java.com.Calendar;
+import javax.imageio.ImageIO;
+
 
 public class WeekCalendarTest {
 	public static void main(String[] args) {
@@ -98,5 +104,29 @@ public class WeekCalendarTest {
 		frm.setSize(1000, 900);
 		frm.setVisible(true);
 		frm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
+			JComponent j =new JComponent() {
+				
+			};
+			// Create a new BufferedImage with the size of the frame
+			BufferedImage image = new BufferedImage(frm.getWidth(), frm.getHeight(), BufferedImage.TYPE_INT_RGB);
+	
+			// Get the Graphics2D object for the image
+		Graphics2D g2d = image.createGraphics();
+
+			// Render the calendar to the image
+				frm.paint(g2d);
+
+			// Dispose of the Graphics2D object to free up resources
+				g2d.dispose();
+
+			// Save the image to a file
+		try {
+   		 File output = new File("calendar.png");
+   	 	ImageIO.write(image, "png", output);
+		} catch (IOException e) {
+    	e.printStackTrace();
+}
+		
 	}
 }
