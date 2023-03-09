@@ -1,7 +1,6 @@
 import com.Calendar;
 import com.CalendarEvent;
 import com.DayCalendar;
-import com.download;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,43 +8,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class DayCalendarTest {
-    private static JPanel contentPane;
-    private static JFileChooser fileChooser;
-    private static JButton importButton;
-    private JButton exportButton;
-    private String username;
-    private String password;
-    private String databaseName;
     public static void main(String[] args) {
-            EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    try {
-                        download frame = new download();
-                        frame.setVisible(true);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        
         JFrame frm = new JFrame();
 
         ArrayList<CalendarEvent> events = new ArrayList<>();
@@ -160,25 +125,6 @@ public class DayCalendarTest {
      });
         
         
-
-        importButton = new JButton("Import");
-        importButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                    File file = fileChooser.getSelectedFile();
-                    try {
-                        BufferedReader br = new BufferedReader(new FileReader(file));
-                        String line;
-                        while ((line = br.readLine()) != null) {
-                            // Import calendar data from CSV file and save to MySQL database
-                        }
-                        br.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                
-            }
-        });
-        contentPane.add(importButton, BorderLayout.NORTH);
 
 
 		JPanel weekControls = new JPanel();
