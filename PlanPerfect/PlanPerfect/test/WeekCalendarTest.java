@@ -13,7 +13,7 @@ public class WeekCalendarTest {
 		JFrame frm = new JFrame();
 
 		ArrayList<CalendarEvent> events = new ArrayList<>();
-		events.add(new CalendarEvent(LocalDate.of(2016, 11, 11), LocalTime.of(14, 0), LocalTime.of(14, 20), "Test 11/11 14:00-14:20"));
+		events.add(new CalendarEvent(LocalDate.of(2023, 03, 9), LocalTime.of(14, 0), LocalTime.of(14, 20), "Test 11/11 14:00-14:20"));
 		events.add(new CalendarEvent(LocalDate.of(2016, 11, 14), LocalTime.of(9, 0), LocalTime.of(9, 20), "Test 14/11 9:00-9:20"));
 		events.add(new CalendarEvent(LocalDate.of(2016, 11, 15), LocalTime.of(12, 0), LocalTime.of(13, 20), "Test 15/11 12:00-13:20"));
 		events.add(new CalendarEvent(LocalDate.of(2016, 11, 16), LocalTime.of(9, 0), LocalTime.of(9, 20), "Test 16/11 9:00-9:20"));
@@ -70,7 +70,8 @@ public class WeekCalendarTest {
    
 		   //Check if there is any event added that is passed.
 		   if (EventsPassed.isEmpty()) {
-			   JOptionPane.showMessageDialog(frm, "NO EVENT PASSED");
+			   JOptionPane.showMessageDialog(frm, "NO EVENT/REMINDERS PASSED");
+			   
 		   } else {
    
 			   StringBuilder stringBuilder = new StringBuilder();
@@ -78,7 +79,7 @@ public class WeekCalendarTest {
 				   stringBuilder.append(event.toString()).append("\n");
 			   }
 			   //Display this message at the end
-			   JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events", JOptionPane.PLAIN_MESSAGE);
+			   JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events/Reminders", JOptionPane.PLAIN_MESSAGE);
 		   }
 		});
 

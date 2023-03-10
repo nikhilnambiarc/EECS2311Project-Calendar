@@ -112,7 +112,7 @@ public class DayCalendarTest {
 
         //Check if there is any event added that is passed.
         if (EventsPassed.isEmpty()) {
-            JOptionPane.showMessageDialog(frm, "NO EVENT PASSED");
+            JOptionPane.showMessageDialog(frm, "NO EVENT/REMINDERS PASSED");
         } else {
 
             StringBuilder stringBuilder = new StringBuilder();
@@ -120,10 +120,9 @@ public class DayCalendarTest {
                 stringBuilder.append(event.toString()).append("\n");
             }
             //Display this message at the end
-            JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events", JOptionPane.PLAIN_MESSAGE, imageIcon);
+            JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events/Reminders", JOptionPane.PLAIN_MESSAGE);
         }
      });
-        
         
 
 
