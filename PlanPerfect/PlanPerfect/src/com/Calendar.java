@@ -19,10 +19,12 @@ import java.util.Locale;
 
 
 public abstract class Calendar extends JComponent {
-    protected static final LocalTime START_TIME = LocalTime.of(3, 0);
+
+    protected static final LocalTime START_TIME = LocalTime.of(0, 0);
+
     protected static final LocalTime END_TIME = LocalTime.of(22, 0);
 
-    protected static final int MIN_WIDTH = 600;
+    protected static final int MIN_WIDTH = 1500;
     protected static final int MIN_HEIGHT = MIN_WIDTH;
 
     protected static final int HEADER_HEIGHT = 30;
@@ -211,11 +213,11 @@ public abstract class Calendar extends JComponent {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // Set background to white
-        g2.setColor(Color.white);
+        g2.setColor(Color.black);
         g2.fillRect(0, 0, getWidth(), getHeight());
 
         // Set paint colour to black
-        g2.setColor(Color.black);
+        g2.setColor(Color.white);
 
         drawDayHeadings();
         drawTodayShade();
@@ -250,8 +252,8 @@ public abstract class Calendar extends JComponent {
         final Color ORIG_COLOUR = g2.getColor();
 
         // Set colour to grey with half alpha (opacity)
-        Color alphaGray = new Color(128, 128, 128, 128);
-        Color alphaGrayLighter = new Color(200, 200, 200, 128);
+        Color alphaGray = new Color(255, 255, 255, 0);
+        Color alphaGrayLighter = new Color(255, 255, 255, 128);
         g2.setColor(alphaGray);
 
         // Draw vertical grid lines

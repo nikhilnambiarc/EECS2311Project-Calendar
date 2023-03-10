@@ -24,7 +24,7 @@ public class WeekCalendar extends Calendar {
     }
 
     protected int numDaysToShow() {
-        return 5;
+        return 7;
     }
 
     @Override
