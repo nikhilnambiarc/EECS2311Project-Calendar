@@ -43,6 +43,58 @@ public class DayCalendarTest {
 			e.printStackTrace();
 		}
 
+
+		try{
+			
+            String query = "SELECT * FROM 2024_Holidays;"; // replace ... with the correct query
+			Connection con = DriverManager.getConnection(url, user, password);
+			Statement statement = con.createStatement();
+			ResultSet result = statement.executeQuery(query);
+
+			while (result.next()) { 
+
+				int holiday_id = result.getInt("Holiday_id");
+				String holiday_Name = result.getString("Holiday_Name");
+				int day = result.getInt("day");
+                int month = result.getInt("month");
+                int year = result.getInt("year");
+
+
+				events.add(new CalendarEvent(LocalDate.of(year, month, day), LocalTime.of(8, 0), LocalTime.of(8, 20), holiday_Name));
+				//System.out.println(holiday_id + ", " + holiday_Name + ", " + day + ", " + month + ", " + year);
+			}
+
+
+		} catch (SQLException e) { 
+			e.printStackTrace();
+		}
+
+
+		try{
+			
+            String query = "SELECT * FROM 2025_Holidays;"; // replace ... with the correct query
+			Connection con = DriverManager.getConnection(url, user, password);
+			Statement statement = con.createStatement();
+			ResultSet result = statement.executeQuery(query);
+
+			while (result.next()) { 
+
+				int holiday_id = result.getInt("Holiday_id");
+				String holiday_Name = result.getString("Holiday_Name");
+				int day = result.getInt("day");
+                int month = result.getInt("month");
+                int year = result.getInt("year");
+
+
+				events.add(new CalendarEvent(LocalDate.of(year, month, day), LocalTime.of(8, 0), LocalTime.of(8, 20), holiday_Name));
+				//System.out.println(holiday_id + ", " + holiday_Name + ", " + day + ", " + month + ", " + year);
+			}
+
+
+		} catch (SQLException e) { 
+			e.printStackTrace();
+		}
+
 		 //events.add(new CalendarEvent(LocalDate.of(2016, 11, 11), LocalTime.of(14, 0), LocalTime.of(14, 20), "Test 11/11 14:00-14:20"));
 		// events.add(new CalendarEvent(LocalDate.of(2016, 11, 14), LocalTime.of(9, 0), LocalTime.of(9, 20), "Test 14/11 9:00-9:20"));
 		// events.add(new CalendarEvent(LocalDate.of(2016, 11, 15), LocalTime.of(12, 0), LocalTime.of(13, 20), "Test 15/11 12:00-13:20"));
