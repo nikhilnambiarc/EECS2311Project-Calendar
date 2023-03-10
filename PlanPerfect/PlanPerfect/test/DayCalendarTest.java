@@ -1,6 +1,7 @@
 import com.Calendar;
 import com.CalendarEvent;
 import com.DayCalendar;
+import com.Reminder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -143,14 +144,20 @@ public class DayCalendarTest {
 			frm.revalidate();
 			frm.repaint();
 		});
+		
+		// Add a Reminder
+
+		JButton addReminderButton = new JButton("Add a Reminder");
+        	addReminderButton.addActionListener(e -> new Reminder(events).setVisible(true)); // creating a new Reminder object
 
 		JPanel weekControls = new JPanel();
 		weekControls.add(prevDayBtn);
 		weekControls.add(goToTodayBtn);
 		weekControls.add(nextDayBtn);
 		weekControls.add(fontSize);
-        weekControls.add(fontTypes);
+        	weekControls.add(fontTypes);
 		weekControls.add(addCalendarBtn);
+		weekControls.add(addReminderButton);
 		
 		frm.add(weekControls, BorderLayout.NORTH);
 		frm.add(calendarTab, BorderLayout.CENTER);
