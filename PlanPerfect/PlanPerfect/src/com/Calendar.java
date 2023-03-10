@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
+import java.time.Clock;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,8 +17,11 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Locale;
 
+
 public abstract class Calendar extends JComponent {
+
     protected static final LocalTime START_TIME = LocalTime.of(0, 0);
+
     protected static final LocalTime END_TIME = LocalTime.of(22, 0);
 
     protected static final int MIN_WIDTH = 1500;
@@ -25,6 +29,7 @@ public abstract class Calendar extends JComponent {
 
     protected static final int HEADER_HEIGHT = 30;
     protected static final int TIME_COL_WIDTH = 100;
+    JFrame frm = new JFrame();
 
     // An estimate of the width of a single character (not exact but good
     // enough)
@@ -38,6 +43,9 @@ public abstract class Calendar extends JComponent {
 
     public Calendar() {
         this(new ArrayList<>());
+    }
+    public Calendar(Calendar calendar,Clock clock){
+ 
     }
 
     Calendar(ArrayList<CalendarEvent> events) {
@@ -393,4 +401,29 @@ public abstract class Calendar extends JComponent {
         this.events = events;
         repaint();
     }
+
+    public void setFontSize(int size) {
+        Font font = getFont().deriveFont((float) size);
+        setFont(font);
+    }
+
+
+    public void setFontType(String type) {
+        Font font = getFont();
+        font = new Font(type, font.getStyle(), font.getSize());
+        setFont(font);
+    }
+//This method is use to check if there is any event that is passed according to the current time.
+    public ArrayList<CalendarEvent> getEventAlreadyPassed() {
+        ArrayList<CalendarEvent> eventPassedAlready = new ArrayList<>();
+        LocalDate DateOfToday = LocalDate.now();
+        for (CalendarEvent eventpassed : events) {
+
+            if (eventpassed.getDate().isBefore(DateOfToday)) {
+                eventPassedAlready.add(eventpassed);
+            }
+        }
+        return eventPassedAlready;
+    }
+
 }
