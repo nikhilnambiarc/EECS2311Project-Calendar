@@ -18,10 +18,20 @@ public class CalendarEvent {
         this(date, start, end, text, DEFAULT_COLOR);
     }
 
+    public CalendarEvent(LocalDate date, String text) {
+        this(date, text, DEFAULT_COLOR);
+    }
+
     public CalendarEvent(LocalDate date, LocalTime start, LocalTime end, String text, Color color) {
         this.date = date;
         this.start = start;
         this.end = end;
+        this.text = text;
+        this.color = color;
+    }
+
+    public CalendarEvent(LocalDate date, String text, Color color) {
+        this.date = date;
         this.text = text;
         this.color = color;
     }

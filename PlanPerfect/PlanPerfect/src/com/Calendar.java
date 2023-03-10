@@ -244,7 +244,7 @@ public abstract class Calendar extends JComponent {
         final Color ORIG_COLOUR = g2.getColor();
 
         // Set colour to grey with half alpha (opacity)
-        Color alphaGray = new Color(255, 255, 255, 128);
+        Color alphaGray = new Color(255, 255, 255, 0);
         Color alphaGrayLighter = new Color(255, 255, 255, 128);
         g2.setColor(alphaGray);
 
