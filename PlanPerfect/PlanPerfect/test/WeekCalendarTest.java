@@ -14,6 +14,7 @@ public class WeekCalendarTest {
 
 
 		ArrayList<CalendarEvent> events = new ArrayList<>();
+
 		 
         String url = "jdbc:mysql://localhost:3306/CA_Public_Holidays"; 
 		String user = "root";
@@ -102,6 +103,7 @@ public class WeekCalendarTest {
 		// events.add(new CalendarEvent(LocalDate.of(2016, 11, 18), LocalTime.of(9, 30), LocalTime.of(10, 00), "Test 18/11 9:30-10:00"));
 		// events.add(new CalendarEvent(LocalDate.of(2016, 11, 18), LocalTime.of(16, 00), LocalTime.of(16, 45), "Test 18/11 16:00-16:45"));
 
+
 		WeekCalendar cal = new WeekCalendar(events);
 
 		cal.addCalendarEventClickListener(e -> System.out.println(e.getCalendarEvent()));
@@ -151,7 +153,8 @@ public class WeekCalendarTest {
    
 		   //Check if there is any event added that is passed.
 		   if (EventsPassed.isEmpty()) {
-			   JOptionPane.showMessageDialog(frm, "NO EVENT PASSED");
+			   JOptionPane.showMessageDialog(frm, "NO EVENT/REMINDERS PASSED");
+			   
 		   } else {
    
 			   StringBuilder stringBuilder = new StringBuilder();
@@ -159,7 +162,7 @@ public class WeekCalendarTest {
 				   stringBuilder.append(event.toString()).append("\n");
 			   }
 			   //Display this message at the end
-			   JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events", JOptionPane.PLAIN_MESSAGE);
+			   JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events/Reminders", JOptionPane.PLAIN_MESSAGE);
 		   }
 		});
 
