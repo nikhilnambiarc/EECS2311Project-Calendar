@@ -4,10 +4,9 @@ import com.DayCalendar;
 import java.sql.*;
 import javax.swing.*;
 import java.awt.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
+import java.util.*;
 
 public class DayCalendarTest {
     public static void main(String[] args) {
@@ -30,7 +29,6 @@ public class DayCalendarTest {
 
 			while (result.next()) { 
 
-				int holiday_id = result.getInt("Holiday_id");
 				String holiday_Name = result.getString("Holiday_Name");
 				int day = result.getInt("day");
                 int month = result.getInt("month");
@@ -56,7 +54,6 @@ public class DayCalendarTest {
 
 			while (result.next()) { 
 
-				int holiday_id = result.getInt("Holiday_id");
 				String holiday_Name = result.getString("Holiday_Name");
 				int day = result.getInt("day");
                 int month = result.getInt("month");
@@ -82,7 +79,7 @@ public class DayCalendarTest {
 
 			while (result.next()) { 
 
-				int holiday_id = result.getInt("Holiday_id");
+				
 				String holiday_Name = result.getString("Holiday_Name");
 				int day = result.getInt("day");
                 int month = result.getInt("month");
