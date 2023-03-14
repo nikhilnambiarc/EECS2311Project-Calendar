@@ -29,7 +29,7 @@ public class WeekCalendarTest {
 
 			while (result.next()) { 
 
-				int holiday_id = result.getInt("Holiday_id");
+				
 				String holiday_Name = result.getString("Holiday_Name");
 				int day = result.getInt("day");
                 int month = result.getInt("month");
@@ -54,7 +54,7 @@ public class WeekCalendarTest {
 
 			while (result.next()) { 
 
-				int holiday_id = result.getInt("Holiday_id");
+				
 				String holiday_Name = result.getString("Holiday_Name");
 				int day = result.getInt("day");
                 int month = result.getInt("month");
@@ -80,7 +80,7 @@ public class WeekCalendarTest {
 
 			while (result.next()) { 
 
-				int holiday_id = result.getInt("Holiday_id");
+				
 				String holiday_Name = result.getString("Holiday_Name");
 				int day = result.getInt("day");
                 int month = result.getInt("month");
