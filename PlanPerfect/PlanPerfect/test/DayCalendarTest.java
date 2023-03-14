@@ -11,8 +11,9 @@ import java.util.ArrayList;
 
 public class DayCalendarTest {
     public static void main(String[] args) {
+        
         JFrame frm = new JFrame();
-
+        frm.setTitle("Plan Perfect");
 
 		ArrayList<CalendarEvent> events = new ArrayList<>();
         
