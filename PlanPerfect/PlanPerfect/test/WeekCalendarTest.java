@@ -16,8 +16,9 @@ import javax.imageio.ImageIO;
 
 public class WeekCalendarTest {
 	public static void main(String[] args) {
+		
 		JFrame frm = new JFrame();
-
+        frm.setTitle("Plan Perfect");
 
 		ArrayList<CalendarEvent> events = new ArrayList<>();
 
@@ -111,6 +112,7 @@ public class WeekCalendarTest {
 
 
 		WeekCalendar cal = new WeekCalendar(events);
+		
 
 		cal.addCalendarEventClickListener(e -> System.out.println(e.getCalendarEvent()));
 		cal.addCalendarEmptyClickListener(e -> {
@@ -132,6 +134,8 @@ public class WeekCalendarTest {
 
 		// JButton prevMonthBtn = new JButton("<<");
 		// prevMonthBtn.addActionListener(e -> cal.prevMonth());
+
+
 //This is setting button, inside that button we are giving user to customize different things
 		JButton SettingsButton = new JButton("Settings");
 		SettingsButton.addActionListener(e -> {
@@ -174,15 +178,14 @@ public class WeekCalendarTest {
 
 		JPanel weekControls = new JPanel();
 		weekControls.add(EventsPassedButton); //Adding "Completed Events" in the GUI
-		//weekControls.add(prevMonthBtn);
 		weekControls.add(prevWeekBtn);
 		weekControls.add(goToTodayBtn);
 		weekControls.add(nextWeekBtn);
-		//weekControls.add(nextMonthBtn);
 		weekControls.add(SettingsButton);
       
 
 		frm.add(weekControls, BorderLayout.NORTH);
+		
 
 		frm.add(cal, BorderLayout.CENTER);
 		frm.setSize(1000, 1000);
