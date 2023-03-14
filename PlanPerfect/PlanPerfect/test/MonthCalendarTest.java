@@ -1,6 +1,5 @@
-// import com.Calendar;
-// import com.CalendarEvent;
-// import com.MonthCalendar;
+
+import com.*;
 
 // import javax.swing.*;
 // import java.awt.*;
@@ -8,13 +7,11 @@
 // import java.time.LocalTime;
 // import java.util.ArrayList;
 
-// public class MonthCalendarTest {
-//     public static void main(String[] args) {
-// 		JFrame frm = new JFrame();
+public class MonthCalendarTest {
+    public static void main(String[] args) {
+		
+        new MonthCalendar();
 
 
-//         ArrayList<CalendarEvent> events = new ArrayList<>();
-
-//        // MonthCalendar cal = new MonthCalendar(events);
-//     }
-// }
+    }
+}

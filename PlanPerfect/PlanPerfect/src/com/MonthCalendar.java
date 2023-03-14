@@ -1,54 +1,113 @@
 package com;
 
-// import java.time.DayOfWeek;
-// import java.time.LocalDate;
-// import java.util.ArrayList;
-
-
-// public class MonthCalendar extends Calendar {
-    
-// }
-import java.awt.GridLayout;
-import java.time.LocalDate;
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
+import java.time.*;
+import java.time.format.*;
 
-
-public class MonthCalendar extends JFrame {
-
+public class MonthCalendar extends JFrame implements ActionListener {
+    private JButton prevButton, nextButton;
+    private JLabel monthLabel;
+    private JPanel calendarPanel;
     private LocalDate currentDate;
+    private DateTimeFormatter monthFormatter;
 
     public MonthCalendar() {
-        this.currentDate = LocalDate.now();
-        initUI();
-    }
+        super("Month View");
 
-    private void initUI() {
-        // Set the layout manager for the JFrame
-        setLayout(new GridLayout(0, 7)); // 7 columns for 7 days of the week
+        // Initialize the current date to the current month and year
+        currentDate = LocalDate.now().withDayOfMonth(1);
 
-        // Generate an array of LocalDate objects for the current month
-        LocalDate[] daysOfMonth = new LocalDate[currentDate.lengthOfMonth()];
-        LocalDate firstDayOfMonth = currentDate.withDayOfMonth(1);
-        for (int i = 0; i < daysOfMonth.length; i++) {
-            daysOfMonth[i] = firstDayOfMonth.plusDays(i);
-        }
+        // Set up the date formatter to display the month and year
+        monthFormatter = DateTimeFormatter.ofPattern("MMMM yyyy");
 
-        // Add a JPanel for each day of the month
-        for (LocalDate day : daysOfMonth) {
-            JPanel panel = new JPanel();
-            panel.add(new JLabel(String.valueOf(day.getDayOfMonth())));
-            // Add any additional information to the panel
-            add(panel);
-        }
+        // Create the previous and next buttons
+        prevButton = new JButton("<<");
+        prevButton.addActionListener(this);
+        nextButton = new JButton(">>");
+        nextButton.addActionListener(this);
 
-        // Set the JFrame properties
-        setTitle("Calendar");
-        setSize(800, 600);
+        // Create the month label
+        monthLabel = new JLabel(currentDate.format(monthFormatter), JLabel.CENTER);
+        //monthLabel.setBackground(Color.BLACK);
+
+        // Create the calendar panel
+        calendarPanel = new JPanel(new GridLayout(0, 7));
+        calendarPanel.setBackground(Color.BLACK);
+        addDaysOfWeek(calendarPanel);
+        addCalendarDays(calendarPanel);
+
+        // Add the components to the frame
+        JPanel panel = new JPanel(new BorderLayout());
+//        Color gray = new Color(128, 128, 128);
+//
+//        panel.setBackground(gray);
+//        panel.setForeground(Color.WHITE);
+        panel.add(prevButton, BorderLayout.WEST);
+        panel.add(monthLabel, BorderLayout.CENTER);
+        panel.add(nextButton, BorderLayout.EAST);
+        add(panel, BorderLayout.NORTH);
+        add(calendarPanel, BorderLayout.CENTER);
+
+        // Set the frame properties
+        setSize(600, 400);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new MonthCalendar();
+    private void addDaysOfWeek(JPanel panel) {
+        String[] daysOfWeek = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+        for (String day : daysOfWeek) {
+            JLabel label = new JLabel(day, JLabel.CENTER);
+            label.setForeground(Color.WHITE);
+            panel.add(label);
+        }
+    }
+
+    private void addCalendarDays(JPanel panel) {
+        LocalDate firstDayOfMonth = currentDate.withDayOfMonth(1);
+        LocalDate lastDayOfMonth = currentDate.withDayOfMonth(currentDate.lengthOfMonth());
+
+        int startColumn = firstDayOfMonth.getDayOfWeek().getValue();
+        int endColumn = startColumn + lastDayOfMonth.getDayOfMonth() - 1;
+
+        int currentColumn = 0;
+        for (int i = 1; i <= endColumn; i++) {
+            if (i < startColumn) {
+                panel.add(new JLabel());
+                currentColumn++;
+            } else {
+                int dayOfMonth = i - startColumn + 1;
+                JButton button = new JButton(String.valueOf(dayOfMonth));
+                button.addActionListener(this);
+                panel.add(button);
+                currentColumn++;
+            }
+
+            if (currentColumn == 7) {
+                currentColumn = 0;
+            }
+        }
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == prevButton) {
+            currentDate = currentDate.minusMonths(1);
+        } else if (e.getSource() == nextButton) {
+            currentDate = currentDate.plusMonths(1);
+        } else {
+            // Handle button clicks for individual days here
+            System.out.println("Clicked on day " + e.getActionCommand());
+        }
+
+        // Update the month label and calendar panel
+        monthLabel.setText(currentDate.format(monthFormatter));
+        calendarPanel.removeAll();
+        addDaysOfWeek(calendarPanel);
+        addCalendarDays(calendarPanel);
+        calendarPanel.revalidate();
+        calendarPanel.repaint();
     }
 }

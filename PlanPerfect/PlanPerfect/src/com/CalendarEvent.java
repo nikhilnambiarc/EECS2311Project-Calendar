@@ -1,13 +1,11 @@
 package com;
 
 import java.awt.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.swing.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
+
 
 public class CalendarEvent {
 
