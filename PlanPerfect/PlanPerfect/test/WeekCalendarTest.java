@@ -214,19 +214,16 @@ public class WeekCalendarTest {
 }
 });
 		JButton DELETE_EVENT_BUTTON = new JButton("Delete Event");
-
-
 		DELETE_EVENT_BUTTON.addActionListener(e -> {
-    
-   		 JTextField nameField = new JTextField(30);
+   		 JTextField EnterName = new JTextField(30);
     	JPanel DELETE_EVENT_Panel = new JPanel(new GridLayout(1, 1));
     	DELETE_EVENT_Panel.add(new JLabel("Enter Event Name to Delete: "));
-		DELETE_EVENT_Panel.add(nameField);
+		DELETE_EVENT_Panel.add(EnterName);
 
    		 int Result = JOptionPane.showConfirmDialog(null, DELETE_EVENT_Panel, "Delete the Event",
         	JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
    		 if (Result == JOptionPane.OK_OPTION) {
-        String NAME_OF_EVENT = nameField.getText();
+        String NAME_OF_EVENT = EnterName.getText();
         events.removeIf(event -> event.getText().equals(NAME_OF_EVENT));
         cal.repaint(); //To display the result on GUI
     }
