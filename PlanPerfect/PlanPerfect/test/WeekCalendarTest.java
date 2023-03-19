@@ -190,7 +190,7 @@ public class WeekCalendarTest {
     	JPanel AddEvent_panel = new JPanel(new GridLayout(0, 2));
     	AddEvent_panel.add(new JLabel("Enter the Name of Event"));
     	AddEvent_panel.add(EventName);
-    	AddEvent_panel.add(new JLabel("Enter the Year/Month/Day Format:(yyyy-MM-dd)"));
+    	AddEvent_panel.add(new JLabel("Enter the Year/Month/Day Format:(YYYY-MM-DD)"));
     	AddEvent_panel.add(Day);
     	AddEvent_panel.add(new JLabel("Enter the Start Time Format: (HH:mm)"));
     	AddEvent_panel.add(start_Time);
