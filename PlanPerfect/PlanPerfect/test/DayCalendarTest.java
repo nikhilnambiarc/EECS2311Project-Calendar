@@ -249,6 +249,7 @@ public class DayCalendarTest {
 
 
 		JPanel weekControls = new JPanel();
+        weekControls.add(EventButton);
         weekControls.add(EventsPassedButton); //Adding "Completed Events" in the GUI
 		weekControls.add(prevDayBtn);
 		weekControls.add(goToTodayBtn);
