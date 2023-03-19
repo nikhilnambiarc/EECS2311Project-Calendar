@@ -187,7 +187,7 @@ JButton EventButton = new JButton("Add Event");
     JTextField Day = new JTextField(10);
     JTextField start_Time = new JTextField(5);
     JTextField end_Time = new JTextField(5);
-    JPanel panel = new JPanel(new GridLayout(0, 1));
+    JPanel panel = new JPanel(new GridLayout(0, 2));
     panel.add(new JLabel("Enter the Name of Event"));
     panel.add(EventName);
     panel.add(new JLabel("Enter the Year/Month/Day Format:(yyyy-MM-dd)"));
@@ -197,7 +197,7 @@ JButton EventButton = new JButton("Add Event");
     panel.add(new JLabel("Enter the End Time Format: (HH:mm)"));
     panel.add(end_Time);
 
-    int Display = JOptionPane.showConfirmDialog(null, panel, "Add Event",
+    int Display = JOptionPane.showConfirmDialog(null, panel, "Add the Event",
         JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		//Add when user will enter click Ok
     if (Display == JOptionPane.OK_OPTION) {
