@@ -177,6 +177,45 @@ public class WeekCalendarTest {
 		   }
 		});
 
+//This button is use to add the event
+JButton EventButton = new JButton("Add Event");
+
+//Adding Action Listner
+    EventButton.addActionListener(e -> {
+    //Giving user differnet options to input
+    JTextField EventName = new JTextField(20);
+    JTextField Day = new JTextField(10);
+    JTextField start_Time = new JTextField(5);
+    JTextField end_Time = new JTextField(5);
+    JPanel panel = new JPanel(new GridLayout(0, 1));
+    panel.add(new JLabel("Enter the Name of Event"));
+    panel.add(EventName);
+    panel.add(new JLabel("Enter the Year/Month/Day Format:(yyyy-MM-dd)"));
+    panel.add(Day);
+    panel.add(new JLabel("Enter the Start Time Format: (HH:mm)"));
+    panel.add(start_Time);
+    panel.add(new JLabel("Enter the End Time Format: (HH:mm)"));
+    panel.add(end_Time);
+
+    int Display = JOptionPane.showConfirmDialog(null, panel, "Add Event",
+        JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+    if (Display == JOptionPane.OK_OPTION) {
+        // Parse the user's input and create a new CalendarEvent object
+        String name = EventName.getText();
+        LocalDate startDate = LocalDate.parse(Day.getText());
+        LocalTime startTime = LocalTime.parse(start_Time.getText());
+        LocalTime endTime = LocalTime.parse(end_Time.getText());
+        CalendarEvent newEvent = new CalendarEvent(startDate, startTime, endTime, name);
+
+        
+
+        events.add(newEvent);
+        //cal.repaint();
+    
+}
+});
+
+
 		JPanel weekControls = new JPanel();
 		weekControls.add(EventsPassedButton); //Adding "Completed Events" in the GUI
 
