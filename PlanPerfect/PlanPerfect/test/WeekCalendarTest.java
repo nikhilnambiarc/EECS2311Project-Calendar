@@ -199,17 +199,16 @@ JButton EventButton = new JButton("Add Event");
 
     int Display = JOptionPane.showConfirmDialog(null, panel, "Add Event",
         JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+		//Add when user will enter click Ok
     if (Display == JOptionPane.OK_OPTION) {
-        // Parse the user's input and create a new CalendarEvent object
-        String name = EventName.getText();
-        LocalDate startDate = LocalDate.parse(Day.getText());
-        LocalTime startTime = LocalTime.parse(start_Time.getText());
-        LocalTime endTime = LocalTime.parse(end_Time.getText());
+        //Using these variables to add the user input into the array
+        String name = EventName.getText();   //Getting the name of event that user enter
+        LocalDate startDate = LocalDate.parse(Day.getText());  //Getting the day
+        LocalTime startTime = LocalTime.parse(start_Time.getText()); //Getting the start time
+        LocalTime endTime = LocalTime.parse(end_Time.getText());//Getting the end time
         CalendarEvent newEvent = new CalendarEvent(startDate, startTime, endTime, name);
 
-        
-
-        events.add(newEvent);
+        events.add(newEvent); //Add all info into the list to store
         //cal.repaint();
     
 }
@@ -217,6 +216,7 @@ JButton EventButton = new JButton("Add Event");
 
 
 		JPanel weekControls = new JPanel();
+		weekControls.add(EventButton);
 		weekControls.add(EventsPassedButton); //Adding "Completed Events" in the GUI
 
 
@@ -225,7 +225,7 @@ JButton EventButton = new JButton("Add Event");
 		weekControls.add(goToTodayBtn);
 		weekControls.add(nextWeekBtn);
 		//weekControls.add(nextMonthBtn);
-
+		
 		
 
 		weekControls.add(prevWeekBtn);
