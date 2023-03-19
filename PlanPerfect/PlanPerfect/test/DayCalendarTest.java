@@ -251,8 +251,8 @@ public class DayCalendarTest {
         JButton DELETE_EVENT_BUTTON = new JButton("Delete Event");
         DELETE_EVENT_BUTTON.addActionListener(e -> {
         JTextField EnterName = new JTextField(30);
-     JPanel DELETE_EVENT_Panel = new JPanel(new GridLayout(1, 1));
-     DELETE_EVENT_Panel.add(new JLabel("Enter Event Name to Delete: "));
+        JPanel DELETE_EVENT_Panel = new JPanel(new GridLayout(1, 1));
+        DELETE_EVENT_Panel.add(new JLabel("Enter Event Name to Delete: "));
         DELETE_EVENT_Panel.add(EnterName);
 
         int Result = JOptionPane.showConfirmDialog(null, DELETE_EVENT_Panel, "Delete the Event",
