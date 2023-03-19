@@ -211,7 +211,41 @@ public class DayCalendarTest {
             JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events/Reminders", JOptionPane.PLAIN_MESSAGE);
         }
      });
-        
+            //This button is use to add the event
+		    JButton EventButton = new JButton("Add Event");
+
+             //Adding Action Listner
+             EventButton.addActionListener(e -> {
+             //Giving user differnet options to input
+            JTextField EventName = new JTextField(20);
+            JTextField Day = new JTextField(10);
+            JTextField start_Time = new JTextField(5);
+            JTextField end_Time = new JTextField(5);
+            JPanel AddEvent_panel = new JPanel(new GridLayout(0, 2));
+            AddEvent_panel.add(new JLabel("Enter the Name of Event"));
+            AddEvent_panel.add(EventName);
+            AddEvent_panel.add(new JLabel("Enter the Year/Month/Day Format:(yyyy-MM-dd)"));
+            AddEvent_panel.add(Day);
+            AddEvent_panel.add(new JLabel("Enter the Start Time Format: (HH:mm)"));
+            AddEvent_panel.add(start_Time);
+            AddEvent_panel.add(new JLabel("Enter the End Time Format: (HH:mm)"));
+            AddEvent_panel.add(end_Time);
+             //Tiltle of the panel and and too close the panel
+            int Display = JOptionPane.showConfirmDialog(null, AddEvent_panel, "Add the Event",
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            //Add when user will enter click Ok
+            if (Display == JOptionPane.OK_OPTION) {
+            //Using these variables to add the user input into the array
+         String name = EventName.getText();   //Getting the name of event that user enter
+            LocalDate startDate = LocalDate.parse(Day.getText());  //Getting the day
+            LocalTime startTime = LocalTime.parse(start_Time.getText()); //Getting the start time
+            LocalTime endTime = LocalTime.parse(end_Time.getText());//Getting the end time
+            CalendarEvent newEvent = new CalendarEvent(startDate, startTime, endTime, name);
+
+            events.add(newEvent); //Add all info into the list to store
+
+        }   
+    });
 
 
 		JPanel weekControls = new JPanel();
