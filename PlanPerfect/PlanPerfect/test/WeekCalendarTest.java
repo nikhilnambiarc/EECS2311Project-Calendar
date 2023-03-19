@@ -178,16 +178,17 @@ public class WeekCalendarTest {
 		});
 
 		//This button is use to add the event
-		JButton EventButton = new JButton("Add Event");
+		JButton ADD_EVENT_BUTTON = new JButton("Add Event");
 
 			//Adding Action Listner
-   		 EventButton.addActionListener(e -> {
+   		 ADD_EVENT_BUTTON.addActionListener(e -> {
     	//Giving user differnet options to input
     	JTextField EventName = new JTextField(20);
     	JTextField Day = new JTextField(10);
-    	JTextField start_Time = new JTextField(5);
-    	JTextField end_Time = new JTextField(5);
-    	JPanel AddEvent_panel = new JPanel(new GridLayout(0, 2));
+    	JTextField start_Time = new JTextField(6);
+    	JTextField end_Time = new JTextField(6);
+    	JPanel AddEvent_panel = new JPanel(new GridLayout(0, 2));//Set up the grid layout
+
     	AddEvent_panel.add(new JLabel("Enter the Name of Event"));
     	AddEvent_panel.add(EventName);
     	AddEvent_panel.add(new JLabel("Enter the Year/Month/Day Format:(YYYY-MM-DD)"));
@@ -209,16 +210,33 @@ public class WeekCalendarTest {
         CalendarEvent newEvent = new CalendarEvent(startDate, startTime, endTime, name);
 
         events.add(newEvent); //Add all info into the list to store
-    
+		cal.repaint(); //Repaint the Calendar to dispalthe event directly
 }
 });
+		JButton DELETE_EVENT_BUTTON = new JButton("Delete Event");
 
+
+		DELETE_EVENT_BUTTON.addActionListener(e -> {
+    
+   		 JTextField nameField = new JTextField(30);
+    	JPanel DELETE_EVENT_Panel = new JPanel(new GridLayout(1, 1));
+    	DELETE_EVENT_Panel.add(new JLabel("Enter Event Name to Delete: "));
+		DELETE_EVENT_Panel.add(nameField);
+
+   		 int Result = JOptionPane.showConfirmDialog(null, DELETE_EVENT_Panel, "Delete the Event",
+        	JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+   		 if (Result == JOptionPane.OK_OPTION) {
+        String NAME_OF_EVENT = nameField.getText();
+        events.removeIf(event -> event.getText().equals(NAME_OF_EVENT));
+        cal.repaint(); //To display the result on GUI
+    }
+});
 
 		JPanel weekControls = new JPanel();
-		weekControls.add(EventButton);
+		weekControls.add(ADD_EVENT_BUTTON); //Adding "ADD_EVENT_BUTTON" in the GUI
+		weekControls.add(DELETE_EVENT_BUTTON);//Adding "DELETE_EVENT_BUTTON" in the GUI
 		weekControls.add(EventsPassedButton); //Adding "Completed Events" in the GUI
-
-
+		
 		//weekControls.add(prevMonthBtn);
 		weekControls.add(prevWeekBtn);
 		weekControls.add(goToTodayBtn);
