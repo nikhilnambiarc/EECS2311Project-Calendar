@@ -136,6 +136,7 @@ public class WeekCalendarTest {
 		// prevMonthBtn.addActionListener(e -> cal.prevMonth());
 
 
+
 //This is setting button, inside that button we are giving user to customize different things
 		JButton SettingsButton = new JButton("Settings");
 		SettingsButton.addActionListener(e -> {
@@ -176,13 +177,78 @@ public class WeekCalendarTest {
 		   }
 		});
 
+		//This button is use to add the event
+		JButton ADD_EVENT_BUTTON = new JButton("Add Event");
+
+			//Adding Action Listner
+   		 ADD_EVENT_BUTTON.addActionListener(e -> {
+    	//Giving user differnet options to input
+    	JTextField EventName = new JTextField(20);
+    	JTextField Day = new JTextField(10);
+    	JTextField start_Time = new JTextField(6);
+    	JTextField end_Time = new JTextField(6);
+    	JPanel AddEvent_panel = new JPanel(new GridLayout(0, 2));//Set up the grid layout
+
+    	AddEvent_panel.add(new JLabel("Name"));
+    AddEvent_panel.add(EventName);
+    AddEvent_panel.add(new JLabel("Year/Month/Day (Format: YYYY-MM-DD)"));
+    AddEvent_panel.add(Day);
+    AddEvent_panel.add(new JLabel("Start Time (Format: HH:mm)"));
+    AddEvent_panel.add(start_Time);
+    AddEvent_panel.add(new JLabel("End Time (Format: HH:mm)"));
+    AddEvent_panel.add(end_Time);
+			//Tiltle of the panel and and too close the panel
+    	int Display = JOptionPane.showConfirmDialog(null, AddEvent_panel, "Add the Event",
+        JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+		//Add when user will enter click Ok
+    	if (Display == JOptionPane.OK_OPTION) {
+        //Using these variables to add the user input into the array
+        String name = EventName.getText();   //Getting the name of event that user enter
+        LocalDate startDate = LocalDate.parse(Day.getText());  //Getting the day
+        LocalTime startTime = LocalTime.parse(start_Time.getText()); //Getting the start time
+        LocalTime endTime = LocalTime.parse(end_Time.getText());//Getting the end time
+        CalendarEvent newEvent = new CalendarEvent(startDate, startTime, endTime, name);
+
+        events.add(newEvent); //Add all info into the list to store
+		cal.repaint(); //Repaint the Calendar to dispalthe event directly
+}
+});
+		JButton DELETE_EVENT_BUTTON = new JButton("Delete Event");
+		DELETE_EVENT_BUTTON.addActionListener(e -> {
+   		 JTextField EnterName = new JTextField(30);
+    	JPanel DELETE_EVENT_Panel = new JPanel(new GridLayout(1, 1));
+    	DELETE_EVENT_Panel.add(new JLabel("Enter Event Name to Delete: "));
+		DELETE_EVENT_Panel.add(EnterName);
+
+   		 int Result = JOptionPane.showConfirmDialog(null, DELETE_EVENT_Panel, "Delete the Event",
+        	JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+   		 if (Result == JOptionPane.OK_OPTION) {
+        String NAME_OF_EVENT = EnterName.getText();
+        events.removeIf(event -> event.getText().equals(NAME_OF_EVENT));
+        cal.repaint(); //To display the result on GUI
+    }
+});
+
 		JPanel weekControls = new JPanel();
+		weekControls.add(ADD_EVENT_BUTTON); //Adding "ADD_EVENT_BUTTON" in the GUI
+		weekControls.add(DELETE_EVENT_BUTTON);//Adding "DELETE_EVENT_BUTTON" in the GUI
 		weekControls.add(EventsPassedButton); //Adding "Completed Events" in the GUI
+		
+		//weekControls.add(prevMonthBtn);
 		weekControls.add(prevWeekBtn);
 		weekControls.add(goToTodayBtn);
 		weekControls.add(nextWeekBtn);
+		//weekControls.add(nextMonthBtn);
+		
+		
+
+		weekControls.add(prevWeekBtn);
+		weekControls.add(goToTodayBtn);
+		weekControls.add(nextWeekBtn);
+
 		weekControls.add(SettingsButton);
       
+
 
 		frm.add(weekControls, BorderLayout.NORTH);
 		
