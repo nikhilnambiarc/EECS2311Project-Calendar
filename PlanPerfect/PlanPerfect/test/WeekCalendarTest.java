@@ -179,7 +179,7 @@ public class WeekCalendarTest {
 		
 
 		frm.add(cal, BorderLayout.CENTER);
-		frm.setSize(1000, 1000);
+		frm.setSize(800, 800);
 		frm.setVisible(true);
 		//frm.add(new JScrollPane(), BorderLayout.CENTER);
 		frm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

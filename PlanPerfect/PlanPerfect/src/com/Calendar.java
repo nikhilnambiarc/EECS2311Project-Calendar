@@ -24,7 +24,7 @@ public abstract class Calendar extends JComponent {
 
     protected static final LocalTime END_TIME = LocalTime.of(22, 0);
 
-    protected static final int MIN_WIDTH = 1500;
+    protected static final int MIN_WIDTH = 600;
     protected static final int MIN_HEIGHT = MIN_WIDTH;
 
     protected static final int HEADER_HEIGHT = 30;
