@@ -1,6 +1,9 @@
 import com.Calendar;
 import com.CalendarEvent;
 import com.DayCalendar;
+import com.AddACalendar;
+import com.ReminderPanel;
+import com.ReminderDialog;
 import com.Reminder;
 
 import javax.swing.*;
@@ -8,9 +11,8 @@ import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseAdapter;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class DayCalendarTest {
 	public static void main(String[] args) {
@@ -27,6 +29,97 @@ public class DayCalendarTest {
 
 		DayCalendar cal = new DayCalendar(events);
 
+		JTabbedPane mainTabbedPane = new JTabbedPane();
+		
+		AddACalendar addACalendar = new AddACalendar(events, cal);
+		addACalendar.setAllCalendarsFontSize(14);
+		addACalendar.setAllCalendarsFontType("Arial");
+		mainTabbedPane.addTab("Calendar", addACalendar);
+		
+		ReminderPanel reminderPanel = new ReminderPanel();
+		reminderPanel.setFontSize(14);
+		reminderPanel.setFontType("Arial");
+		mainTabbedPane.addTab("Reminders", reminderPanel);
+		
+		JPanel buttonPanel = new JPanel();
+		JButton addCalendarButton = new JButton("Add a Calendar");
+		JButton deleteCalendarButton = new JButton("Delete a Calendar");
+		JButton addReminderButton = new JButton("Add a Reminder");
+		
+		buttonPanel.add(addCalendarButton);
+		buttonPanel.add(deleteCalendarButton);
+		
+		JPanel reminderButtonPanel = new JPanel();
+		reminderButtonPanel.add(addReminderButton);
+		reminderButtonPanel.setVisible(false);
+
+		JButton editReminderButton = new JButton("Edit a Reminder");
+		reminderButtonPanel.add(editReminderButton);
+
+		editReminderButton.addActionListener(e -> {
+			String reminderName = JOptionPane.showInputDialog(frm, "Enter the name of the reminder to edit:");
+		
+			if (reminderName != null) {
+				Reminder reminderToEdit = reminderPanel.getReminderByName(reminderName);
+		
+				if (reminderToEdit != null) {
+					ReminderDialog reminderDialog = new ReminderDialog(frm);
+					reminderDialog.setReminder(reminderToEdit);
+					reminderDialog.setVisible(true);
+					Reminder updatedReminder = reminderDialog.getReminder();
+		
+					if (updatedReminder != null) {
+						reminderPanel.updateReminder(reminderToEdit, updatedReminder);
+					}
+				} else {
+					JOptionPane.showMessageDialog(frm, "Reminder not found.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+
+		JButton deleteReminderButton = new JButton("Delete a Reminder");
+		reminderButtonPanel.add(deleteReminderButton);
+
+		deleteReminderButton.addActionListener(e -> {
+			String reminderName = JOptionPane.showInputDialog(frm, "Enter the name of the reminder to delete:", "Delete Reminder", JOptionPane.QUESTION_MESSAGE);
+			if (reminderName != null && !reminderName.isEmpty()) {
+				Reminder reminderToDelete = reminderPanel.getReminderByName(reminderName);
+				if (reminderToDelete != null) {
+					reminderPanel.deleteReminder(reminderToDelete);
+				} else {
+					JOptionPane.showMessageDialog(frm, "Reminder not found.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});		
+
+		frm.getContentPane().add(reminderButtonPanel, BorderLayout.SOUTH);
+		
+		addReminderButton.addActionListener(e -> {
+			ReminderDialog reminderDialog = new ReminderDialog(frm);
+			reminderDialog.setVisible(true);
+			Reminder newReminder = reminderDialog.getReminder();
+			if (newReminder != null) {
+				reminderPanel.addReminder(newReminder);
+			}
+		});
+		
+		frm.getContentPane().add(buttonPanel, BorderLayout.NORTH);
+		
+		mainTabbedPane.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				if (mainTabbedPane.getSelectedIndex() == 0) {
+					buttonPanel.setVisible(true);
+					reminderButtonPanel.setVisible(false);
+				} else {
+					buttonPanel.setVisible(false);
+					reminderButtonPanel.setVisible(true);
+				}
+			}
+		});
+		
+		frm.getContentPane().add(mainTabbedPane, BorderLayout.CENTER);	
+
 		cal.addCalendarEventClickListener(e -> System.out.println(e.getCalendarEvent()));
 		cal.addCalendarEmptyClickListener(e -> {
 			System.out.println(e.getDateTime());
@@ -41,127 +134,43 @@ public class DayCalendarTest {
 
 		JButton prevDayBtn = new JButton("<");
 		prevDayBtn.addActionListener(e -> cal.prevDay());
-		
-		//This button allows the user to change to change the font size.
-        JButton fontSize = new JButton("Font Sizes");
-        fontSize.addActionListener(e -> {
-            String[] sizes = {"10", "12", "14", "16", "18", "20"};
-            String selectedSize = (String) JOptionPane.showInputDialog(frm, "Select font size", "Font Size", JOptionPane.PLAIN_MESSAGE, null, sizes, sizes[0]);
-            if (selectedSize != null) {
-                cal.setFontSize(Integer.parseInt(selectedSize));
-            }
-        });
-		//This button allows the user to change to change the font Type.
-        JButton fontTypes = new JButton("Font Types");
-        fontTypes.addActionListener(e -> {
-			//Array list of font types
-            String[] fonts = {"Arial", "Helvetica", "Times New Roman", "Courier New", "Verdana", 
-            "Lucida Console","Tahoma","Georgia" };
-            String selectedFont = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fonts, fonts[0]);
-            if (selectedFont != null) {
-                cal.setFontType(selectedFont);
-            }
-        });
 
-		// Create a tabbed pane where mutiple calendars will go
-		JTabbedPane calendarTab = new JTabbedPane();
+		addACalendar.addGoToTodayListener(goToTodayBtn);
+		addACalendar.addNextDayListener(nextDayBtn);
+		addACalendar.addPrevDayListener(prevDayBtn);
 
-		// "First Calendar" in Day Calendar
-		DayCalendar firstCalendar = new DayCalendar(events);
-		calendarTab.addTab("First Calendar", firstCalendar);
-
-		// Add mouse listener to the tab component of "First Calendar"
-		// Allows user to edit calendar name
-		JLabel firstCalendarTab = new JLabel("First Calendar");
-		firstCalendarTab.addMouseListener(new MouseAdapter() {
-			@Override
-    		public void mouseClicked(MouseEvent e) {
-				// Double-click calendar name to edit
-        		if (e.getClickCount() == 2) {
-            	String newFirstCalendarName = JOptionPane.showInputDialog("Enter a new name for the calendar:", calendarTab.getTitleAt(0));
-            		if (newFirstCalendarName != null && !newFirstCalendarName.isEmpty()) {
-                		calendarTab.setTitleAt(0, newFirstCalendarName);
-                		firstCalendarTab.setText(newFirstCalendarName);
-            		}
-        		}
-    		}
+		JButton SettingsButton = new JButton("Settings");
+        SettingsButton.addActionListener(e -> {
+        	Object[] GivenOptions = {"Font Type", "Font Size"};
+        	int Choosedchoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
+        
+        	if (Choosedchoice == 1) {
+        		String[] fontsizes = {"10", "12", "14", "16", "18"};
+        		String Size = (String) JOptionPane.showInputDialog(frm, "Select the font size", "Font Sizes", JOptionPane.PLAIN_MESSAGE, null, fontsizes, fontsizes[0]);
+        
+        		if (Size != null) {
+					addACalendar.setAllCalendarsFontSize(Integer.parseInt(Size));
+					reminderPanel.setFontSize(Integer.parseInt(Size));
+				}
+        		} else if (Choosedchoice == 0) {
+        		String[] fontTypes = {"Arial","Times New Roman", "Helvetica", "Courier New", "Verdana", "Lucida Console","Tahoma","Georgia" };
+       
+        		String Type = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fontTypes, fontTypes[0]);
+        		if (Type != null) {
+					addACalendar.setAllCalendarsFontType(Type);
+					reminderPanel.setFontType(Type);
+				}
+   	 		}
 		});
-		// This is the first calendar tab
-		calendarTab.setTabComponentAt(0, firstCalendarTab);
-
-		// Button for user to add a calendar
-		JButton addCalendarBtn = new JButton("Add a Calendar");
-
-		addCalendarBtn.addActionListener(e -> {
-			// User prompted to add new calendar
-			String calendarName = JOptionPane.showInputDialog("Enter a name for the new calendar:");
-			if (calendarName == null || calendarName.isEmpty()) {
-				return;
-			}
-		
-			// New DayCalendar object for the new tab
-			DayCalendar newCalendar = new DayCalendar(events);
-		
-			// Event listeners for new calendar
-			newCalendar.addCalendarEventClickListener(ev -> System.out.println(ev.getCalendarEvent()));
-			newCalendar.addCalendarEmptyClickListener(ev -> {
-				System.out.println(ev.getDateTime());
-				System.out.println(Calendar.roundTime(ev.getDateTime().toLocalTime(), 30));
-			});
-		
-			int tabPosition = calendarTab.getTabCount();
-			// New calendar added to tabbed pane, along with other calendars if created
-			calendarTab.addTab(calendarName, newCalendar);
-
-    		// Rename calendar
-			JLabel newCalendarTab = new JLabel(calendarName);
-			newCalendarTab.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					// Double-click calendar name to edit
-					if (e.getClickCount() == 2) {
-						String newCalendarName = JOptionPane.showInputDialog("Enter a new name for the calendar:", calendarTab.getTitleAt(tabPosition));
-						if (newCalendarName != null && !newCalendarName.isEmpty()) {
-							calendarTab.setTitleAt(tabPosition, newCalendarName);
-							newCalendarTab.setText(newCalendarName);
-						}
-            		}
-        		}
-    		});
-
-			calendarTab.setTabComponentAt(tabPosition, newCalendarTab);
-
-    		// Select the newly created tab
-    		calendarTab.setSelectedIndex(tabPosition);
-
-			// Add the tabbed pane to the JFrame's content pane
-			frm.getContentPane().add(calendarTab, BorderLayout.CENTER);
-
-			// Select the newly created tab
-			calendarTab.setSelectedIndex(calendarTab.getTabCount()-1);
-		
-			// Repaint the JFrame to show the new tab
-			frm.revalidate();
-			frm.repaint();
-		});
-		
-		// Add a Reminder
-
-		JButton addReminderButton = new JButton("Add a Reminder");
-        	addReminderButton.addActionListener(e -> new Reminder(events).setVisible(true)); // creating a new Reminder object
 
 		JPanel weekControls = new JPanel();
 		weekControls.add(prevDayBtn);
 		weekControls.add(goToTodayBtn);
 		weekControls.add(nextDayBtn);
-		weekControls.add(fontSize);
-        	weekControls.add(fontTypes);
-		weekControls.add(addCalendarBtn);
-		weekControls.add(addReminderButton);
+		weekControls.add(SettingsButton);
 		
 		frm.add(weekControls, BorderLayout.NORTH);
-		frm.add(calendarTab, BorderLayout.CENTER);
-		frm.setSize(1000, 900);
+		frm.setSize(1000, 2000);
 		frm.setVisible(true);
 		frm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
