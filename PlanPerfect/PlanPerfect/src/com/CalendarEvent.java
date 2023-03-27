@@ -190,4 +190,15 @@ public class CalendarEventEditor extends JFrame {
         dispose();
     }
 }
+
+
+public boolean check_Conflict(CalendarEvent newEvent) {
+    if (!date.equals(newEvent.date)) {
+        return false;
+    }
+    if (end.isBefore(newEvent.start) || start.isAfter(newEvent.end)) {
+        return false;
+    }
+        return true;
+    }
 }

@@ -241,10 +241,11 @@ public class DayCalendarTest {
     LocalDate startDate = LocalDate.parse(Day.getText());  //Getting the day
     LocalTime startTime = LocalTime.parse(start_Time.getText()); //Getting the start time
     LocalTime endTime = LocalTime.parse(end_Time.getText());//Getting the end time
-    CalendarEvent newEvent = new CalendarEvent(startDate, startTime, endTime, name);
+    CalendarEvent Event = new CalendarEvent(startDate, startTime, endTime, name);
 
-    events.add(newEvent); //Add all info into the list to store
-    cal.repaint(); //Repaint the Calendar to dispalthe event directly
+    
+    events.add(Event); //Add all info into the list to store
+		cal.repaint(); //Repaint the Calendar to dispalthe event directly
 }
 });
 
