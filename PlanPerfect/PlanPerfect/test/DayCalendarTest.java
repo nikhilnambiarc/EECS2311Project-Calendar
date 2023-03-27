@@ -244,8 +244,20 @@ public class DayCalendarTest {
     CalendarEvent Event = new CalendarEvent(startDate, startTime, endTime, name);
 
     
-    events.add(Event); //Add all info into the list to store
+     // Checking the conflict with the existing events
+     boolean Event_conflict = false;
+     for (CalendarEvent event : events) {
+         if (event.check_Conflict(Event)) {
+            Event_conflict = true;
+             break;
+         }
+     }
+     if (Event_conflict) {
+         JOptionPane.showMessageDialog(null, "Conflict, This Time Slot is Already Taken \n Please Choose Anyother Time Slot.");
+     } else {
+        events.add(Event); //Add all info into the list to store
 		cal.repaint(); //Repaint the Calendar to dispalthe event directly
+     }
 }
 });
 
