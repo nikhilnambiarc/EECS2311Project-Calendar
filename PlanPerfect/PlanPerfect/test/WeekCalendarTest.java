@@ -207,10 +207,23 @@ public class WeekCalendarTest {
         LocalDate startDate = LocalDate.parse(Day.getText());  //Getting the day
         LocalTime startTime = LocalTime.parse(start_Time.getText()); //Getting the start time
         LocalTime endTime = LocalTime.parse(end_Time.getText());//Getting the end time
-        CalendarEvent newEvent = new CalendarEvent(startDate, startTime, endTime, name);
+        CalendarEvent Event = new CalendarEvent(startDate, startTime, endTime, name);
 
-        events.add(newEvent); //Add all info into the list to store
+      // Checking the conflict with the existing events
+     boolean Event_conflict = false;
+     for (CalendarEvent event : events) {
+         if (event.check_Conflict(Event)) {
+            Event_conflict = true;
+             break;
+         }
+     }
+     //if the conflict is occuring then display message and break otherwie set the event
+     if (Event_conflict) {
+         JOptionPane.showMessageDialog(null, "Conflict, This Time Slot is Already Taken \n Please Choose Anyother Time Slot.");
+     } else {
+        events.add(Event); //Add all info into the list to store
 		cal.repaint(); //Repaint the Calendar to dispalthe event directly
+     }
 }
 });
 		JButton DELETE_EVENT_BUTTON = new JButton("Delete Event");

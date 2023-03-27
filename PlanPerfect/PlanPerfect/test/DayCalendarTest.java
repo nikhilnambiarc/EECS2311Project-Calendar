@@ -252,6 +252,7 @@ public class DayCalendarTest {
              break;
          }
      }
+     //if the conflict is occuring then display message and break otherwie set the event
      if (Event_conflict) {
          JOptionPane.showMessageDialog(null, "Conflict, This Time Slot is Already Taken \n Please Choose Anyother Time Slot.");
      } else {
