@@ -259,9 +259,6 @@ public class WeekCalendarTest {
 		//frm.add(new JScrollPane(), BorderLayout.CENTER);
 		frm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
-			JComponent j =new JComponent() {
-				
-			};
 			// Create a new BufferedImage with the size of the frame
 			BufferedImage image = new BufferedImage(frm.getWidth(), frm.getHeight(), BufferedImage.TYPE_INT_RGB);
 	
