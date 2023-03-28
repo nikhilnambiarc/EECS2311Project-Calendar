@@ -155,7 +155,7 @@ public class WeekCalendarTest {
 		String theme = (String) JOptionPane.showInputDialog(frm, "Select theme", "Theme: ", JOptionPane.PLAIN_MESSAGE, null, themes, themes[0]);
 		
 		if(theme != null) {
-			cal.setTheme(theme);
+			cal.setCalendarTheme(theme);
 		}
 	  }
 
