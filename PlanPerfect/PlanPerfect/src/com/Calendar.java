@@ -227,6 +227,39 @@ public abstract class Calendar extends JComponent {
         drawCurrentTimeLine();
     }
 
+    protected void paintComponent(Graphics g, String color) {
+        calculateScaleVars();
+        g2 = (Graphics2D) g;
+
+        // Rendering hints try to turn anti-aliasing on which improves quality
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        if(color.equalsIgnoreCase("Light")) {
+        // Set background to white
+        g2.setColor(Color.white);
+        g2.fillRect(0, 0, getWidth(), getHeight());
+
+        // Set paint colour to black
+        g2.setColor(Color.black);
+        }
+
+        else if (color.equalsIgnoreCase("Dark")){
+            g2.setColor(Color.black);
+            g2.fillRect(0, 0, getWidth(), getHeight());
+    
+            // Set paint colour to black
+            g2.setColor(Color.white);
+        }
+        repaint();
+        drawDayHeadings();
+        drawTodayShade();
+        drawGrid();
+        drawTimes();
+        drawEvents();
+        drawCurrentTimeLine();
+        
+    }
+
     protected abstract DayOfWeek getStartDay();
 
     protected abstract DayOfWeek getEndDay();
@@ -415,6 +448,10 @@ public abstract class Calendar extends JComponent {
     }
 
     public void setCalendarTheme (String theme) {
+        
+        paintComponent(g2, theme);
+        
+    
 
     }
 //This method is use to check if there is any event that is passed according to the current time.

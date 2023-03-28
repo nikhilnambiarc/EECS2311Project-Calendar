@@ -147,6 +147,7 @@ public class WeekCalendarTest {
 		  String Type = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fontTypes, fontTypes[0]);
 		  if (Type != null) {
 			  cal.setFontType(Type);
+			  
 		  }
 	  }
 	  else if (choosenChoice  == 2) {
@@ -156,6 +157,7 @@ public class WeekCalendarTest {
 		
 		if(theme != null) {
 			cal.setCalendarTheme(theme);
+			
 		}
 	  }
 
