@@ -168,24 +168,37 @@ public class DayCalendarTest {
 		
 
 		
-        JButton SettingsButton = new JButton("Settings");
-        SettingsButton.addActionListener(e -> {
-    Object[] GivenOptions = {"Font Type", "Font Size"};
-    int Choosedchoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
-    if (Choosedchoice == 1) {
-        String[] fontsizes = {"10", "12", "14", "16", "18"};
-        String Size = (String) JOptionPane.showInputDialog(frm, "Select the font size", "Font Sizes", JOptionPane.PLAIN_MESSAGE, null, fontsizes, fontsizes[0]);
-        if (Size != null) {
-            cal.setFontSize(Integer.parseInt(Size));
-        }
-    } else if (Choosedchoice == 0) {
-        String[] fontTypes = {"Arial","Times New Roman", "Helvetica", "Courier New", "Verdana", "Lucida Console","Tahoma","Georgia" };
-       
-        String Type = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fontTypes, fontTypes[0]);
-        if (Type != null) {
-            cal.setFontType(Type);
-        }
-    }
+//This is setting button, inside that button we are giving user to customize different things
+JButton SettingsButton = new JButton("Settings");
+SettingsButton.addActionListener(e -> {
+Object[] GivenOptions = {"Font Type", "Font Size", "Theme"};
+int choosenChoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
+if (choosenChoice  == 1) {
+  String[] fontsizes = {"10", "12", "14", "16", "18"};
+  String Size = (String) JOptionPane.showInputDialog(frm, "Select the font size", "Font Sizes", JOptionPane.PLAIN_MESSAGE, null, fontsizes, fontsizes[0]);
+  if (Size != null) {
+      cal.setFontSize(Integer.parseInt(Size));
+      
+  }
+} 
+else if (choosenChoice  == 0) {
+  String[] fontTypes = {"Arial","Times New Roman", "Helvetica", "Courier New", "Verdana", "Lucida Console","Tahoma","Georgia" };
+ 
+  String Type = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fontTypes, fontTypes[0]);
+  if (Type != null) {
+      cal.setFontType(Type);
+  }
+}
+else if (choosenChoice  == 2) {
+String[] themes = {"Dark", "Light"};
+
+String theme = (String) JOptionPane.showInputDialog(frm, "Select theme", "Theme: ", JOptionPane.PLAIN_MESSAGE, null, themes, themes[0]);
+
+if(theme != null) {
+    cal.setCalendarTheme(theme);
+}
+}
+
 });
 
 
