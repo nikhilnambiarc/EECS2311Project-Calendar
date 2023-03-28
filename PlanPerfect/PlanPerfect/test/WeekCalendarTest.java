@@ -13,7 +13,7 @@ public class WeekCalendarTest {
 		
 		JFrame frm = new JFrame();
         frm.setTitle("Plan Perfect");
-
+		JPanel weekControls = new JPanel();
 		ArrayList<CalendarEvent> events = new ArrayList<>();
 		 
         String url = "jdbc:mysql://localhost:3306/CA_Public_Holidays"; 
@@ -131,15 +131,17 @@ public class WeekCalendarTest {
 //This is setting button, inside that button we are giving user to customize different things
 		JButton SettingsButton = new JButton("Settings");
 		SettingsButton.addActionListener(e -> {
-	  Object[] GivenOptions = {"Font Type", "Font Size"};
-	  int Choosedchoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
-	  if (Choosedchoice == 1) {
+	  Object[] GivenOptions = {"Font Type", "Font Size", "Theme"};
+	  int choosenChoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
+	  if (choosenChoice  == 1) {
 		  String[] fontsizes = {"10", "12", "14", "16", "18"};
 		  String Size = (String) JOptionPane.showInputDialog(frm, "Select the font size", "Font Sizes", JOptionPane.PLAIN_MESSAGE, null, fontsizes, fontsizes[0]);
 		  if (Size != null) {
 			  cal.setFontSize(Integer.parseInt(Size));
+			  
 		  }
-	  } else if (Choosedchoice == 0) {
+	  } 
+	  else if (choosenChoice  == 0) {
 		  String[] fontTypes = {"Arial","Times New Roman", "Helvetica", "Courier New", "Verdana", "Lucida Console","Tahoma","Georgia" };
 		 
 		  String Type = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fontTypes, fontTypes[0]);
@@ -147,6 +149,16 @@ public class WeekCalendarTest {
 			  cal.setFontType(Type);
 		  }
 	  }
+	  else if (choosenChoice  == 2) {
+		String[] themes = {"Dark", "Light"};
+
+		String theme = (String) JOptionPane.showInputDialog(frm, "Select theme", "Theme: ", JOptionPane.PLAIN_MESSAGE, null, themes, themes[0]);
+		
+		if(theme != null) {
+			cal.setTheme(theme);
+		}
+	  }
+
   });
 		//This button display the event that is passed
 		JButton EventsPassedButton = new JButton("Completed Events");
@@ -167,7 +179,7 @@ public class WeekCalendarTest {
 		   }
 		});
 
-		JPanel weekControls = new JPanel();
+		
 		weekControls.add(EventsPassedButton); //Adding "Completed Events" in the GUI
 		weekControls.add(prevWeekBtn);
 		weekControls.add(goToTodayBtn);

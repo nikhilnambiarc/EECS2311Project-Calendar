@@ -413,6 +413,10 @@ public abstract class Calendar extends JComponent {
         font = new Font(type, font.getStyle(), font.getSize());
         setFont(font);
     }
+
+    public void setTheme () {
+        
+    }
 //This method is use to check if there is any event that is passed according to the current time.
     public ArrayList<CalendarEvent> getEventAlreadyPassed() {
         ArrayList<CalendarEvent> eventPassedAlready = new ArrayList<>();
