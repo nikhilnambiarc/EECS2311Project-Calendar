@@ -204,6 +204,7 @@ public class WeekCalendarTest {
     	JTextField Day = new JTextField(10);
     	JTextField start_Time = new JTextField(6);
     	JTextField end_Time = new JTextField(6);
+		JTextField location= new JTextField(20);
     	JPanel AddEvent_panel = new JPanel(new GridLayout(0, 2));//Set up the grid layout
 
     	AddEvent_panel.add(new JLabel("Name"));
@@ -214,6 +215,8 @@ public class WeekCalendarTest {
     AddEvent_panel.add(start_Time);
     AddEvent_panel.add(new JLabel("End Time (Format: HH:mm)"));
     AddEvent_panel.add(end_Time);
+	AddEvent_panel.add(new JLabel("Location of Event"));
+	AddEvent_panel.add(location);
 			//Tiltle of the panel and and too close the panel
     	int Display = JOptionPane.showConfirmDialog(null, AddEvent_panel, "Add the Event",
         JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
