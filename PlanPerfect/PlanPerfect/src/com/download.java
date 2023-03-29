@@ -1,22 +1,11 @@
 package com;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Calendar;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.util.*;
 
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class download extends JFrame {
@@ -25,9 +14,6 @@ public class download extends JFrame {
     private JFileChooser fileChooser;
     private JButton importButton;
     private JButton exportButton;
-    private String username;
-    private String password;
-    private String databaseName;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
