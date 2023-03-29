@@ -20,89 +20,24 @@ public class DayCalendarTest {
 		String user = "root";
 		String password = "EECS2311"; // replace ... with your password 
 		
-		try{
-			
-            String query = "SELECT * FROM 2023_Holidays;"; // replace ... with the correct query
-			Connection con = DriverManager.getConnection(url, user, password);
-			Statement statement = con.createStatement();
-			ResultSet result = statement.executeQuery(query);
-
-			while (result.next()) { 
-
-				String holiday_Name = result.getString("Holiday_Name");
-				int day = result.getInt("day");
-                int month = result.getInt("month");
-                int year = result.getInt("year");
-
-
-				events.add(new CalendarEvent(LocalDate.of(year, month, day), LocalTime.of(8, 0), LocalTime.of(8, 20), holiday_Name));
-				//System.out.println(holiday_id + ", " + holiday_Name + ", " + day + ", " + month + ", " + year);
+		try (Connection con = DriverManager.getConnection(url, user, password)) {
+			String[] queries = {"SELECT * FROM 2023_Holidays;", "SELECT * FROM 2024_Holidays;", "SELECT * FROM 2025_Holidays;"};
+		
+			for (String query : queries) {
+				try (Statement statement = con.createStatement(); ResultSet result = statement.executeQuery(query)) {
+					while (result.next()) { 
+						String holiday_Name = result.getString("Holiday_Name");
+						int day = result.getInt("day");
+						int month = result.getInt("month");
+						int year = result.getInt("year");
+		
+						events.add(new CalendarEvent(LocalDate.of(year, month, day), LocalTime.of(8, 0), LocalTime.of(8, 20), holiday_Name));
+					}
+				}
 			}
-
-
 		} catch (SQLException e) { 
 			e.printStackTrace();
 		}
-
-
-		try{
-			
-            String query = "SELECT * FROM 2024_Holidays;"; // replace ... with the correct query
-			Connection con = DriverManager.getConnection(url, user, password);
-			Statement statement = con.createStatement();
-			ResultSet result = statement.executeQuery(query);
-
-			while (result.next()) { 
-
-				String holiday_Name = result.getString("Holiday_Name");
-				int day = result.getInt("day");
-                int month = result.getInt("month");
-                int year = result.getInt("year");
-
-
-				events.add(new CalendarEvent(LocalDate.of(year, month, day), LocalTime.of(8, 0), LocalTime.of(8, 20), holiday_Name));
-				//System.out.println(holiday_id + ", " + holiday_Name + ", " + day + ", " + month + ", " + year);
-			}
-
-
-		} catch (SQLException e) { 
-			e.printStackTrace();
-		}
-
-
-		try{
-			
-            String query = "SELECT * FROM 2025_Holidays;"; // replace ... with the correct query
-			Connection con = DriverManager.getConnection(url, user, password);
-			Statement statement = con.createStatement();
-			ResultSet result = statement.executeQuery(query);
-
-			while (result.next()) { 
-
-				
-				String holiday_Name = result.getString("Holiday_Name");
-				int day = result.getInt("day");
-                int month = result.getInt("month");
-                int year = result.getInt("year");
-
-
-				events.add(new CalendarEvent(LocalDate.of(year, month, day), LocalTime.of(8, 0), LocalTime.of(8, 20), holiday_Name));
-				//System.out.println(holiday_id + ", " + holiday_Name + ", " + day + ", " + month + ", " + year);
-			}
-
-
-		} catch (SQLException e) { 
-			e.printStackTrace();
-		}
-
-		 //events.add(new CalendarEvent(LocalDate.of(2016, 11, 11), LocalTime.of(14, 0), LocalTime.of(14, 20), "Test 11/11 14:00-14:20"));
-		// events.add(new CalendarEvent(LocalDate.of(2016, 11, 14), LocalTime.of(9, 0), LocalTime.of(9, 20), "Test 14/11 9:00-9:20"));
-		// events.add(new CalendarEvent(LocalDate.of(2016, 11, 15), LocalTime.of(12, 0), LocalTime.of(13, 20), "Test 15/11 12:00-13:20"));
-		// events.add(new CalendarEvent(LocalDate.of(2016, 11, 16), LocalTime.of(9, 0), LocalTime.of(9, 20), "Test 16/11 9:00-9:20"));
-		// events.add(new CalendarEvent(LocalDate.of(2016, 11, 17), LocalTime.of(12, 15), LocalTime.of(14, 20), "Test 17/11 12:15-14:20"));
-		// events.add(new CalendarEvent(LocalDate.of(2016, 11, 18), LocalTime.of(9, 30), LocalTime.of(10, 00), "Test 18/11 9:30-10:00"));
-		// events.add(new CalendarEvent(LocalDate.of(2016, 11, 18), LocalTime.of(16, 00), LocalTime.of(16, 45), "Test 18/11 16:00-16:45"));
-
         
         DayCalendar cal = new DayCalendar(events);
         ImageIcon imageIcon = new ImageIcon("path/to/image.jpg");
@@ -195,7 +130,7 @@ String[] themes = {"Dark", "Light"};
 String theme = (String) JOptionPane.showInputDialog(frm, "Select theme", "Theme: ", JOptionPane.PLAIN_MESSAGE, null, themes, themes[0]);
 
 if(theme != null) {
-    cal.setCalendarTheme(theme);
+  //  cal.setCalendarTheme(theme);
 }
 }
 
