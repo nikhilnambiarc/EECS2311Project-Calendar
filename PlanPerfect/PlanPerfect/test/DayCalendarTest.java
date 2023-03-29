@@ -4,6 +4,7 @@ import com.DayCalendar;
 import java.sql.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.List;
 import java.time.*;
 import java.time.format.DateTimeParseException;
 import java.util.*;
@@ -211,6 +212,7 @@ public class DayCalendarTest {
             JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events/Reminders", JOptionPane.PLAIN_MESSAGE);
         }
      });
+     
            //This button is use to add the event
 		JButton ADD_EVENT_BUTTON = new JButton("Add Event");
 
@@ -243,7 +245,6 @@ public class DayCalendarTest {
     LocalTime endTime = LocalTime.parse(end_Time.getText());//Getting the end time
     CalendarEvent Event = new CalendarEvent(startDate, startTime, endTime, name);
 
-    
      // Checking the conflict with the existing events
      boolean Event_conflict = false;
      for (CalendarEvent event : events) {
@@ -254,12 +255,70 @@ public class DayCalendarTest {
      }
      //if the conflict is occuring then display message and break otherwie set the event
      if (Event_conflict) {
-         JOptionPane.showMessageDialog(null, "Conflict, This Time Slot is Already Taken \n Please Choose Anyother Time Slot.");
+         JOptionPane.showMessageDialog(null, "======= Conflict ====== \n This Time Slot is Already Taken \n Please Choose Anyother Time Slot.");
      } else {
         events.add(Event); //Add all info into the list to store
 		cal.repaint(); //Repaint the Calendar to dispalthe event directly
      }
 }
+ 
+    // boolean eventConflict = false;
+    // int numConflicts = 0;
+    // for (CalendarEvent event : events) {
+    //     if (event.check_Conflict(Event)) {
+    //         eventConflict = true;
+    //         numConflicts++;
+    //     }
+    // }
+    
+    // if (eventConflict) {
+    //     if (numConflicts == 1) {
+    //         // Find the available time slots for the selected day
+    //         java.util.List<LocalTime> availableSlots = new ArrayList<>();
+    //         for (LocalTime time = LocalTime.of(0, 0); !time.equals(LocalTime.of(23, 59)); time = time.plusMinutes(30)) {
+    //             boolean slotAvailable = true;
+    //             for (CalendarEvent event : events) {
+    //                 if (event.getDate().equals(startDate) && event.overlaps(startTime, endTime)) {
+    //                     slotAvailable = false;
+    //                     break;
+    //                 }
+    //             }
+    //             if (slotAvailable) {
+    //                 availableSlots.add(time);
+    //             }
+    //         }
+    
+    //         if (availableSlots.isEmpty()) {
+    //             JOptionPane.showMessageDialog(null, "There are no available time slots for this day.");
+    //         } else {
+    //             // Display the available time slots to the user
+    //             JList<LocalTime> timeSlotsList = new JList<>(availableSlots.toArray(new LocalTime[0]));
+    //             JPanel panel = new JPanel(new GridLayout(0, 1));
+    //             panel.add(new JLabel("This time slot is already taken."));
+    //             panel.add(new JLabel("Please select an available time slot:"));
+    //             panel.add(new JScrollPane(timeSlotsList));
+    
+    //             int selection = JOptionPane.showConfirmDialog(null, panel, "Available Time Slots", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+    //             if (selection == JOptionPane.OK_OPTION) {
+    //                 // Create a new event with the selected time slot and add it to the events list
+    //                 LocalTime selectedTime = timeSlotsList.getSelectedValue();
+    //                 long durationMinutes = Event.getDuration().toMinutes();
+    //                 CalendarEvent newEvent = new CalendarEvent(startDate, selectedTime, selectedTime.plusMinutes(durationMinutes), name);
+    //                 events.add(newEvent);
+    //                 cal.repaint();
+    //             }
+    //         }
+    //     } else {
+    //         JOptionPane.showMessageDialog(null, "There are multiple conflicting events for this time period. Please choose a different time or day.");
+    //     }
+    // } else {
+    //     // No conflict, add the event to the events list and repaint the calendar
+    //     events.add(Event);
+    //     cal.repaint();
+    // }
+    
+   
+
 });
 
         JButton DELETE_EVENT_BUTTON = new JButton("Delete Event");

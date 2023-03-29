@@ -219,7 +219,7 @@ public class WeekCalendarTest {
      }
      //if the conflict is occuring then display message and break otherwie set the event
      if (Event_conflict) {
-         JOptionPane.showMessageDialog(null, "Conflict, This Time Slot is Already Taken \n Please Choose Anyother Time Slot.");
+		JOptionPane.showMessageDialog(null, "======= Conflict ====== \n This Time Slot is Already Taken \n Please Choose Anyother Time Slot.");
      } else {
         events.add(Event); //Add all info into the list to store
 		cal.repaint(); //Repaint the Calendar to dispalthe event directly
