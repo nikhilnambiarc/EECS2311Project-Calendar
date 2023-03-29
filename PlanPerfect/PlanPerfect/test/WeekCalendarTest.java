@@ -140,7 +140,7 @@ public class WeekCalendarTest {
 //This is setting button, inside that button we are giving user to customize different things
 		JButton SettingsButton = new JButton("Settings");
 		SettingsButton.addActionListener(e -> {
-	  Object[] GivenOptions = {"Font Type", "Font Size"};
+	  Object[] GivenOptions = {"Font Type", "Font Size","Export"};
 	  int Choosedchoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
 	  if (Choosedchoice == 1) {
 		  String[] fontsizes = {"10", "12", "14", "16", "18"};
@@ -155,7 +155,24 @@ public class WeekCalendarTest {
 		  if (Type != null) {
 			  cal.setFontType(Type);
 		  }
-	  }
+	  }else if (Choosedchoice == 2) {
+        BufferedImage image = new BufferedImage(frm.getWidth(), frm.getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = image.createGraphics();
+        
+        // Render the calendar to the image
+        frm.paint(g2d);
+        
+        // Dispose of the Graphics2D object to free up resources
+        g2d.dispose();
+        
+        // Save the image to a file
+        try {
+            File output = new File("calendar.png");
+            ImageIO.write(image, "png", output);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
   });
 		//This button display the event that is passed
 		JButton EventsPassedButton = new JButton("Completed Events");
@@ -187,6 +204,7 @@ public class WeekCalendarTest {
     	JTextField Day = new JTextField(10);
     	JTextField start_Time = new JTextField(6);
     	JTextField end_Time = new JTextField(6);
+		JTextField location= new JTextField(20);
     	JPanel AddEvent_panel = new JPanel(new GridLayout(0, 2));//Set up the grid layout
 
     	AddEvent_panel.add(new JLabel("Name"));
@@ -197,6 +215,8 @@ public class WeekCalendarTest {
     AddEvent_panel.add(start_Time);
     AddEvent_panel.add(new JLabel("End Time (Format: HH:mm)"));
     AddEvent_panel.add(end_Time);
+	AddEvent_panel.add(new JLabel("Location of Event"));
+	AddEvent_panel.add(location);
 			//Tiltle of the panel and and too close the panel
     	int Display = JOptionPane.showConfirmDialog(null, AddEvent_panel, "Add the Event",
         JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
@@ -258,26 +278,7 @@ public class WeekCalendarTest {
 		frm.setVisible(true);
 		//frm.add(new JScrollPane(), BorderLayout.CENTER);
 		frm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		
-			// Create a new BufferedImage with the size of the frame
-			BufferedImage image = new BufferedImage(frm.getWidth(), frm.getHeight(), BufferedImage.TYPE_INT_RGB);
-	
-			// Get the Graphics2D object for the image
-		Graphics2D g2d = image.createGraphics();
 
-			// Render the calendar to the image
-				frm.paint(g2d);
-
-			// Dispose of the Graphics2D object to free up resources
-				g2d.dispose();
-
-			// Save the image to a file
-		try {
-   		 File output = new File("calendar.png");
-   	 	ImageIO.write(image, "png", output);
-		} catch (IOException e) {
-    	e.printStackTrace();
-}
 		
 	}
 }
