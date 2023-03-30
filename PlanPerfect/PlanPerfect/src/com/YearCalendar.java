@@ -1,99 +1,91 @@
-package com;
+// package com;
 
-import javax.swing.*;
-import java.awt.*;
+// import javax.swing.*;
+// import java.awt.*;
+// import java.awt.event.ActionEvent;
+// import java.awt.event.ActionListener;
+// import java.time.YearMonth;
+// import java.time.format.DateTimeFormatter;
 
-public class YearCalendar extends JFrame {
-    
-    public YearCalendar() {
-        setTitle("Year View");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        JPanel mainPanel = new JPanel(new GridLayout(3, 4));
-        
-        String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-        
-        for (int i = 0; i < 12; i++) {
-            JPanel monthPanel = new JPanel(new GridLayout(0, 7));
-            JLabel monthLabel = new JLabel(months[i]);
-            monthLabel.setHorizontalAlignment(JLabel.CENTER);
-            monthPanel.add(monthLabel);
-            monthPanel.add(new JLabel("Sun"));
-            monthPanel.add(new JLabel("Mon"));
-            monthPanel.add(new JLabel("Tue"));
-            monthPanel.add(new JLabel("Wed"));
-            monthPanel.add(new JLabel("Thu"));
-            monthPanel.add(new JLabel("Fri"));
-            monthPanel.add(new JLabel("Sat"));
-            
-            int numDays = getNumDays(i + 1);
-            int firstDay = getFirstDay(i + 1);
-            int dayOfWeek = 1;
-            for (int j = 1; j <= numDays; j++) {
-                if (j == 1) {
-                    for (int k = 1; k <= firstDay; k++) {
-                        monthPanel.add(new JLabel(""));
-                        dayOfWeek++;
-                    }
-                }
-                monthPanel.add(new JLabel(String.valueOf(j)));
-                dayOfWeek++;
-                if (dayOfWeek == 8) {
-                    dayOfWeek = 1;
-                }
-            }
-            
-            mainPanel.add(monthPanel);
-        }
-        
-        add(mainPanel);
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
-    }
-    
-    private int getNumDays(int month) {
-        switch (month) {
-            case 2:
-                return 28;
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                return 30;
-            default:
-                return 31;
-        }
-    }
-    
-    private int getFirstDay(int month) {
-        switch (month) {
-            case 1:
-                return 2;
-            case 2:
-                return 5;
-            case 3:
-                return 5;
-            case 4:
-                return 1;
-            case 5:
-                return 3;
-            case 6:
-                return 6;
-            case 7:
-                return 1;
-            case 8:
-                return 4;
-            case 9:
-                return 7;
-            case 10:
-                return 2;
-            case 11:
-                return 5;
-            default:
-                return 7;
-        }
-    }
-    
-    
-}
+// public class YearCalendar extends JFrame {
+
+//     private int currentYear;
+//     private JLabel yearLabel;
+//     private JPanel mainPanel;
+
+//     public YearCalendar(int year) {
+//         currentYear = year;
+//         setTitle("Year View");
+//         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+//         JPanel headerPanel = new JPanel(new BorderLayout());
+//         JButton previousButton = new JButton("<");
+//         previousButton.addActionListener(new ActionListener() {
+//             @Override
+//             public void actionPerformed(ActionEvent e) {
+//                 currentYear--;
+//                 yearLabel.setText(String.valueOf(currentYear));
+//                 updateCalendar();
+//             }
+//         });
+//         headerPanel.add(previousButton, BorderLayout.WEST);
+//         JButton nextButton = new JButton(">");
+//         nextButton.addActionListener(new ActionListener() {
+//             @Override
+//             public void actionPerformed(ActionEvent e) {
+//                 currentYear++;
+//                 yearLabel.setText(String.valueOf(currentYear));
+//                 updateCalendar();
+//             }
+//         });
+//         headerPanel.add(nextButton, BorderLayout.EAST);
+//         yearLabel = new JLabel(String.valueOf(currentYear), JLabel.CENTER);
+//         headerPanel.add(yearLabel, BorderLayout.CENTER);
+
+//         mainPanel = new JPanel(new GridLayout(3, 4));
+//         updateCalendar();
+
+//         add(headerPanel, BorderLayout.NORTH);
+//         add(mainPanel, BorderLayout.CENTER);
+//         pack();
+//         setLocationRelativeTo(null);
+//         setVisible(true);
+//     }
+
+//     private void updateCalendar() {
+//         mainPanel.removeAll();
+
+//         String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+
+//         for (int i = 0; i < 12; i++) {
+//             JPanel monthPanel = new JPanel(new GridLayout(0, 7));
+//             JLabel monthLabel = new JLabel(months[i], JLabel.CENTER);
+//             monthPanel.add(monthLabel);
+//             monthPanel.add(new JLabel("S", JLabel.CENTER));
+//             monthPanel.add(new JLabel("M", JLabel.CENTER));
+//             monthPanel.add(new JLabel("T", JLabel.CENTER));
+//             monthPanel.add(new JLabel("W", JLabel.CENTER));
+//             monthPanel.add(new JLabel("T", JLabel.CENTER));
+//             monthPanel.add(new JLabel("F", JLabel.CENTER));
+//             monthPanel.add(new JLabel("S", JLabel.CENTER));
+
+//             YearMonth yearMonth = YearMonth.of(currentYear, i + 1);
+//             int numDays = yearMonth.lengthOfMonth();
+//             int firstDay = yearMonth.atDay(1).getDayOfWeek().getValue();
+
+//             for (int j = 1; j < firstDay; j++) {
+//                 monthPanel.add(new JLabel(""));
+//             }
+
+//             for (int j = 1; j <= numDays; j++) {
+//                 JLabel dayLabel = new JLabel(String.valueOf(j), JLabel.CENTER);
+//                 monthPanel.add(dayLabel);
+//             }
+
+//             mainPanel.add(monthPanel);
+//         }
+
+//         validate();
+//     }
+
+// }
