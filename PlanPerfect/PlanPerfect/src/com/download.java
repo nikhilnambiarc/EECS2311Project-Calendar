@@ -14,9 +14,6 @@ public class download extends JFrame {
     private JFileChooser fileChooser;
     private JButton importButton;
     private JButton exportButton;
-    private String username;
-    private String password;
-    private String databaseName;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
