@@ -10,7 +10,46 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class CalendarEvent {
+    public class CalendarEventEditor extends JFrame {
 
+        // Other code
+    
+        private JButton matchButton;
+        private CalendarEvent event;
+    
+        public CalendarEventEditor(CalendarEvent event) {
+            super("Edit Event");
+            this.event = event;
+            initComponents();
+        }
+    
+        private void initComponents() {
+    
+            // Other code
+    
+            matchButton = new JButton("Match Availability");
+            matchButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    matchAvailability();
+                }
+            });
+    
+            JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+            buttonPanel.add(matchButton);
+            buttonPanel.add(saveButton);
+            buttonPanel.add(cancelButton);
+    
+            getContentPane().add(inputPanel, BorderLayout.CENTER);
+            getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+        }
+    
+        private void matchAvailability() {
+            // TODO: Implement matching availability functionality here
+            System.out.println("Match availability button clicked.");
+        }
+    }
+    
     private static final Color DEFAULT_COLOR = Color.PINK;
 
     private LocalDate date;
