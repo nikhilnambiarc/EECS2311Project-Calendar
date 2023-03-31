@@ -42,35 +42,7 @@ public class CalendarEvent {
         this.text = text;
         this.color = color;
     }
-    // // public boolean overlaps(CalendarEvent other, LocalTime startTime, LocalTime endTime) {
-    // //     // Check if the events occur on the same day
-    // //     if (!this.date.equals(other.date)) {
-    // //         return false;
-    // //     }
-        
-    // //     // Check if the events overlap in time
-    // //     if ((this.start.isBefore(endTime) || this.start.equals(endTime))
-    // //             && (other.start.isBefore(startTime) || other.start.equals(startTime))) {
-    // //         return true;
-    // //     }
-        
-    // //     return false;
-    // // }
 
-    // // public int duration() {
-    // //     int startMinutes = this.start.getHour() * 60 + this.start.getMinute();
-    // //     int endMinutes = this.end.getHour() * 60 + this.end.getMinute();
-    // //     return endMinutes - startMinutes;
-    // // }
-    // public boolean overlaps(LocalTime start, LocalTime end) {
-    //     return (this.start.isBefore(end) && start.isBefore(this.end));
-    // }
-    
-    // // Implement the duration method in the CalendarEvent class
-   
-    // public Duration getDuration() {
-    //     return Duration.between(this.getStart(), this.getEnd());
-    // }
 
     public LocalDate getDate() {
         return date;
@@ -111,7 +83,11 @@ public class CalendarEvent {
     public Color getColor() {
         return color;
     }
-
+    public boolean getEndsBefore(LocalTime time) {
+        return this.getEnd().isBefore(time);
+    }
+    
+    
 
     @Override
     public boolean equals(Object o) {

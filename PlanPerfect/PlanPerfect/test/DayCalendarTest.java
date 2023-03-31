@@ -1,6 +1,8 @@
 import com.Calendar;
 import com.CalendarEvent;
 import com.DayCalendar;
+import com.TimeSlot;
+
 import java.sql.*;
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +12,7 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class DayCalendarTest {
+    
     public static void main(String[] args) {
         
         JFrame frm = new JFrame();
@@ -215,111 +218,96 @@ public class DayCalendarTest {
      
            //This button is use to add the event
 		JButton ADD_EVENT_BUTTON = new JButton("Add Event");
+       ADD_EVENT_BUTTON.addActionListener(e -> {
+          
+        
+            // Giving user different options to input
+            JTextField EventName = new JTextField(20);
+            JTextField Day = new JTextField(10);
+            JTextField start_Time = new JTextField(6);
+            JTextField end_Time = new JTextField(6);
+            JPanel AddEvent_panel = new JPanel(new GridLayout(0, 2)); //Set up the grid layout
+        
+            AddEvent_panel.add(new JLabel("Name"));
+            AddEvent_panel.add(EventName);
+            AddEvent_panel.add(new JLabel("Year/Month/Day (Format: YYYY-MM-DD)"));
+            AddEvent_panel.add(Day);
+            AddEvent_panel.add(new JLabel("Start Time (Format: HH:mm)"));
+            AddEvent_panel.add(start_Time);
+            AddEvent_panel.add(new JLabel("End Time (Format: HH:mm)"));
+            AddEvent_panel.add(end_Time);
+        
+            //Title of the panel and to close the panel
+            int Display = JOptionPane.showConfirmDialog(null, AddEvent_panel, "Add the Event",
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        
+            //Add when user will enter click Ok
+            if (Display == JOptionPane.OK_OPTION) {
+                //Using these variables to add the user input into the array
+                String name = EventName.getText();   //Getting the name of event that user enter
+                LocalDate startDate = LocalDate.parse(Day.getText());  //Getting the day
+                LocalTime startTime = LocalTime.parse(start_Time.getText()); //Getting the start time
+                LocalTime endTime = LocalTime.parse(end_Time.getText());//Getting the end time
+                CalendarEvent Event = new CalendarEvent(startDate, startTime, endTime, name);
+        
+                // Check for conflicts if there are events in the array
+                boolean Event_conflict = false;
+                for (CalendarEvent event : events) {
+                    if (event.check_Conflict(Event)) {
+                        Event_conflict = true;
+                        break;
+                    }
+                }
+        
+                //if the conflict is occurring then display message and break otherwise set the event
+                if (Event_conflict) {
+                    // Display message with conflicting events
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("The event conflicts with the following existing events:\n");
+                    for (CalendarEvent event : events) {
+                        if (event.check_Conflict(Event)) {
+                            sb.append(event.toString()).append("\n");
+                        }
+                    }
+                    sb.append("Please choose a different time slot.\n");
+                            
+                    // Show the message dialog
+                    JOptionPane.showMessageDialog(null, sb.toString(), "Event Conflict", JOptionPane.ERROR_MESSAGE);
+                            
+                    // Determine available time slots
+                    ArrayList<TimeSlot> availableSlots = new ArrayList<>();
+                    for (int i = 0; i < events.size() - 1; i++) {
+                        CalendarEvent currEvent = events.get(i);
+                        CalendarEvent nextEvent = events.get(i + 1);
+                        if (currEvent.getEndsBefore(nextEvent.getStart())) {
+                            TimeSlot slot = new TimeSlot(currEvent.getEnd(), nextEvent.getStart());
+                            availableSlots.add(slot);
+                        }
+                    }
+                    if (!availableSlots.isEmpty()) {
+                        // Display message with available time slots
+                        sb = new StringBuilder();
+                        sb.append("Available time slots:\n");
+                        for (TimeSlot slot : availableSlots) {
+                            sb.append(slot.getStart().toString()).append(" - ").append(slot.getEnd().toString()).append("\n");
+                        }
+                        System.out.println("Available time slots message:\n" + sb.toString());
+                        JOptionPane.showMessageDialog(null, sb.toString(), "Available Time Slots", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    return;
+                    
+                } else {
+                    // Add event to array and repaint calendar
+                    events.add(Event);
+                    cal.repaint();
+                    return;
+                }
+                
+                
+                    }
+                });                    
 
-        //Adding Action Listner
-        ADD_EVENT_BUTTON.addActionListener(e -> {
-    //Giving user differnet options to input
-    JTextField EventName = new JTextField(20);
-    JTextField Day = new JTextField(10);
-    JTextField start_Time = new JTextField(6);
-    JTextField end_Time = new JTextField(6);
-    JPanel AddEvent_panel = new JPanel(new GridLayout(0, 2));//Set up the grid layout
 
-    AddEvent_panel.add(new JLabel("Name"));
-    AddEvent_panel.add(EventName);
-    AddEvent_panel.add(new JLabel("Year/Month/Day (Format: YYYY-MM-DD)"));
-    AddEvent_panel.add(Day);
-    AddEvent_panel.add(new JLabel("Start Time (Format: HH:mm)"));
-    AddEvent_panel.add(start_Time);
-    AddEvent_panel.add(new JLabel("End Time (Format: HH:mm)"));
-    AddEvent_panel.add(end_Time);
-        //Tiltle of the panel and and too close the panel
-    int Display = JOptionPane.showConfirmDialog(null, AddEvent_panel, "Add the Event",
-    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-    //Add when user will enter click Ok
-    if (Display == JOptionPane.OK_OPTION) {
-    //Using these variables to add the user input into the array
-    String name = EventName.getText();   //Getting the name of event that user enter
-    LocalDate startDate = LocalDate.parse(Day.getText());  //Getting the day
-    LocalTime startTime = LocalTime.parse(start_Time.getText()); //Getting the start time
-    LocalTime endTime = LocalTime.parse(end_Time.getText());//Getting the end time
-    CalendarEvent Event = new CalendarEvent(startDate, startTime, endTime, name);
-
-     // Checking the conflict with the existing events
-     boolean Event_conflict = false;
-     for (CalendarEvent event : events) {
-         if (event.check_Conflict(Event)) {
-            Event_conflict = true;
-             break;
-         }
-     }
-     //if the conflict is occuring then display message and break otherwie set the event
-     if (Event_conflict) {
-         JOptionPane.showMessageDialog(null, "======= Conflict ====== \n This Time Slot is Already Taken \n Please Choose Anyother Time Slot.");
-     } else {
-        events.add(Event); //Add all info into the list to store
-		cal.repaint(); //Repaint the Calendar to dispalthe event directly
-     }
-}
- 
-    // boolean eventConflict = false;
-    // int numConflicts = 0;
-    // for (CalendarEvent event : events) {
-    //     if (event.check_Conflict(Event)) {
-    //         eventConflict = true;
-    //         numConflicts++;
-    //     }
-    // }
-    
-    // if (eventConflict) {
-    //     if (numConflicts == 1) {
-    //         // Find the available time slots for the selected day
-    //         java.util.List<LocalTime> availableSlots = new ArrayList<>();
-    //         for (LocalTime time = LocalTime.of(0, 0); !time.equals(LocalTime.of(23, 59)); time = time.plusMinutes(30)) {
-    //             boolean slotAvailable = true;
-    //             for (CalendarEvent event : events) {
-    //                 if (event.getDate().equals(startDate) && event.overlaps(startTime, endTime)) {
-    //                     slotAvailable = false;
-    //                     break;
-    //                 }
-    //             }
-    //             if (slotAvailable) {
-    //                 availableSlots.add(time);
-    //             }
-    //         }
-    
-    //         if (availableSlots.isEmpty()) {
-    //             JOptionPane.showMessageDialog(null, "There are no available time slots for this day.");
-    //         } else {
-    //             // Display the available time slots to the user
-    //             JList<LocalTime> timeSlotsList = new JList<>(availableSlots.toArray(new LocalTime[0]));
-    //             JPanel panel = new JPanel(new GridLayout(0, 1));
-    //             panel.add(new JLabel("This time slot is already taken."));
-    //             panel.add(new JLabel("Please select an available time slot:"));
-    //             panel.add(new JScrollPane(timeSlotsList));
-    
-    //             int selection = JOptionPane.showConfirmDialog(null, panel, "Available Time Slots", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-    //             if (selection == JOptionPane.OK_OPTION) {
-    //                 // Create a new event with the selected time slot and add it to the events list
-    //                 LocalTime selectedTime = timeSlotsList.getSelectedValue();
-    //                 long durationMinutes = Event.getDuration().toMinutes();
-    //                 CalendarEvent newEvent = new CalendarEvent(startDate, selectedTime, selectedTime.plusMinutes(durationMinutes), name);
-    //                 events.add(newEvent);
-    //                 cal.repaint();
-    //             }
-    //         }
-    //     } else {
-    //         JOptionPane.showMessageDialog(null, "There are multiple conflicting events for this time period. Please choose a different time or day.");
-    //     }
-    // } else {
-    //     // No conflict, add the event to the events list and repaint the calendar
-    //     events.add(Event);
-    //     cal.repaint();
-    // }
-    
-   
-
-});
 
         JButton DELETE_EVENT_BUTTON = new JButton("Delete Event");
         DELETE_EVENT_BUTTON.addActionListener(e -> {
