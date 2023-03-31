@@ -178,7 +178,7 @@ public class WeekCalendarTest {
 
   EventsButton.addActionListener(e -> {
 	Object[] GivenOptions = {"Completed Events", "Add Events","Delete Event"};
-	int Choosedchoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
+	int Choosedchoice = JOptionPane.showOptionDialog(frm, "", "Events", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
 	if (Choosedchoice == 0) {
 	  
 		//Display completed events
