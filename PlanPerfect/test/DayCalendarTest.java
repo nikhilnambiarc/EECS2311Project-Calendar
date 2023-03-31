@@ -110,7 +110,7 @@ public class DayCalendarTest {
             }
         };
 
-        ImageIcon imageIcon = new ImageIcon("path/to/image.jpg");
+       // ImageIcon imageIcon = new ImageIcon("path/to/image.jpg");
 
         // Add a Calendar
         AddDeleteEditDayCalendar addACalendar = new AddDeleteEditDayCalendar(events, cal);
