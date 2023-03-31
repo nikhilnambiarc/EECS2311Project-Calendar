@@ -175,7 +175,7 @@ if(theme != null) {
 
 
 		frm.add(cal, BorderLayout.CENTER);
-		frm.setSize(1000, 2000);
+		frm.setSize(800, 800);
 		frm.setVisible(true);
 		frm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
