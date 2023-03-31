@@ -249,7 +249,7 @@ public class WeekCalendarTest {
                     if (!availableSlots.isEmpty()) {
                         // Display message with available time slots
                         sb = new StringBuilder();
-                        sb.append("Available time slots:\n");
+                        sb.append("Available time slots: \n");
                         for (TimeSlot slot : availableSlots) {
                             sb.append(slot.getStart().toString()).append(" - ").append(slot.getEnd().toString()).append("\n");
                         }
