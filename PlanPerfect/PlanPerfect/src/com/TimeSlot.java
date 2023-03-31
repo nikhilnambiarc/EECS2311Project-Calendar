@@ -20,17 +20,8 @@ public class TimeSlot {
         LocalTime end = this.endTime;
         return end;
     }
-
-    // rest of the class implementation
 }
 
 
-    // public LocalDateTime getStart() {
-    //     return startTime;
-    // }
-
-    // public LocalDateTime getEnd() {
-    //     return end;
-    // }
 
 
