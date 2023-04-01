@@ -12,8 +12,6 @@ public class MonthCalendar extends JFrame implements ActionListener {
     private JPanel calendarPanel;
     private LocalDate currentDate;
     private DateTimeFormatter monthFormatter;
-    LocalDate today = LocalDate.now();
-
 
     public MonthCalendar() {
         super("Month View");
@@ -84,22 +82,14 @@ public class MonthCalendar extends JFrame implements ActionListener {
                 int dayOfMonth = i - startColumn + 1;
                 JButton button = new JButton(String.valueOf(dayOfMonth));
                 button.addActionListener(this);
-                if (currentDate.withDayOfMonth(dayOfMonth).equals(today)) {
-                    JLabel label = new JLabel(String.valueOf(dayOfMonth), JLabel.CENTER);
-                    label.setBackground(Color.RED);
-                    label.setOpaque(true);
-                    panel.add(label);
-                } else {
-                    panel.add(button);
-                }
+                panel.add(button);
                 currentColumn++;
             }
-        
+
             if (currentColumn == 7) {
                 currentColumn = 0;
             }
         }
-        
     }
 
     public void actionPerformed(ActionEvent e) {
