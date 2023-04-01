@@ -15,6 +15,7 @@ import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 public abstract class Calendar extends JComponent {
@@ -43,8 +44,9 @@ public abstract class Calendar extends JComponent {
     public Calendar() {
         this(new ArrayList<>());
     }
-    public Calendar(Calendar calendar,Clock clock){
- 
+
+    public Calendar(Calendar calendar, Clock clock) {
+
     }
 
     Calendar(ArrayList<CalendarEvent> events) {
@@ -114,7 +116,8 @@ public abstract class Calendar extends JComponent {
     private boolean checkCalendarEventClick(Point p) {
         double x0, x1, y0, y1;
         for (CalendarEvent event : events) {
-            if (!dateInRange(event.getDate())) continue;
+            if (!dateInRange(event.getDate()))
+                continue;
 
             x0 = dayToPixel(event.getDate().getDayOfWeek());
             y0 = timeToPixel(event.getStart());
@@ -219,7 +222,8 @@ public abstract class Calendar extends JComponent {
     }
 
     private LocalTime pixelToTime(double y) {
-        return LocalTime.ofSecondOfDay((int) ((y - HEADER_HEIGHT) / timeScale) + START_TIME.toSecondOfDay()).truncatedTo(ChronoUnit.MINUTES);
+        return LocalTime.ofSecondOfDay((int) ((y - HEADER_HEIGHT) / timeScale) + START_TIME.toSecondOfDay())
+                .truncatedTo(ChronoUnit.MINUTES);
     }
 
     private DayOfWeek pixelToDay(double x) {
@@ -272,7 +276,8 @@ public abstract class Calendar extends JComponent {
             dayOfWeek = DayOfWeek.of(i);
             day = getDateFromDay(dayOfWeek);
 
-            String text = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + " " + day.getDayOfMonth() + "/" + day.getMonthValue();
+            String text = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + " " + day.getDayOfMonth() + "/"
+                    + day.getMonthValue();
             x = (int) (dayToPixel(DayOfWeek.of(i)) + (dayWidth / 2) - (FONT_LETTER_PIXEL_WIDTH * text.length() / 2));
             g2.drawString(text, x, y);
         }
@@ -317,7 +322,8 @@ public abstract class Calendar extends JComponent {
         LocalDate today = LocalDate.now();
 
         // Check that date range being viewed is current date range
-        if (!dateInRange(today)) return;
+        if (!dateInRange(today))
+            return;
 
         final double x = dayToPixel(today.getDayOfWeek());
         final double y = timeToPixel(START_TIME);
@@ -335,7 +341,8 @@ public abstract class Calendar extends JComponent {
         LocalDate today = LocalDate.now();
 
         // Check that date range being viewed is current date range
-        if (!dateInRange(today)) return;
+        if (!dateInRange(today))
+            return;
 
         final double x0 = dayToPixel(today.getDayOfWeek());
         final double x1 = dayToPixel(today.getDayOfWeek()) + dayWidth;
@@ -356,7 +363,8 @@ public abstract class Calendar extends JComponent {
         int y;
         for (LocalTime time = START_TIME; time.compareTo(END_TIME) <= 0; time = time.plusHours(1)) {
             y = (int) timeToPixel(time) + 15;
-            g2.drawString(time.toString(), TIME_COL_WIDTH - (FONT_LETTER_PIXEL_WIDTH * time.toString().length()) - 5, y);
+            g2.drawString(time.toString(), TIME_COL_WIDTH - (FONT_LETTER_PIXEL_WIDTH * time.toString().length()) - 5,
+                    y);
         }
     }
 
@@ -365,12 +373,14 @@ public abstract class Calendar extends JComponent {
         double y0;
 
         for (CalendarEvent event : events) {
-            if (!dateInRange(event.getDate())) continue;
+            if (!dateInRange(event.getDate()))
+                continue;
 
             x = dayToPixel(event.getDate().getDayOfWeek());
             y0 = timeToPixel(event.getStart());
 
-            Rectangle2D rect = new Rectangle2D.Double(x, y0, dayWidth, (timeToPixel(event.getEnd()) - timeToPixel(event.getStart())));
+            Rectangle2D rect = new Rectangle2D.Double(x, y0, dayWidth,
+                    (timeToPixel(event.getEnd()) - timeToPixel(event.getStart())));
             Color origColor = g2.getColor();
             g2.setColor(event.getColor());
             g2.fill(rect);
@@ -406,7 +416,7 @@ public abstract class Calendar extends JComponent {
 
     // Repaints every minute to update the current time line
     private void setupTimer() {
-        Timer timer = new Timer(1000*60, e -> repaint());
+        Timer timer = new Timer(1000 * 60, e -> repaint());
         timer.start();
     }
 
@@ -438,22 +448,44 @@ public abstract class Calendar extends JComponent {
         setFont(font);
     }
 
-
     public void setFontType(String type) {
         Font font = getFont();
         font = new Font(type, font.getStyle(), font.getSize());
         setFont(font);
     }
-//This method is use to check if there is any event that is passed according to the current time.
+
+    // This method is use to check if there is any event that is passed according to
+    // the current time.
     public ArrayList<CalendarEvent> getEventAlreadyPassed() {
         ArrayList<CalendarEvent> eventPassedAlready = new ArrayList<>();
         LocalDate DateOfToday = LocalDate.now();
-        for (CalendarEvent eventpassed : events) {
 
+        // HashMap to store the count of repetitions of each event that has passed
+        HashMap<String, Integer> eventRepetitionsPassedCount = new HashMap<>();
+
+        for (CalendarEvent eventpassed : events) {
             if (eventpassed.getDate().isBefore(DateOfToday)) {
-                eventPassedAlready.add(eventpassed);
+                String eventName = eventpassed.getText();
+
+                // Increment the count of repetitions for the event
+                eventRepetitionsPassedCount.put(eventName, eventRepetitionsPassedCount.getOrDefault(eventName, 0) + 1);
             }
         }
+
+        // Iterate through the events again to check if all repetitions have passed
+        for (CalendarEvent event : events) {
+            String eventName = event.getText();
+
+            if (eventRepetitionsPassedCount.getOrDefault(eventName, 0) > 0) {
+                // All repetitions of the event have passed, so add it to the eventPassedAlready
+                // list
+                eventPassedAlready.add(event);
+
+                // Reset the count for this event, so it is not added again
+                eventRepetitionsPassedCount.put(eventName, 0);
+            }
+        }
+
         return eventPassedAlready;
     }
 
