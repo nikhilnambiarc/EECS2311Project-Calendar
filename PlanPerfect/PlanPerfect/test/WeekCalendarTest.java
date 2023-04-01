@@ -1,6 +1,5 @@
 import com.Calendar;
 import com.CalendarEvent;
-import com.TimeSlot;
 import com.WeekCalendar;
 import java.sql.*;
 import javax.swing.*;
@@ -8,12 +7,6 @@ import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-// import java.com.Calendar;
-import javax.imageio.ImageIO;
-
 
 public class WeekCalendarTest {
 	public static void main(String[] args) {
@@ -22,7 +15,6 @@ public class WeekCalendarTest {
         frm.setTitle("Plan Perfect");
 
 		ArrayList<CalendarEvent> events = new ArrayList<>();
-
 		 
         String url = "jdbc:mysql://localhost:3306/CA_Public_Holidays"; 
 		String user = "root";
@@ -111,7 +103,6 @@ public class WeekCalendarTest {
 		// events.add(new CalendarEvent(LocalDate.of(2016, 11, 18), LocalTime.of(9, 30), LocalTime.of(10, 00), "Test 18/11 9:30-10:00"));
 		// events.add(new CalendarEvent(LocalDate.of(2016, 11, 18), LocalTime.of(16, 00), LocalTime.of(16, 45), "Test 18/11 16:00-16:45"));
 
-
 		WeekCalendar cal = new WeekCalendar(events);
 		
 
@@ -137,13 +128,18 @@ public class WeekCalendarTest {
 		// prevMonthBtn.addActionListener(e -> cal.prevMonth());
 
 
-
 //This is setting button, inside that button we are giving user to customize different things
 		JButton SettingsButton = new JButton("Settings");
 		SettingsButton.addActionListener(e -> {
+<<<<<<< HEAD
 	  Object[] GivenOptions = {"Font Type", "Font Size","Export"};
 	  int Choosedchoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
 	  if (Choosedchoice == 1) {
+=======
+	  Object[] GivenOptions = {"Font Type", "Font Size", "Theme"};
+	  int choosenChoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
+	  if (choosenChoice  == 1) {
+>>>>>>> parent of 0e8ab66 (Merge branch 'main' into Nikhil)
 		  String[] fontsizes = {"10", "12", "14", "16", "18"};
 		  String Size = (String) JOptionPane.showInputDialog(frm, "Select the font size", "Font Sizes", JOptionPane.PLAIN_MESSAGE, null, fontsizes, fontsizes[0]);
 		  if (Size != null) {
@@ -156,6 +152,7 @@ public class WeekCalendarTest {
 		  if (Type != null) {
 			  cal.setFontType(Type);
 		  }
+<<<<<<< HEAD
 	  }else if (Choosedchoice == 2) {
         BufferedImage image = new BufferedImage(frm.getWidth(), frm.getHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = image.createGraphics();
@@ -174,6 +171,20 @@ public class WeekCalendarTest {
             ex.printStackTrace();
         }
     }
+=======
+	  }
+	  else if (choosenChoice  == 2) {
+		String[] themes = {"Dark", "Light"};
+
+		String theme = (String) JOptionPane.showInputDialog(frm, "Select theme", "Theme: ", JOptionPane.PLAIN_MESSAGE, null, themes, themes[0]);
+		
+		if(theme != null) {
+			//cal.setCalendarTheme(theme);
+			
+		}
+	  }
+
+>>>>>>> parent of 0e8ab66 (Merge branch 'main' into Nikhil)
   });
 		//This button display the event that is passed
 		JButton EventsPassedButton = new JButton("Completed Events");
@@ -182,8 +193,7 @@ public class WeekCalendarTest {
    
 		   //Check if there is any event added that is passed.
 		   if (EventsPassed.isEmpty()) {
-			   JOptionPane.showMessageDialog(frm, "NO EVENT/REMINDERS PASSED");
-			   
+			   JOptionPane.showMessageDialog(frm, "NO EVENT PASSED");
 		   } else {
    
 			   StringBuilder stringBuilder = new StringBuilder();
@@ -191,10 +201,11 @@ public class WeekCalendarTest {
 				   stringBuilder.append(event.toString()).append("\n");
 			   }
 			   //Display this message at the end
-			   JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events/Reminders", JOptionPane.PLAIN_MESSAGE);
+			   JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events", JOptionPane.PLAIN_MESSAGE);
 		   }
 		});
 
+<<<<<<< HEAD
 		//This button is use to add the event
 		JButton ADD_EVENT_BUTTON = new JButton("Add Event");
 
@@ -345,11 +356,14 @@ public class WeekCalendarTest {
 		weekControls.add(ADD_EVENT_BUTTON); //Adding "ADD_EVENT_BUTTON" in the GUI
 		weekControls.add(DELETE_EVENT_BUTTON);//Adding "DELETE_EVENT_BUTTON" in the GUI
 		weekControls.add(EventsPassedButton); //Adding "Completed Events" in the GUI
+=======
+>>>>>>> parent of 0e8ab66 (Merge branch 'main' into Nikhil)
 		
-		//weekControls.add(prevMonthBtn);
+		weekControls.add(EventsPassedButton); //Adding "Completed Events" in the GUI
 		weekControls.add(prevWeekBtn);
 		weekControls.add(goToTodayBtn);
 		weekControls.add(nextWeekBtn);
+<<<<<<< HEAD
 		//weekControls.add(nextMonthBtn);
 		
 		
@@ -358,9 +372,10 @@ public class WeekCalendarTest {
 		weekControls.add(goToTodayBtn);
 		weekControls.add(nextWeekBtn);
 
+=======
+>>>>>>> parent of 0e8ab66 (Merge branch 'main' into Nikhil)
 		weekControls.add(SettingsButton);
       
-
 
 		frm.add(weekControls, BorderLayout.NORTH);
 		
@@ -370,7 +385,5 @@ public class WeekCalendarTest {
 		frm.setVisible(true);
 		//frm.add(new JScrollPane(), BorderLayout.CENTER);
 		frm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-		
 	}
 }
