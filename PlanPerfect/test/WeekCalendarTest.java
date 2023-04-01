@@ -49,8 +49,7 @@ public class WeekCalendarTest {
 
 				events.add(new CalendarEvent(LocalDate.of(year, month, day), LocalTime.of(8, 0), LocalTime.of(8, 20),
 						holiday_Name));
-				// System.out.println(holiday_id + ", " + holiday_Name + ", " + day + ", " +
-				// month + ", " + year);
+				
 			}
 
 		} catch (SQLException e) {
