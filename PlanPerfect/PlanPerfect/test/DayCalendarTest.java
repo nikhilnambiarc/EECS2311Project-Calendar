@@ -20,31 +20,27 @@ public class DayCalendarTest {
 		String user = "root";
 		String password = "EECS2311"; // replace ... with your password 
 		
-		try{
-			
-            String query = "SELECT * FROM 2023_Holidays;"; // replace ... with the correct query
-			Connection con = DriverManager.getConnection(url, user, password);
-			Statement statement = con.createStatement();
-			ResultSet result = statement.executeQuery(query);
-
-			while (result.next()) { 
-
-				String holiday_Name = result.getString("Holiday_Name");
-				int day = result.getInt("day");
-                int month = result.getInt("month");
-                int year = result.getInt("year");
-
-
-				events.add(new CalendarEvent(LocalDate.of(year, month, day), LocalTime.of(8, 0), LocalTime.of(8, 20), holiday_Name));
-				//System.out.println(holiday_id + ", " + holiday_Name + ", " + day + ", " + month + ", " + year);
+		try (Connection con = DriverManager.getConnection(url, user, password)) {
+			String[] queries = {"SELECT * FROM 2023_Holidays;", "SELECT * FROM 2024_Holidays;", "SELECT * FROM 2025_Holidays;"};
+		
+			for (String query : queries) {
+				try (Statement statement = con.createStatement(); ResultSet result = statement.executeQuery(query)) {
+					while (result.next()) { 
+						String holiday_Name = result.getString("Holiday_Name");
+						int day = result.getInt("day");
+						int month = result.getInt("month");
+						int year = result.getInt("year");
+		
+						events.add(new CalendarEvent(LocalDate.of(year, month, day), LocalTime.of(8, 0), LocalTime.of(8, 20), holiday_Name));
+					}
+				}
 			}
-
-
 		} catch (SQLException e) { 
 			e.printStackTrace();
 		}
 <<<<<<< HEAD
 
+<<<<<<< HEAD
 
 		try{
 			
@@ -100,6 +96,8 @@ public class DayCalendarTest {
 
 =======
 >>>>>>> parent of 0e8ab66 (Merge branch 'main' into Nikhil)
+=======
+>>>>>>> parent of 02b992d (Revert "Merge pull request #28 from nikhilnambiarc/Nikhil")
         
         DayCalendar cal = new DayCalendar(events);
         ImageIcon imageIcon = new ImageIcon("path/to/image.jpg");
@@ -165,24 +163,37 @@ public class DayCalendarTest {
 		
 
 		
-        JButton SettingsButton = new JButton("Settings");
-        SettingsButton.addActionListener(e -> {
-    Object[] GivenOptions = {"Font Type", "Font Size"};
-    int Choosedchoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
-    if (Choosedchoice == 1) {
-        String[] fontsizes = {"10", "12", "14", "16", "18"};
-        String Size = (String) JOptionPane.showInputDialog(frm, "Select the font size", "Font Sizes", JOptionPane.PLAIN_MESSAGE, null, fontsizes, fontsizes[0]);
-        if (Size != null) {
-            cal.setFontSize(Integer.parseInt(Size));
-        }
-    } else if (Choosedchoice == 0) {
-        String[] fontTypes = {"Arial","Times New Roman", "Helvetica", "Courier New", "Verdana", "Lucida Console","Tahoma","Georgia" };
-       
-        String Type = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fontTypes, fontTypes[0]);
-        if (Type != null) {
-            cal.setFontType(Type);
-        }
-    }
+//This is setting button, inside that button we are giving user to customize different things
+JButton SettingsButton = new JButton("Settings");
+SettingsButton.addActionListener(e -> {
+Object[] GivenOptions = {"Font Type", "Font Size", "Theme"};
+int choosenChoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
+if (choosenChoice  == 1) {
+  String[] fontsizes = {"10", "12", "14", "16", "18"};
+  String Size = (String) JOptionPane.showInputDialog(frm, "Select the font size", "Font Sizes", JOptionPane.PLAIN_MESSAGE, null, fontsizes, fontsizes[0]);
+  if (Size != null) {
+      cal.setFontSize(Integer.parseInt(Size));
+      
+  }
+} 
+else if (choosenChoice  == 0) {
+  String[] fontTypes = {"Arial","Times New Roman", "Helvetica", "Courier New", "Verdana", "Lucida Console","Tahoma","Georgia" };
+ 
+  String Type = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fontTypes, fontTypes[0]);
+  if (Type != null) {
+      cal.setFontType(Type);
+  }
+}
+else if (choosenChoice  == 2) {
+String[] themes = {"Dark", "Light"};
+
+String theme = (String) JOptionPane.showInputDialog(frm, "Select theme", "Theme: ", JOptionPane.PLAIN_MESSAGE, null, themes, themes[0]);
+
+if(theme != null) {
+  //  cal.setCalendarTheme(theme);
+}
+}
+
 });
 
 
@@ -224,7 +235,7 @@ public class DayCalendarTest {
 
 
 		frm.add(cal, BorderLayout.CENTER);
-		frm.setSize(1000, 2000);
+		frm.setSize(800, 800);
 		frm.setVisible(true);
 		frm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
