@@ -83,13 +83,13 @@ public class CalendarEvent {
     public Color getColor() {
         return color;
     }
-<<<<<<< HEAD:PlanPerfect/PlanPerfect/src/com/CalendarEvent.java
+
     public boolean getEndsBefore(LocalTime time) {
         return this.getEnd().isBefore(time);
     }
     
     
-=======
+
 
     public String getGoal() {
         return goal;
@@ -98,7 +98,6 @@ public class CalendarEvent {
     public void setGoal(String goal) {
         this.goal = goal;
     }
->>>>>>> parent of 5a054d5 (Merge branch 'main' into Adil):PlanPerfect/src/com/CalendarEvent.java
 
     @Override
     public boolean equals(Object o) {
