@@ -2,8 +2,12 @@ package com;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 
@@ -38,6 +42,7 @@ public class CalendarEvent {
         this.text = text;
         this.color = color;
     }
+
 
     public LocalDate getDate() {
         return date;
@@ -78,7 +83,11 @@ public class CalendarEvent {
     public Color getColor() {
         return color;
     }
-
+    public boolean getEndsBefore(LocalTime time) {
+        return this.getEnd().isBefore(time);
+    }
+    
+    
 
     @Override
     public boolean equals(Object o) {
@@ -100,7 +109,7 @@ public class CalendarEvent {
         result = 31 * result + end.hashCode();
         return result;
     }
-
+  
 
 public class CalendarEventEditor extends JFrame {
 
@@ -190,4 +199,16 @@ public class CalendarEventEditor extends JFrame {
         dispose();
     }
 }
+
+
+public boolean check_Conflict(CalendarEvent newEvent) {
+    if (!date.equals(newEvent.date)) {
+        return false;
+    }
+    if (end.isBefore(newEvent.start) || start.isAfter(newEvent.end)) {
+        return false;
+    }
+        return true;
+    }
+
 }
