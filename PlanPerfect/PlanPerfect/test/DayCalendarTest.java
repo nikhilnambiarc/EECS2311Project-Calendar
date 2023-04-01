@@ -7,10 +7,15 @@ import java.awt.*;
 import java.time.*;
 import java.time.format.DateTimeParseException;
 import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 
 public class DayCalendarTest {
     public static void main(String[] args) {
-        
+        new MainFrame();
+
         JFrame frm = new JFrame();
         frm.setTitle("Plan Perfect");
 
@@ -239,5 +244,38 @@ if(theme != null) {
 		frm.setVisible(true);
 		frm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
+    public class MainFrame extends JFrame implements ActionListener {
+
+        private JButton downloadButton;
+    
+        public MainFrame() {
+            super("Download Button Example");
+    
+            downloadButton = new JButton("Download");
+            downloadButton.addActionListener(this);
+    
+            add(downloadButton);
+    
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            pack();
+            setLocationRelativeTo(null);
+            setVisible(true);
+        }
+    
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == downloadButton) {
+                Download.downloadFile();
+            }
+        }
+    
+
+    }
+    
+    class Download {
+        public static void downloadFile() {
+            // code to download the file goes here
+            System.out.println("File download initiated.");
+        }
+    }
 
 }
