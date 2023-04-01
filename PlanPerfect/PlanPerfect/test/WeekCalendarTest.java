@@ -171,6 +171,7 @@ public class WeekCalendarTest {
             ex.printStackTrace();
         }
     }
+<<<<<<< HEAD
 =======
 	  }
 	  else if (choosenChoice  == 2) {
@@ -299,6 +300,32 @@ public class WeekCalendarTest {
                 }); 
 
 
+=======
+  });
+		//This button display the event that is passed
+		JButton EventsPassedButton = new JButton("Completed Events");
+		EventsPassedButton.addActionListener(e -> {
+		   ArrayList<CalendarEvent> EventsPassed = cal.getEventAlreadyPassed();
+   
+		   //Check if there is any event added that is passed.
+		   if (EventsPassed.isEmpty()) {
+			   JOptionPane.showMessageDialog(frm, "NO EVENT/REMINDERS PASSED");
+			   
+		   } else {
+   
+			   StringBuilder stringBuilder = new StringBuilder();
+			   for (CalendarEvent event : EventsPassed) {
+				   stringBuilder.append(event.toString()).append("\n");
+			   }
+			   //Display this message at the end
+			   JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events/Reminders", JOptionPane.PLAIN_MESSAGE);
+		   }
+		});
+
+		//This button is use to add the event
+		JButton ADD_EVENT_BUTTON = new JButton("Add Event");
+
+>>>>>>> parent of 95dcca6 (Merge pull request #22 from nikhilnambiarc/Yaqub)
 			//Adding Action Listner
    		 ADD_EVENT_BUTTON.addActionListener(e -> {
     	//Giving user differnet options to input
@@ -335,7 +362,10 @@ public class WeekCalendarTest {
 		cal.repaint(); //Repaint the Calendar to dispalthe event directly
 }
 });
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 95dcca6 (Merge pull request #22 from nikhilnambiarc/Yaqub)
 		JButton DELETE_EVENT_BUTTON = new JButton("Delete Event");
 		DELETE_EVENT_BUTTON.addActionListener(e -> {
    		 JTextField EnterName = new JTextField(30);
@@ -356,8 +386,11 @@ public class WeekCalendarTest {
 		weekControls.add(ADD_EVENT_BUTTON); //Adding "ADD_EVENT_BUTTON" in the GUI
 		weekControls.add(DELETE_EVENT_BUTTON);//Adding "DELETE_EVENT_BUTTON" in the GUI
 		weekControls.add(EventsPassedButton); //Adding "Completed Events" in the GUI
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 0e8ab66 (Merge branch 'main' into Nikhil)
+=======
+>>>>>>> parent of 95dcca6 (Merge pull request #22 from nikhilnambiarc/Yaqub)
 		
 		weekControls.add(EventsPassedButton); //Adding "Completed Events" in the GUI
 		weekControls.add(prevWeekBtn);
