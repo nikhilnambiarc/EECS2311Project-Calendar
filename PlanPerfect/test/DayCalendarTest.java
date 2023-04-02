@@ -13,6 +13,10 @@ import java.awt.*;
 import java.time.*;
 import java.time.format.DateTimeParseException;
 import java.util.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.util.List;
@@ -59,7 +63,7 @@ public class DayCalendarTest {
             }
         };
 
-        ImageIcon imageIcon = new ImageIcon("path/to/image.jpg");
+       // ImageIcon imageIcon = new ImageIcon("path/to/image.jpg");
 
         // Add a Calendar
         AddDeleteEditDayCalendar addACalendar = new AddDeleteEditDayCalendar(events, cal);
@@ -186,26 +190,46 @@ public class DayCalendarTest {
 
         JButton SettingsButton = new JButton("Settings");
         SettingsButton.addActionListener(e -> {
-            Object[] GivenOptions = {"Font Type", "Font Size"};
-            int Choosedchoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
+            Object[] GivenOptions = {"Font Type", "Font Size","Export"};
+	  int Choosedchoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
        
             if (Choosedchoice == 1) {
                 String[] fontsizes = {"10", "12", "14", "16", "18"};
                 String Size = (String) JOptionPane.showInputDialog(frm, "Select the font size", "Font Sizes", JOptionPane.PLAIN_MESSAGE, null, fontsizes, fontsizes[0]);
        
                 if (Size != null) {
-                    addACalendar.setAllCalendarsFontSize(Integer.parseInt(Size));
+					addACalendar.setAllCalendarsFontSize(Integer.parseInt(Size));
                     reminderPanel.setFontSize(Integer.parseInt(Size));
                 }
-                } else if (Choosedchoice == 0) {
+            } 
+			else if (Choosedchoice == 0) {
                 String[] fontTypes = {"Arial","Times New Roman", "Helvetica", "Courier New", "Verdana", "Lucida Console","Tahoma","Georgia" };
       
                 String Type = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fontTypes, fontTypes[0]);
                 if (Type != null) {
-                    addACalendar.setAllCalendarsFontType(Type);
+					addACalendar.setAllCalendarsFontType(Type);
                     reminderPanel.setFontType(Type);
                 }
             }
+
+			else if (Choosedchoice == 2) {
+				BufferedImage image = new BufferedImage(frm.getWidth(), frm.getHeight(), BufferedImage.TYPE_INT_RGB);
+				Graphics2D g2d = image.createGraphics();
+				
+				// Render the calendar to the image
+				frm.paint(g2d);
+				
+				// Dispose of the Graphics2D object to free up resources
+				g2d.dispose();
+				
+				// Save the image to a file
+				try {
+					File output = new File("calendar.png");
+					ImageIO.write(image, "png", output);
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
         }); 
 
         //This button display the event that is passed
@@ -227,105 +251,86 @@ public class DayCalendarTest {
             }
         });
            
-        //This button is use to add the event
-		JButton ADD_EVENT_BUTTON = new JButton("Add Event");
+        JButton EventsButton = new JButton("Events");
 
-        //Adding Action Listner
-        ADD_EVENT_BUTTON.addActionListener(e -> {
-            //Giving user different options to input
-            JTextField EventName = new JTextField(20);
-            JTextField Day = new JTextField(10);
-            JTextField start_Time = new JTextField(6);
-            JTextField end_Time = new JTextField(6);
-            JLabel repeatLabel = new JLabel("Repeat:");
+		EventsButton.addActionListener(e -> {
+		  Object[] GivenOptions = {"Completed Events", "Add Events","Delete Event"};
+		  int Choosedchoice = JOptionPane.showOptionDialog(frm, "", "Events", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
+		  if (Choosedchoice == 0) {
+			
+			  //Display completed events
+	  
+			ArrayList<CalendarEvent> EventsPassed = cal.getEventAlreadyPassed();
+			if (EventsPassed.isEmpty()) {
+				JOptionPane.showMessageDialog(frm, "NO EVENT/REMINDERS PASSED");
+			} else {
+				StringBuilder stringBuilder = new StringBuilder();
+				for (CalendarEvent event : EventsPassed) {
+					stringBuilder.append(event.toString()).append("\n");
+				}
+				JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events/Reminders", JOptionPane.PLAIN_MESSAGE);
+			}
+		  }else if (Choosedchoice == 1) {
+			//Add new event
+			JTextField EventName = new JTextField(20);
+			JTextField Day = new JTextField(10);
+			JTextField start_Time = new JTextField(6);
+			JTextField end_Time = new JTextField(6);
+			JTextField location= new JTextField(20);
+			JLabel repeatLabel = new JLabel("Repeat:");
             JLabel endDateLabel = new JLabel("End Date (Format: YYYY-MM-DD)");
             JTextField endDateField = new JTextField(10);
-            JPanel AddEvent_panel = new JPanel(new GridLayout(0, 2));//Set up the grid layout
+			JPanel AddEvent_panel = new JPanel(new GridLayout(0, 2));
 
-            JTextField goalField = new JTextField(20);
-            
+			JTextField goalField = new JTextField(20);
+
             // Repeat events options and labels
             String[] repeatOptions = { "Never", "Every Day", "Every 2 Days", "Every Week", "Every 2 Weeks",
                     "Every Month", "Every Year" };
             JComboBox<String> repeatDropdown = new JComboBox<>(repeatOptions);
-                    
-            AddEvent_panel.add(new JLabel("Name"));
-            AddEvent_panel.add(EventName);
-            AddEvent_panel.add(new JLabel("Year/Month/Day (Format: YYYY-MM-DD)"));
-            AddEvent_panel.add(Day);
-            AddEvent_panel.add(new JLabel("Start Time (Format: HH:mm)"));
-            AddEvent_panel.add(start_Time);
-            AddEvent_panel.add(new JLabel("End Time (Format: HH:mm)"));
-            AddEvent_panel.add(end_Time);
-            AddEvent_panel.add(repeatLabel);
-            AddEvent_panel.add(repeatDropdown);
-            AddEvent_panel.add(endDateLabel);
-            AddEvent_panel.add(endDateField);
-            AddEvent_panel.add(new JLabel("My Goal"));
-            AddEvent_panel.add(goalField);
-            //Tiltle of the panel and and too close the panel
-    
-            int Display = JOptionPane.showConfirmDialog(null, AddEvent_panel, "Add the Event",
-            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-    
-            if (Display == JOptionPane.OK_OPTION) {
-                try {
-                    String name = EventName.getText();
-                    LocalDate startDate = LocalDate.parse(Day.getText());
-                    LocalTime startTime = LocalTime.parse(start_Time.getText());
-                    LocalTime endTime = LocalTime.parse(end_Time.getText());
-                    RepeatingEventGenerator.RepeatOption repeatOption = RepeatingEventGenerator.repeatOptionFromString(
-                            (String) repeatDropdown.getSelectedItem());
-                    LocalDate endDate = null;
-                    try {
-                        endDate = LocalDate.parse(endDateField.getText());
-                    } catch (DateTimeParseException ex) {
-                        // Ignore exception if no end date is provided
-                    }
 
-                    List<CalendarEvent> newEvents = RepeatingEventGenerator.generateRepeatingEvents(
-                            new CalendarEvent(startDate, startTime, endTime, name), repeatOption, endDate);
 
-                    cal.addEvents(newEvents);
-                    events.addAll(newEvents);
+			AddEvent_panel.add(new JLabel("Name"));
+			AddEvent_panel.add(EventName);
+			AddEvent_panel.add(new JLabel("Year/Month/Day (Format: YYYY-MM-DD)"));
+			AddEvent_panel.add(Day);
+			AddEvent_panel.add(new JLabel("Start Time (Format: HH:mm)"));
+			AddEvent_panel.add(start_Time);
+			AddEvent_panel.add(new JLabel("End Time (Format: HH:mm)"));
+			AddEvent_panel.add(end_Time);
+			AddEvent_panel.add(new JLabel("Location of Event"));
+			AddEvent_panel.add(location);
 
-                    for (CalendarEvent newEvent : newEvents) {
-                        String goal = goalField.getText();
-
-                        newEvent.setGoal(goal); // Set the goal for each new event
-                    }
-
-                    cal.repaint();
-                    cal.revalidate();
-
-                } catch (DateTimeParseException ex) {
-                    JOptionPane.showMessageDialog(null, "Invalid date or time format");
-                }
-            }
-        });
-
-        JButton DELETE_EVENT_BUTTON = new JButton("Delete Event");
-        
-        DELETE_EVENT_BUTTON.addActionListener(e -> {
-            JTextField EnterName = new JTextField(30);
-            JPanel DELETE_EVENT_Panel = new JPanel(new GridLayout(1, 1));
-            DELETE_EVENT_Panel.add(new JLabel("Enter Event Name to Delete: "));
-            DELETE_EVENT_Panel.add(EnterName);
-
-            int Result = JOptionPane.showConfirmDialog(null, DELETE_EVENT_Panel, "Delete the Event",
-            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-        
-            if (Result == JOptionPane.OK_OPTION) {
-                String NAME_OF_EVENT = EnterName.getText();
-                events.removeIf(event -> event.getText().equals(NAME_OF_EVENT));
-                cal.repaint(); //To display the result on GUI
-            }
-        });
+			int Display = JOptionPane.showConfirmDialog(null, AddEvent_panel, "Add the Event",
+				JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			if (Display == JOptionPane.OK_OPTION) {
+				String name = EventName.getText();
+				LocalDate startDate = LocalDate.parse(Day.getText());
+				LocalTime startTime = LocalTime.parse(start_Time.getText());
+				LocalTime endTime = LocalTime.parse(end_Time.getText());
+				CalendarEvent newEvent = new CalendarEvent(startDate, startTime, endTime, name);
+				events.add(newEvent);
+				cal.repaint();
+			}
+		  }else if (Choosedchoice == 2) {
+			//Delete event
+			JTextField EnterName = new JTextField(30);
+			JPanel DELETE_EVENT_Panel = new JPanel(new GridLayout(1, 1));
+			DELETE_EVENT_Panel.add(new JLabel("Enter Event Name to Delete: "));
+			DELETE_EVENT_Panel.add(EnterName);
+			int Result = JOptionPane.showConfirmDialog(null, DELETE_EVENT_Panel, "Delete the Event",
+				JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			if (Result == JOptionPane.OK_OPTION) {
+				String NAME_OF_EVENT = EnterName.getText();
+				events.removeIf(event -> event.getText().equals(NAME_OF_EVENT));
+				cal.repaint();
+			}
+		  }
+		});
 
 		JPanel weekControls = new JPanel();
-        weekControls.add(ADD_EVENT_BUTTON); //Adding "ADD_EVENT_BUTTON" in the GUI
-        weekControls.add(DELETE_EVENT_BUTTON);//Adding "DELETE_EVENT_BUTTON" in the GUI
-        weekControls.add(EventsPassedButton); //Adding "Completed Events" in the GUI
+        
+        weekControls.add(EventsButton); //Adding "Completed Events" in the GUI
 		weekControls.add(prevDayBtn);
 		weekControls.add(goToTodayBtn);
 		weekControls.add(nextDayBtn);
