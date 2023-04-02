@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-// import java.com.Calendar;
 import javax.imageio.ImageIO;
 
 
@@ -102,14 +101,6 @@ public class WeekCalendarTest {
 		} catch (SQLException e) { 
 			e.printStackTrace();
 		}
-		//events.add(new CalendarEvent(LocalDate.of(2023, 03, 8), LocalTime.of(10, 0), LocalTime.of(14, 20), "Test 11/11 14:00-14:20"));
-		// events.add(new CalendarEvent(LocalDate.of(2016, 11, 14), LocalTime.of(9, 0), LocalTime.of(9, 20), "Test 14/11 9:00-9:20"));
-		// events.add(new CalendarEvent(LocalDate.of(2016, 11, 15), LocalTime.of(12, 0), LocalTime.of(13, 20), "Test 15/11 12:00-13:20"));
-		// events.add(new CalendarEvent(LocalDate.of(2016, 11, 16), LocalTime.of(9, 0), LocalTime.of(9, 20), "Test 16/11 9:00-9:20"));
-		// events.add(new CalendarEvent(LocalDate.of(2016, 11, 17), LocalTime.of(12, 15), LocalTime.of(14, 20), "Test 17/11 12:15-14:20"));
-		// events.add(new CalendarEvent(LocalDate.of(2016, 11, 18), LocalTime.of(9, 30), LocalTime.of(10, 00), "Test 18/11 9:30-10:00"));
-		// events.add(new CalendarEvent(LocalDate.of(2016, 11, 18), LocalTime.of(16, 00), LocalTime.of(16, 45), "Test 18/11 16:00-16:45"));
-
 
 		WeekCalendar cal = new WeekCalendar(events);
 		
@@ -128,14 +119,6 @@ public class WeekCalendarTest {
 
 		JButton prevWeekBtn = new JButton("<");
 		prevWeekBtn.addActionListener(e -> cal.prevWeek());
-
-		// JButton nextMonthBtn = new JButton(">>");
-		// nextMonthBtn.addActionListener(e -> cal.nextMonth());
-
-		// JButton prevMonthBtn = new JButton("<<");
-		// prevMonthBtn.addActionListener(e -> cal.prevMonth());
-
-
 
 //This is setting button, inside that button we are giving user to customize different things
 		JButton SettingsButton = new JButton("Settings");
@@ -276,7 +259,6 @@ public class WeekCalendarTest {
 		frm.add(cal, BorderLayout.CENTER);
 		frm.setSize(1000, 1000);
 		frm.setVisible(true);
-		//frm.add(new JScrollPane(), BorderLayout.CENTER);
 		frm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 		
