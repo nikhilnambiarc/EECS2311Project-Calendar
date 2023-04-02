@@ -79,7 +79,7 @@ public class WeekCalendarTest {
 			  
 		  }
 	  } 
-	  else if (choosenChoice  == 0) {
+	  else if (Choosedchoice  == 0) {
 		  String[] fontTypes = {"Arial","Times New Roman", "Helvetica", "Courier New", "Verdana", "Lucida Console","Tahoma","Georgia" };
 		 
 		  String Type = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fontTypes, fontTypes[0]);
@@ -183,7 +183,7 @@ public class WeekCalendarTest {
     }
 });
 
-		JPanel weekControls = new JPanel();
+		
 		weekControls.add(ADD_EVENT_BUTTON); //Adding "ADD_EVENT_BUTTON" in the GUI
 		weekControls.add(DELETE_EVENT_BUTTON);//Adding "DELETE_EVENT_BUTTON" in the GUI
 		weekControls.add(EventsPassedButton); //Adding "Completed Events" in the GUI
