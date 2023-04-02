@@ -198,8 +198,8 @@ public class WeekCalendarTest {
 		// different things
         JButton SettingsButton = new JButton("Settings");
         SettingsButton.addActionListener(e -> {
-            Object[] GivenOptions = {"Font Type", "Font Size"};
-            int Choosedchoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
+            Object[] GivenOptions = {"Font Type", "Font Size","Export"};
+	  int Choosedchoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
        
             if (Choosedchoice == 1) {
                 String[] fontsizes = {"10", "12", "14", "16", "18"};
@@ -209,7 +209,8 @@ public class WeekCalendarTest {
 					addACalendar.setAllCalendarsFontSize(Integer.parseInt(Size));
                     reminderPanel.setFontSize(Integer.parseInt(Size));
                 }
-                } else if (Choosedchoice == 0) {
+            } 
+			else if (Choosedchoice == 0) {
                 String[] fontTypes = {"Arial","Times New Roman", "Helvetica", "Courier New", "Verdana", "Lucida Console","Tahoma","Georgia" };
       
                 String Type = (String) JOptionPane.showInputDialog(frm, "Select Font Type", "Font Type", JOptionPane.PLAIN_MESSAGE, null, fontTypes, fontTypes[0]);
@@ -218,6 +219,25 @@ public class WeekCalendarTest {
                     reminderPanel.setFontType(Type);
                 }
             }
+
+			else if (Choosedchoice == 2) {
+				BufferedImage image = new BufferedImage(frm.getWidth(), frm.getHeight(), BufferedImage.TYPE_INT_RGB);
+				Graphics2D g2d = image.createGraphics();
+				
+				// Render the calendar to the image
+				frm.paint(g2d);
+				
+				// Dispose of the Graphics2D object to free up resources
+				g2d.dispose();
+				
+				// Save the image to a file
+				try {
+					File output = new File("calendar.png");
+					ImageIO.write(image, "png", output);
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
         }); 
 
 		// This button display the event that is passed
