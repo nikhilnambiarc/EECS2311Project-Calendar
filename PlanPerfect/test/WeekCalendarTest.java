@@ -45,7 +45,7 @@ public class WeekCalendarTest {
                         int month = result.getInt("month");
                         int year = result.getInt("year");
         
-                        events.add(new CalendarEvent(LocalDate.of(year, month, day), LocalTime.of(8, 0), LocalTime.of(8, 20), holiday_Name));
+                        events.add(new CalendarEvent(LocalDate.of(year, month, day), LocalTime.of(1, 0), LocalTime.of(2, 0), holiday_Name));
                     }
                 }
             }
