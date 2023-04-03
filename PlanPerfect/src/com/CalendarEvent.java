@@ -198,7 +198,7 @@ public class CalendarEventEditor extends JFrame {
         event.setStart(start);
         event.setEnd(end);
 
-        // TODO: Save the event to a data store or perform any necessary actions here
+       
         System.out.println("Event saved: " + event.toString());
 
         dispose();
@@ -206,17 +206,17 @@ public class CalendarEventEditor extends JFrame {
 }
 
 public boolean check_Conflict(CalendarEvent newEvent) {
-    if (!date.equals(newEvent.date)) {
-        return false;
-    }
-    if (end.equals(newEvent.start) || start.equals(newEvent.end)) {
-        return false;
-    }
-    if (end.isBefore(newEvent.start) || start.isAfter(newEvent.end)) {
-        return false;
-    }
-    return true;
-}
+       if (!date.equals(newEvent.date)) {
+           return false;
+       }
+       if (end.equals(newEvent.start) || start.equals(newEvent.end)) {
+           return false;
+       }
+       if (end.isBefore(newEvent.start) || start.isAfter(newEvent.end)) {
+           return false;
+       }
+       return true;
+   }
 
     
 }
