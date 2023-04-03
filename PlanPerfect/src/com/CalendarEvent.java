@@ -209,10 +209,14 @@ public boolean check_Conflict(CalendarEvent newEvent) {
     if (!date.equals(newEvent.date)) {
         return false;
     }
+    if (end.equals(newEvent.start) || start.equals(newEvent.end)) {
+        return false;
+    }
     if (end.isBefore(newEvent.start) || start.isAfter(newEvent.end)) {
         return false;
     }
-        return true;
-    }
+    return true;
+}
+
     
 }
