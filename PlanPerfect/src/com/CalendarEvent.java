@@ -3,8 +3,11 @@ package com;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
+import java.time.Duration;
 import java.time.LocalTime;
 import javax.swing.*;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 
 public class CalendarEvent {
 
@@ -85,6 +88,10 @@ public class CalendarEvent {
 
     public void setGoal(String goal) {
         this.goal = goal;
+    }
+
+    public boolean getEndsBefore(LocalTime time) {
+        return this.getEnd().isBefore(time);
     }
 
     @Override
@@ -197,4 +204,15 @@ public class CalendarEventEditor extends JFrame {
         dispose();
     }
 }
+
+public boolean check_Conflict(CalendarEvent newEvent) {
+    if (!date.equals(newEvent.date)) {
+        return false;
+    }
+    if (end.isBefore(newEvent.start) || start.isAfter(newEvent.end)) {
+        return false;
+    }
+        return true;
+    }
+    
 }

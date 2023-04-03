@@ -6,6 +6,7 @@ import com.ReminderPanel;
 import com.ReminderDialog;
 import com.Reminder;
 import com.RepeatingEventGenerator;
+import com.TimeSlot;
 
 import java.sql.*;
 import javax.swing.*;
@@ -277,17 +278,10 @@ public class DayCalendarTest {
 			JTextField start_Time = new JTextField(6);
 			JTextField end_Time = new JTextField(6);
 			JTextField location= new JTextField(20);
-			JLabel repeatLabel = new JLabel("Repeat:");
-            JLabel endDateLabel = new JLabel("End Date (Format: YYYY-MM-DD)");
-            JTextField endDateField = new JTextField(10);
+			
 			JPanel AddEvent_panel = new JPanel(new GridLayout(0, 2));
 
-			JTextField goalField = new JTextField(20);
-
-            // Repeat events options and labels
-            String[] repeatOptions = { "Never", "Every Day", "Every 2 Days", "Every Week", "Every 2 Weeks",
-                    "Every Month", "Every Year" };
-            JComboBox<String> repeatDropdown = new JComboBox<>(repeatOptions);
+	
 
 
 			AddEvent_panel.add(new JLabel("Name"));
@@ -301,17 +295,69 @@ public class DayCalendarTest {
 			AddEvent_panel.add(new JLabel("Location of Event"));
 			AddEvent_panel.add(location);
 
-			int Display = JOptionPane.showConfirmDialog(null, AddEvent_panel, "Add the Event",
-				JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			int Display = JOptionPane.showConfirmDialog(null, AddEvent_panel, "Add the Event", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 			if (Display == JOptionPane.OK_OPTION) {
 				String name = EventName.getText();
 				LocalDate startDate = LocalDate.parse(Day.getText());
 				LocalTime startTime = LocalTime.parse(start_Time.getText());
 				LocalTime endTime = LocalTime.parse(end_Time.getText());
-				CalendarEvent newEvent = new CalendarEvent(startDate, startTime, endTime, name);
-				events.add(newEvent);
-				cal.repaint();
-			}
+				CalendarEvent Event = new CalendarEvent(startDate, startTime, endTime, name);
+
+
+// Check for conflicts if there are events in the array
+boolean Event_conflict = false;
+for (CalendarEvent event : events) {
+	if (event.check_Conflict(Event)) {
+		Event_conflict = true;
+		break;
+	}
+}
+
+//if the conflict is occurring then display message and break otherwise set the event
+if (Event_conflict) {
+	// Display message with conflicting events
+	StringBuilder sb = new StringBuilder();
+	sb.append("The event conflicts with the following existing events:\n");
+	for (CalendarEvent event : events) {
+		if (event.check_Conflict(Event)) {
+			sb.append(event.toString()).append("\n");
+		}
+	}
+	sb.append("Please choose a different time slot.\n");
+			
+	// Show the message dialog
+	JOptionPane.showMessageDialog(null, sb.toString(), "Event Conflict", JOptionPane.ERROR_MESSAGE);
+			
+	// Determine available time slots
+	ArrayList<TimeSlot> availableSlots = new ArrayList<>();
+	for (int i = 0; i < events.size() - 1; i++) {
+		CalendarEvent currEvent = events.get(i);
+		CalendarEvent nextEvent = events.get(i + 1);
+		if (currEvent.getEndsBefore(nextEvent.getStart())) {
+			TimeSlot slot = new TimeSlot(currEvent.getEnd(), nextEvent.getStart());
+			availableSlots.add(slot);
+		}
+	}
+	if (!availableSlots.isEmpty()) {
+		// Display message with available time slots
+		sb = new StringBuilder();
+		sb.append("Available time slots:\n");
+		for (TimeSlot slot : availableSlots) {
+			sb.append(slot.getStart().toString()).append(" - ").append(slot.getEnd().toString()).append("\n");
+		}
+		System.out.println("Available time slots message:\n" + sb.toString());
+		JOptionPane.showMessageDialog(null, sb.toString(), "Available Time Slots", JOptionPane.INFORMATION_MESSAGE);
+	}
+	return;
+}
+
+	else {
+                    // Add event to array and repaint calendar
+                    events.add(Event);
+                    cal.repaint();
+                    return;
+                }
+				
 		  }else if (Choosedchoice == 2) {
 			//Delete event
 			JTextField EnterName = new JTextField(30);
@@ -326,6 +372,7 @@ public class DayCalendarTest {
 				cal.repaint();
 			}
 		  }
+        }
 		});
 
 		JPanel weekControls = new JPanel();
