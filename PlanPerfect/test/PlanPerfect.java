@@ -879,7 +879,7 @@ public class PlanPerfect {
         });
 
 
-        frame.getContentPane().add(buttonsPanel);
+        frame.getContentPane().add(buttonsPanel, BorderLayout.NORTH);
         frame.setSize(1000, 2000);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
