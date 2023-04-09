@@ -3,11 +3,8 @@ package com;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
-import java.time.Duration;
 import java.time.LocalTime;
 import javax.swing.*;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 
 public class CalendarEvent {
 
@@ -203,7 +200,7 @@ public class CalendarEvent {
             event.setStart(start);
             event.setEnd(end);
 
-            // TODO: Save the event to a data store or perform any necessary actions here
+            
             System.out.println("Event saved: " + event.toString());
 
             dispose();
