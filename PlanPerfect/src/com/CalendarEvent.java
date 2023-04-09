@@ -96,13 +96,17 @@ public class CalendarEvent {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         CalendarEvent that = (CalendarEvent) o;
 
-        if (!date.equals(that.date)) return false;
-        if (!start.equals(that.start)) return false;
+        if (!date.equals(that.date))
+            return false;
+        if (!start.equals(that.start))
+            return false;
         return end.equals(that.end);
 
     }
@@ -115,108 +119,108 @@ public class CalendarEvent {
         return result;
     }
 
+    public class CalendarEventEditor extends JFrame {
 
-public class CalendarEventEditor extends JFrame {
+        private CalendarEvent event;
 
-    private CalendarEvent event;
+        private JTextField dateField;
+        private JTextField startField;
+        private JTextField endField;
+        private JComboBox<String> formatBox;
+        private JButton saveButton;
+        private JButton cancelButton;
 
-    private JTextField dateField;
-    private JTextField startField;
-    private JTextField endField;
-    private JComboBox<String> formatBox;
-    private JButton saveButton;
-    private JButton cancelButton;
-
-    public CalendarEventEditor(CalendarEvent event) {
-        super("Edit Event");
-        this.event = event;
-        initComponents();
-    }
-
-    private void initComponents() {
-        dateField = new JTextField(10);
-        dateField.setText(event.getDate().toString());
-        startField = new JTextField(5);
-        startField.setText(event.getStart().toString());
-        endField = new JTextField(5);
-        endField.setText(event.getEnd().toString());
-        formatBox = new JComboBox<>(new String[] {"12-hour", "24-hour"});
-        saveButton = new JButton("Save");
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                saveEvent();
-            }
-        });
-        cancelButton = new JButton("Cancel");
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
-
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(5, 5, 5, 5);
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        inputPanel.add(new JLabel("Date:"), constraints);
-        constraints.gridx = 1;
-        inputPanel.add(dateField, constraints);
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        inputPanel.add(new JLabel("Start Time:"), constraints);
-        constraints.gridx = 1;
-        inputPanel.add(startField, constraints);
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        inputPanel.add(new JLabel("End Time:"), constraints);
-        constraints.gridx = 1;
-        inputPanel.add(endField, constraints);
-        constraints.gridx = 0;
-        constraints.gridy = 3;
-        inputPanel.add(new JLabel("Format:"), constraints);
-        constraints.gridx = 1;
-        inputPanel.add(formatBox, constraints);
-}
-
-    private void saveEvent() {
-        LocalDate date = LocalDate.parse(dateField.getText());
-        LocalTime start = LocalTime.parse(startField.getText());
-        LocalTime end = LocalTime.parse(endField.getText());
-        String format = (String) formatBox.getSelectedItem();
-
-        // Convert time format to 24-hour if necessary
-        if (format.equals("12-hour")) {
-            start = start.withHour(start.getHour() + (start.getHour() < 12 ? 12 : 0));
-            end = end.withHour(end.getHour() + (end.getHour() < 12 ? 12 : 0));
+        public CalendarEventEditor(CalendarEvent event) {
+            super("Edit Event");
+            this.event = event;
+            initComponents();
         }
 
-        event.setDate(date);
-        event.setStart(start);
-        event.setEnd(end);
+        private void initComponents() {
+            dateField = new JTextField(10);
+            dateField.setText(event.getDate().toString());
+            startField = new JTextField(5);
+            startField.setText(event.getStart().toString());
+            endField = new JTextField(5);
+            endField.setText(event.getEnd().toString());
+            formatBox = new JComboBox<>(new String[] { "12-hour", "24-hour" });
+            saveButton = new JButton("Save");
+            saveButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    saveEvent();
+                }
+            });
+            cancelButton = new JButton("Cancel");
+            cancelButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    dispose();
+                }
+            });
 
        
         System.out.println("Event saved: " + event.toString());
+            JPanel inputPanel = new JPanel();
+            inputPanel.setLayout(new GridBagLayout());
+            GridBagConstraints constraints = new GridBagConstraints();
+            constraints.insets = new Insets(5, 5, 5, 5);
+            constraints.gridx = 0;
+            constraints.gridy = 0;
+            inputPanel.add(new JLabel("Date:"), constraints);
+            constraints.gridx = 1;
+            inputPanel.add(dateField, constraints);
+            constraints.gridx = 0;
+            constraints.gridy = 1;
+            inputPanel.add(new JLabel("Start Time:"), constraints);
+            constraints.gridx = 1;
+            inputPanel.add(startField, constraints);
+            constraints.gridx = 0;
+            constraints.gridy = 2;
+            inputPanel.add(new JLabel("End Time:"), constraints);
+            constraints.gridx = 1;
+            inputPanel.add(endField, constraints);
+            constraints.gridx = 0;
+            constraints.gridy = 3;
+            inputPanel.add(new JLabel("Format:"), constraints);
+            constraints.gridx = 1;
+            inputPanel.add(formatBox, constraints);
+        }
 
-        dispose();
+        private void saveEvent() {
+            LocalDate date = LocalDate.parse(dateField.getText());
+            LocalTime start = LocalTime.parse(startField.getText());
+            LocalTime end = LocalTime.parse(endField.getText());
+            String format = (String) formatBox.getSelectedItem();
+
+            // Convert time format to 24-hour if necessary
+            if (format.equals("12-hour")) {
+                start = start.withHour(start.getHour() + (start.getHour() < 12 ? 12 : 0));
+                end = end.withHour(end.getHour() + (end.getHour() < 12 ? 12 : 0));
+            }
+
+            event.setDate(date);
+            event.setStart(start);
+            event.setEnd(end);
+
+            // TODO: Save the event to a data store or perform any necessary actions here
+            System.out.println("Event saved: " + event.toString());
+
+            dispose();
+        }
     }
-}
 
-public boolean check_Conflict(CalendarEvent newEvent) {
-       if (!date.equals(newEvent.date)) {
-           return false;
-       }
-       if (end.equals(newEvent.start) || start.equals(newEvent.end)) {
-           return false;
-       }
-       if (end.isBefore(newEvent.start) || start.isAfter(newEvent.end)) {
-           return false;
-       }
-       return true;
-   }
+    public boolean check_Conflict(CalendarEvent newEvent) {
+        if (!date.equals(newEvent.date)) {
+            return false;
+        }
+        if (end.equals(newEvent.start) || start.equals(newEvent.end)) {
+            return false;
+        }
+        if (end.isBefore(newEvent.start) || start.isAfter(newEvent.end)) {
+            return false;
+        }
+        return true;
+    }
 
-    
 }

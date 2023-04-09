@@ -53,7 +53,7 @@ public class DayCalendarTest {
         }
         
         DayCalendar cal = new DayCalendar(events);
-        
+
         JTabbedPane mainTabbedPane = new JTabbedPane() {
             @Override
             public void setSelectedIndex(int index) {
@@ -71,30 +71,30 @@ public class DayCalendarTest {
         addACalendar.setAllCalendarsFontSize(14);
         addACalendar.setAllCalendarsFontType("Arial");
         mainTabbedPane.addTab("Calendar", addACalendar);
-       
+
         // Reminder Panel
         ReminderPanel reminderPanel = new ReminderPanel();
         reminderPanel.setFontSize(14);
         reminderPanel.setFontType("Arial");
         mainTabbedPane.addTab("Reminders", reminderPanel);
-       
+
         // Add & Delete Calendars
         JPanel buttonPanel = new JPanel();
         JButton addCalendarButton = new JButton("Add a Calendar");
         JButton deleteCalendarButton = new JButton("Delete a Calendar");
-        
+
         // Add a Reminder
         JButton addReminderButton = new JButton("Add a Reminder");
-       
+
         // Add buttons to panel
         buttonPanel.add(addCalendarButton);
         buttonPanel.add(deleteCalendarButton);
-        
+
         // Reminder Button Panel
         JPanel reminderButtonPanel = new JPanel();
         reminderButtonPanel.add(addReminderButton);
         reminderButtonPanel.setVisible(false);
- 
+
         // Edit Reminder
         JButton editReminderButton = new JButton("Edit a Reminder");
         reminderButtonPanel.add(editReminderButton);
@@ -102,16 +102,16 @@ public class DayCalendarTest {
         // Edit Reminder Functionality
         editReminderButton.addActionListener(e -> {
             String reminderName = JOptionPane.showInputDialog(frm, "Enter the name of the reminder to edit:");
-       
+
             if (reminderName != null) {
                 Reminder reminderToEdit = reminderPanel.getReminderByName(reminderName);
-       
+
                 if (reminderToEdit != null) {
                     ReminderDialog reminderDialog = new ReminderDialog(frm);
                     reminderDialog.setReminder(reminderToEdit);
                     reminderDialog.setVisible(true);
                     Reminder updatedReminder = reminderDialog.getReminder();
-       
+
                     if (updatedReminder != null) {
                         reminderPanel.updateReminder(reminderToEdit, updatedReminder);
                     }
@@ -120,14 +120,15 @@ public class DayCalendarTest {
                 }
             }
         });
- 
+
         // Delete Reminder
         JButton deleteReminderButton = new JButton("Delete a Reminder");
         reminderButtonPanel.add(deleteReminderButton);
- 
+
         // Delete Reminder Functionality
         deleteReminderButton.addActionListener(e -> {
-            String reminderName = JOptionPane.showInputDialog(frm, "Enter the name of the reminder to delete:", "Delete Reminder", JOptionPane.QUESTION_MESSAGE);
+            String reminderName = JOptionPane.showInputDialog(frm, "Enter the name of the reminder to delete:",
+                    "Delete Reminder", JOptionPane.QUESTION_MESSAGE);
             if (reminderName != null && !reminderName.isEmpty()) {
                 Reminder reminderToDelete = reminderPanel.getReminderByName(reminderName);
                 if (reminderToDelete != null) {
@@ -136,11 +137,11 @@ public class DayCalendarTest {
                     JOptionPane.showMessageDialog(frm, "Reminder not found.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        });    
- 
+        });
+
         // Add Reminder Deleteing and Editing Buttons to Reminders Tab
         frm.getContentPane().add(reminderButtonPanel, BorderLayout.SOUTH);
-       
+
         // Add Reminder Functionality
         addReminderButton.addActionListener(e -> {
             ReminderDialog reminderDialog = new ReminderDialog(frm);
@@ -150,10 +151,10 @@ public class DayCalendarTest {
                 reminderPanel.addReminder(newReminder);
             }
         });
-       
+
         // Add Reminder Adding to Reminders Tab
         frm.getContentPane().add(buttonPanel, BorderLayout.NORTH);
-       
+
         // Close visibility of reminder buttons when on Calendar Tab
         mainTabbedPane.addChangeListener(new ChangeListener() {
             @Override
@@ -167,15 +168,15 @@ public class DayCalendarTest {
                 }
             }
         });
-       
-        frm.getContentPane().add(mainTabbedPane, BorderLayout.CENTER); 
- 
+
+        frm.getContentPane().add(mainTabbedPane, BorderLayout.CENTER);
+
         cal.addCalendarEventClickListener(e -> System.out.println(e.getCalendarEvent()));
         cal.addCalendarEmptyClickListener(e -> {
             System.out.println(e.getDateTime());
             System.out.println(Calendar.roundTime(e.getDateTime().toLocalTime(), 30));
-        }); 
-       
+        });
+
         JButton goToTodayBtn = new JButton("Today");
         goToTodayBtn.addActionListener(e -> cal.goToToday());
 
@@ -195,9 +196,10 @@ public class DayCalendarTest {
 	  int Choosedchoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
        
             if (Choosedchoice == 1) {
-                String[] fontsizes = {"10", "12", "14", "16", "18"};
-                String Size = (String) JOptionPane.showInputDialog(frm, "Select the font size", "Font Sizes", JOptionPane.PLAIN_MESSAGE, null, fontsizes, fontsizes[0]);
-       
+                String[] fontsizes = { "10", "12", "14", "16", "18" };
+                String Size = (String) JOptionPane.showInputDialog(frm, "Select the font size", "Font Sizes",
+                        JOptionPane.PLAIN_MESSAGE, null, fontsizes, fontsizes[0]);
+
                 if (Size != null) {
 					addACalendar.setAllCalendarsFontSize(Integer.parseInt(Size));
                     reminderPanel.setFontSize(Integer.parseInt(Size));
@@ -233,13 +235,15 @@ public class DayCalendarTest {
 			}
         }); 
 
-        //This button display the event that is passed
+            
+
+        // This button display the event that is passed
         JButton EventsPassedButton = new JButton("Completed Events");
-        
+
         EventsPassedButton.addActionListener(e -> {
             ArrayList<CalendarEvent> EventsPassed = cal.getEventAlreadyPassed();
 
-            //Check if there is any event added that is passed.
+            // Check if there is any event added that is passed.
             if (EventsPassed.isEmpty()) {
                 JOptionPane.showMessageDialog(frm, "NO EVENT/REMINDERS PASSED");
             } else {
@@ -247,8 +251,9 @@ public class DayCalendarTest {
                 for (CalendarEvent event : EventsPassed) {
                     stringBuilder.append(event.toString()).append("\n");
                 }
-                //Display this message at the end
-                JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events/Reminders", JOptionPane.PLAIN_MESSAGE);
+                // Display this message at the end
+                JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events/Reminders",
+                        JOptionPane.PLAIN_MESSAGE);
             }
         });
            

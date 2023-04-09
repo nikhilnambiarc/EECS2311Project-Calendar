@@ -150,7 +150,7 @@ public class WeekCalendarTest {
 				reminderPanel.addReminder(newReminder);
 			}
 		});
-	
+
 		// Add Reminder Adding to Reminders Tab
 		frm.getContentPane().add(buttonPanel, BorderLayout.NORTH);
 
