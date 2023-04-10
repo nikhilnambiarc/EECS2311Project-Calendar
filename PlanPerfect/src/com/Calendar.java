@@ -31,7 +31,7 @@ public abstract class Calendar extends JComponent {
 //MIN_HEIGHT: a constant integer value that represents the minimum height of the calendar.
     protected static final int HEADER_HEIGHT = 30;
     //HEADER_HEIGHT: a constant integer value that represents the height of the header
-    protected static final int TIME_COL_WIDTH = 100;
+    public static final int TIME_COL_WIDTH = 100;
     //TIME_COL_WIDTH: a constant integer value that represents the width of the time column
     JFrame frm = new JFrame();
 //frm: an instance of the "JFrame" class from the "javax.swing" package that is used to create the calendar window

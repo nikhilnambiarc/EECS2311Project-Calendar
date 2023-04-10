@@ -6,7 +6,7 @@ import java.util.*;
 
 public class DayCalendar extends Calendar {
 
-    private LocalDate calDate;
+    public LocalDate calDate;
 
     public DayCalendar(ArrayList<CalendarEvent> events) {
         super(events);
@@ -14,37 +14,37 @@ public class DayCalendar extends Calendar {
     }
 
     @Override
-    protected boolean dateInRange(LocalDate date) {
+    public boolean dateInRange(LocalDate date) {
         return calDate.equals(date);
     }
 
     @Override
-    protected LocalDate getDateFromDay(DayOfWeek day) {
+    public LocalDate getDateFromDay(DayOfWeek day) {
         return calDate;
     }
 
     @Override
-    protected int numDaysToShow() {
+    public int numDaysToShow() {
         return 1;
     }
 
     @Override
-    protected DayOfWeek getStartDay() {
+    public DayOfWeek getStartDay() {
         return calDate.getDayOfWeek();
     }
 
     @Override
-    protected DayOfWeek getEndDay() {
+    public DayOfWeek getEndDay() {
         return calDate.getDayOfWeek();
     }
 
     @Override
-    protected void setRangeToToday() {
+    public void setRangeToToday() {
         calDate = LocalDate.now();
     }
 
     @Override
-    protected double dayToPixel(DayOfWeek dayOfWeek) {
+    public double dayToPixel(DayOfWeek dayOfWeek) {
         return TIME_COL_WIDTH;
     }
 
