@@ -1,7 +1,7 @@
 import com.Calendar;
 import com.CalendarEvent;
-import com.WeekCalendar;
-import com.AddDeleteEditWeekCalendar;
+import com.DayCalendar;
+import com.AddDeleteEditDayCalendar;
 import com.ReminderPanel;
 import com.ReminderDialog;
 import com.Reminder;
@@ -22,15 +22,14 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.util.List;
 
-public class WeekCalendarTest {
-	public static void main(String[] args) {
-
-		JFrame frm = new JFrame();
-		frm.setTitle("Plan Perfect");
+public class DayView {
+    public static void main(String[] args) {
+        JFrame frm = new JFrame();
+        frm.setTitle("Plan Perfect");
 
 		ArrayList<CalendarEvent> events = new ArrayList<>();
-
-		String url = "jdbc:mysql://localhost:3306/CA_Public_Holidays"; 
+        
+        String url = "jdbc:mysql://localhost:3306/CA_Public_Holidays"; 
         String user = "root";
         String password = "EECS2311"; // replace ... with your password 
         
@@ -52,160 +51,155 @@ public class WeekCalendarTest {
         } catch (SQLException e) { 
             e.printStackTrace();
         }
+        
+        DayCalendar cal = new DayCalendar(events);
 
-		WeekCalendar cal = new WeekCalendar(events);
+        JTabbedPane mainTabbedPane = new JTabbedPane() {
+            @Override
+            public void setSelectedIndex(int index) {
+                super.setSelectedIndex(index);
+                for (int i = 0; i < getTabCount(); i++) {
+                    setForegroundAt(i, Color.BLACK);
+                }
+            }
+        };
 
-		JTabbedPane mainTabbedPane = new JTabbedPane() {
-			@Override
-			public void setSelectedIndex(int index) {
-				super.setSelectedIndex(index);
-				for (int i = 0; i < getTabCount(); i++) {
-					setForegroundAt(i, Color.BLACK);
-				}
-			}
-		};
+       // ImageIcon imageIcon = new ImageIcon("path/to/image.jpg");
 
-		// Add a Calendar
-		AddDeleteEditWeekCalendar addACalendar = new AddDeleteEditWeekCalendar(events, cal);
-		addACalendar.setAllCalendarsFontSize(14);
-		addACalendar.setAllCalendarsFontType("Arial");
-		mainTabbedPane.addTab("Calendar", addACalendar);
+        // Add a Calendar
+        AddDeleteEditDayCalendar addACalendar = new AddDeleteEditDayCalendar(events, cal);
+        addACalendar.setAllCalendarsFontSize(14);
+        addACalendar.setAllCalendarsFontType("Arial");
+        mainTabbedPane.addTab("Calendar", addACalendar);
 
-		// Reminder Panel
-		ReminderPanel reminderPanel = new ReminderPanel();
-		reminderPanel.setFontSize(14);
-		reminderPanel.setFontType("Arial");
-		mainTabbedPane.addTab("Reminders", reminderPanel);
+        // Reminder Panel
+        ReminderPanel reminderPanel = new ReminderPanel();
+        reminderPanel.setFontSize(14);
+        reminderPanel.setFontType("Arial");
+        mainTabbedPane.addTab("Reminders", reminderPanel);
 
-		// Add & Delete Calendars
-		JPanel buttonPanel = new JPanel();
-		JButton addCalendarButton = new JButton("Add a Calendar");
-		JButton deleteCalendarButton = new JButton("Delete a Calendar");
+        // Add & Delete Calendars
+        JPanel buttonPanel = new JPanel();
+        JButton addCalendarButton = new JButton("Add a Calendar");
+        JButton deleteCalendarButton = new JButton("Delete a Calendar");
 
-		// Add a Reminder
-		JButton addReminderButton = new JButton("Add a Reminder");
+        // Add a Reminder
+        JButton addReminderButton = new JButton("Add a Reminder");
 
-		// Add buttons to panel
-		buttonPanel.add(addCalendarButton);
-		buttonPanel.add(deleteCalendarButton);
+        // Add buttons to panel
+        buttonPanel.add(addCalendarButton);
+        buttonPanel.add(deleteCalendarButton);
 
-		// Reminder Button Panel
-		JPanel reminderButtonPanel = new JPanel();
-		reminderButtonPanel.add(addReminderButton);
-		reminderButtonPanel.setVisible(false);
+        // Reminder Button Panel
+        JPanel reminderButtonPanel = new JPanel();
+        reminderButtonPanel.add(addReminderButton);
+        reminderButtonPanel.setVisible(false);
 
-		// Edit Reminder
-		JButton editReminderButton = new JButton("Edit a Reminder");
-		reminderButtonPanel.add(editReminderButton);
+        // Edit Reminder
+        JButton editReminderButton = new JButton("Edit a Reminder");
+        reminderButtonPanel.add(editReminderButton);
 
-		// Edit Reminder Functionality
-		editReminderButton.addActionListener(e -> {
-			String reminderName = JOptionPane.showInputDialog(frm, "Enter the name of the reminder to edit:");
+        // Edit Reminder Functionality
+        editReminderButton.addActionListener(e -> {
+            String reminderName = JOptionPane.showInputDialog(frm, "Enter the name of the reminder to edit:");
 
-			if (reminderName != null) {
-				Reminder reminderToEdit = reminderPanel.getReminderByName(reminderName);
+            if (reminderName != null) {
+                Reminder reminderToEdit = reminderPanel.getReminderByName(reminderName);
 
-				if (reminderToEdit != null) {
-					ReminderDialog reminderDialog = new ReminderDialog(frm);
-					reminderDialog.setReminder(reminderToEdit);
-					reminderDialog.setVisible(true);
-					Reminder updatedReminder = reminderDialog.getReminder();
+                if (reminderToEdit != null) {
+                    ReminderDialog reminderDialog = new ReminderDialog(frm);
+                    reminderDialog.setReminder(reminderToEdit);
+                    reminderDialog.setVisible(true);
+                    Reminder updatedReminder = reminderDialog.getReminder();
 
-					if (updatedReminder != null) {
-						reminderPanel.updateReminder(reminderToEdit, updatedReminder);
-					}
-				} else {
-					JOptionPane.showMessageDialog(frm, "Reminder not found.", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
+                    if (updatedReminder != null) {
+                        reminderPanel.updateReminder(reminderToEdit, updatedReminder);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(frm, "Reminder not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
-		// Delete Reminder
-		JButton deleteReminderButton = new JButton("Delete a Reminder");
-		reminderButtonPanel.add(deleteReminderButton);
+        // Delete Reminder
+        JButton deleteReminderButton = new JButton("Delete a Reminder");
+        reminderButtonPanel.add(deleteReminderButton);
 
-		// Delete Reminder Functionality
-		deleteReminderButton.addActionListener(e -> {
-			String reminderName = JOptionPane.showInputDialog(frm, "Enter the name of the reminder to delete:",
-					"Delete Reminder", JOptionPane.QUESTION_MESSAGE);
-			if (reminderName != null && !reminderName.isEmpty()) {
-				Reminder reminderToDelete = reminderPanel.getReminderByName(reminderName);
-				if (reminderToDelete != null) {
-					reminderPanel.deleteReminder(reminderToDelete);
-				} else {
-					JOptionPane.showMessageDialog(frm, "Reminder not found.", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
+        // Delete Reminder Functionality
+        deleteReminderButton.addActionListener(e -> {
+            String reminderName = JOptionPane.showInputDialog(frm, "Enter the name of the reminder to delete:",
+                    "Delete Reminder", JOptionPane.QUESTION_MESSAGE);
+            if (reminderName != null && !reminderName.isEmpty()) {
+                Reminder reminderToDelete = reminderPanel.getReminderByName(reminderName);
+                if (reminderToDelete != null) {
+                    reminderPanel.deleteReminder(reminderToDelete);
+                } else {
+                    JOptionPane.showMessageDialog(frm, "Reminder not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
-		// Add Reminder Deleteing and Editing Buttons to Reminders Tab
-		frm.getContentPane().add(reminderButtonPanel, BorderLayout.SOUTH);
+        // Add Reminder Deleteing and Editing Buttons to Reminders Tab
+        frm.getContentPane().add(reminderButtonPanel, BorderLayout.SOUTH);
 
-		// Add Reminder Functionality
-		addReminderButton.addActionListener(e -> {
-			ReminderDialog reminderDialog = new ReminderDialog(frm);
-			reminderDialog.setVisible(true);
-			Reminder newReminder = reminderDialog.getReminder();
-			if (newReminder != null) {
-				reminderPanel.addReminder(newReminder);
-			}
-		});
+        // Add Reminder Functionality
+        addReminderButton.addActionListener(e -> {
+            ReminderDialog reminderDialog = new ReminderDialog(frm);
+            reminderDialog.setVisible(true);
+            Reminder newReminder = reminderDialog.getReminder();
+            if (newReminder != null) {
+                reminderPanel.addReminder(newReminder);
+            }
+        });
 
-		// Add Reminder Adding to Reminders Tab
-		frm.getContentPane().add(buttonPanel, BorderLayout.NORTH);
+        // Add Reminder Adding to Reminders Tab
+        frm.getContentPane().add(buttonPanel, BorderLayout.NORTH);
 
-		// Close visibility of reminder buttons when on Calendar Tab
-		mainTabbedPane.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				if (mainTabbedPane.getSelectedIndex() == 0) {
-					buttonPanel.setVisible(true);
-					reminderButtonPanel.setVisible(false);
-				} else {
-					buttonPanel.setVisible(false);
-					reminderButtonPanel.setVisible(true);
-				}
-			}
-		});
+        // Close visibility of reminder buttons when on Calendar Tab
+        mainTabbedPane.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (mainTabbedPane.getSelectedIndex() == 0) {
+                    buttonPanel.setVisible(true);
+                    reminderButtonPanel.setVisible(false);
+                } else {
+                    buttonPanel.setVisible(false);
+                    reminderButtonPanel.setVisible(true);
+                }
+            }
+        });
 
-		frm.getContentPane().add(mainTabbedPane, BorderLayout.CENTER);
+        frm.getContentPane().add(mainTabbedPane, BorderLayout.CENTER);
 
-		cal.addCalendarEventClickListener(e -> System.out.println(e.getCalendarEvent()));
-		cal.addCalendarEmptyClickListener(e -> {
-			System.out.println(e.getDateTime());
-			System.out.println(Calendar.roundTime(e.getDateTime().toLocalTime(), 30));
-		});
+        cal.addCalendarEventClickListener(e -> System.out.println(e.getCalendarEvent()));
+        cal.addCalendarEmptyClickListener(e -> {
+            System.out.println(e.getDateTime());
+            System.out.println(Calendar.roundTime(e.getDateTime().toLocalTime(), 30));
+        });
 
-		JButton goToTodayBtn = new JButton("Today");
-		goToTodayBtn.addActionListener(e -> cal.goToToday());
+        JButton goToTodayBtn = new JButton("Today");
+        goToTodayBtn.addActionListener(e -> cal.goToToday());
 
-		JButton nextWeekBtn = new JButton(">");
-		nextWeekBtn.addActionListener(e -> cal.nextWeek());
+        JButton nextDayBtn = new JButton(">");
+        nextDayBtn.addActionListener(e -> cal.nextDay());
 
-		JButton prevWeekBtn = new JButton("<");
-		prevWeekBtn.addActionListener(e -> cal.prevWeek());
+        JButton prevDayBtn = new JButton("<");
+        prevDayBtn.addActionListener(e -> cal.prevDay());
 
-		addACalendar.addGoToTodayListener(goToTodayBtn);
-		addACalendar.addNextDayListener(nextWeekBtn);
-		addACalendar.addPrevDayListener(prevWeekBtn);
+        addACalendar.addGoToTodayListener(goToTodayBtn);
+        addACalendar.addNextDayListener(nextDayBtn);
+        addACalendar.addPrevDayListener(prevDayBtn);
 
-		// JButton nextMonthBtn = new JButton(">>");
-		// nextMonthBtn.addActionListener(e -> cal.nextMonth());
-
-		// JButton prevMonthBtn = new JButton("<<");
-		// prevMonthBtn.addActionListener(e -> cal.prevMonth());
-
-		// This is setting button, inside that button we are giving user to customize
-		// different things
         JButton SettingsButton = new JButton("Settings");
         SettingsButton.addActionListener(e -> {
             Object[] GivenOptions = {"Font Type", "Font Size","Export"};
 	  int Choosedchoice = JOptionPane.showOptionDialog(frm, "", "Settings", JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null, GivenOptions,GivenOptions[0]);
        
             if (Choosedchoice == 1) {
-                String[] fontsizes = {"10", "12", "14", "16", "18"};
-                String Size = (String) JOptionPane.showInputDialog(frm, "Select the font size", "Font Sizes", JOptionPane.PLAIN_MESSAGE, null, fontsizes, fontsizes[0]);
-       
+                String[] fontsizes = { "10", "12", "14", "16", "18" };
+                String Size = (String) JOptionPane.showInputDialog(frm, "Select the font size", "Font Sizes",
+                        JOptionPane.PLAIN_MESSAGE, null, fontsizes, fontsizes[0]);
+
                 if (Size != null) {
 					addACalendar.setAllCalendarsFontSize(Integer.parseInt(Size));
                     reminderPanel.setFontSize(Integer.parseInt(Size));
@@ -241,8 +235,29 @@ public class WeekCalendarTest {
 			}
         }); 
 
-		
-		JButton EventsButton = new JButton("Events");
+            
+
+        // This button display the event that is passed
+        JButton EventsPassedButton = new JButton("Completed Events");
+
+        EventsPassedButton.addActionListener(e -> {
+            ArrayList<CalendarEvent> EventsPassed = cal.getEventAlreadyPassed();
+
+            // Check if there is any event added that is passed.
+            if (EventsPassed.isEmpty()) {
+                JOptionPane.showMessageDialog(frm, "NO EVENT/REMINDERS PASSED");
+            } else {
+                StringBuilder stringBuilder = new StringBuilder();
+                for (CalendarEvent event : EventsPassed) {
+                    stringBuilder.append(event.toString()).append("\n");
+                }
+                // Display this message at the end
+                JOptionPane.showMessageDialog(frm, stringBuilder.toString(), "Passed Events/Reminders",
+                        JOptionPane.PLAIN_MESSAGE);
+            }
+        });
+           
+        JButton EventsButton = new JButton("Events");
 
         EventsButton.addActionListener(e -> {
             Object[] GivenOptions = { "Completed Events", "Add Events", "Delete Event" };
@@ -400,33 +415,18 @@ public class WeekCalendarTest {
                 }
             }
         });
-		
-	  
-			  JPanel weekControls = new JPanel();
-			  
-			  weekControls.add(EventsButton); 
-			  
-			  
-			  weekControls.add(prevWeekBtn);
-			  weekControls.add(goToTodayBtn);
-			  weekControls.add(nextWeekBtn);
-			  
-			  
-			  
-	  
-			  weekControls.add(SettingsButton);
-			
-	  
-	  
-			  frm.add(weekControls, BorderLayout.NORTH);
-			  
-	  
+
+		JPanel weekControls = new JPanel();
+        
+        weekControls.add(EventsButton); //Adding "Completed Events" in the GUI
+		weekControls.add(prevDayBtn);
+		weekControls.add(goToTodayBtn);
+		weekControls.add(nextDayBtn);
+		weekControls.add(SettingsButton);
+
 		frm.add(weekControls, BorderLayout.NORTH);
-        frm.setSize(1000, 1000);
-        frm.setVisible(true);
-        // frm.add(new JScrollPane(), BorderLayout.CENTER);
-        frm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-			  
-		  }
-		  
+		frm.setSize(1000, 2000);
+		frm.setVisible(true);
+		frm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	}
 }
