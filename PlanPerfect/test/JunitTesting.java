@@ -1,21 +1,13 @@
 import static org.junit.Assert.*;
-import java.util.*;
-import javax.swing.*;
+import org.junit.Before;
 import org.junit.Test;
 import com.*;
 import com.Calendar;
-import com.CalendarEvent;
-import com.WeekCalendar;
-
-import java.awt.Component;
-import java.awt.GridLayout;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-
-import javax.swing.JButton;
 
 public class JunitTesting {
 
@@ -159,7 +151,46 @@ public class JunitTesting {
         calendar.updateAndRepaint();
     }
 
+    private Reminder reminder;
 
+    @Before
+    public void setUp() throws Exception {
+        reminder = new Reminder("Do laundry", LocalDateTime.of(2023, 4, 15, 12, 0));
+    }
+
+    @Test
+    public void testGetName() {
+        assertEquals("Do laundry", reminder.getName());
+    }
+
+    @Test
+    public void testSetName() {
+        reminder.setName("Buy groceries");
+        assertEquals("Buy groceries", reminder.getName());
+    }
+
+    @Test
+    public void testGetDateTime() {
+        assertEquals(LocalDateTime.of(2023, 4, 15, 12, 0), reminder.getDateTime());
+    }
+
+    @Test
+    public void testSetDateTime() {
+        LocalDateTime newDateTime = LocalDateTime.of(2023, 4, 16, 10, 0);
+        reminder.setDateTime(newDateTime);
+        assertEquals(newDateTime, reminder.getDateTime());
+    }
+
+    @Test
+    public void testIsCompleted() {
+        assertFalse(reminder.isCompleted());
+    }
+
+    @Test
+    public void testSetCompleted() {
+        reminder.setCompleted(true);
+        assertTrue(reminder.isCompleted());
+    }
 
 
 
