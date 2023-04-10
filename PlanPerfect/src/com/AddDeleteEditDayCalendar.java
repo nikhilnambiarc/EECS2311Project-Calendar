@@ -6,13 +6,20 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class AddDeleteEditDayCalendar extends JPanel {
+      // declare fields
    private JTabbedPane tabbedPane;
+   
    private ArrayList<DayCalendar> calendars;
+   
    private ArrayList<CalendarEvent> events;
-
+   //"tabbedPane" is a JTabbedPane object that is used to display the calendars
+   //"calendars" is an ArrayList that stores all the DayCalendar objects.
+   //"events" is an ArrayList of CalendarEvent objects that is passed in to the constructor
+   
    public AddDeleteEditDayCalendar(ArrayList<CalendarEvent> events, DayCalendar initialCalendar) {
        super(new BorderLayout());
        this.events = events;
+      //constructor takes in two parameters, the events and the initialCalendar, and sets up the layout of the panel
        tabbedPane = new JTabbedPane();
        calendars = new ArrayList<>();
        addCalendar("Calendar");
