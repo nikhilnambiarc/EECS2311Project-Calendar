@@ -16,43 +16,51 @@ import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Locale;
-
+//code represents an abstract class "Calendar" which extends the JComponent class 
+// has various instance variables, methods and constructors
 public abstract class Calendar extends JComponent {
-
+//START_TIME: a constant of type "LocalTime" that is set to 00:00 (midnight)
     protected static final LocalTime START_TIME = LocalTime.of(0, 0);
-
+//The class "Calendar" is an abstract class, meaning it cannot be instantiated but can be inherited by other classes 
+    //that provide their own implementation for the abstract methods in the "Calendar" class
     protected static final LocalTime END_TIME = LocalTime.of(22, 59);
-
+//END_TIME: a constant of type "LocalTime" that is set to 22:59 (10:59 PM
     protected static final int MIN_WIDTH = 500;
+    //MIN_WIDTH: a constant integer value that represents the minimum width of the calendar
     protected static final int MIN_HEIGHT = MIN_WIDTH;
-
+//MIN_HEIGHT: a constant integer value that represents the minimum height of the calendar.
     protected static final int HEADER_HEIGHT = 30;
+    //HEADER_HEIGHT: a constant integer value that represents the height of the header
     protected static final int TIME_COL_WIDTH = 100;
+    //TIME_COL_WIDTH: a constant integer value that represents the width of the time column
     JFrame frm = new JFrame();
-
+//frm: an instance of the "JFrame" class from the "javax.swing" package that is used to create the calendar window
     // An estimate of the width of a single character (not exact but good
     // enough)
     private static final int FONT_LETTER_PIXEL_WIDTH = 7;
     private ArrayList<CalendarEvent> events;
     private double timeScale;
+    //FONT_LETTER_PIXEL_WIDTH: a constant integer value that represents the estimated width of a single character in pixels
     private double dayWidth;
+    //g2: an instance of the "Graphics2D" class from the "java.awt" package that is used to draw graphics on the calenda
     private Graphics2D g2;
-
+//events: an instance of the "ArrayList" class from the "java.util" package that stores the events on the calendar
     private EventListenerList listenerList = new EventListenerList();
-
+//timeScale: a double value that represents the scale at which time is displayed on the calendar
     public Calendar() {
         this(new ArrayList<>());
     }
     public Calendar(Calendar calendar,Clock clock){
- 
+ //dayWidth: a double value that represents the width of a single day on the calendar
     }
-
+//Calendar is a constructor with no arguments that initializes the "events" instance variable to an empty ArrayList
+    //sets up the event listeners and timer for the calendar
     Calendar(ArrayList<CalendarEvent> events) {
         this.events = events;
         setupEventListeners();
         setupTimer();
     }
-
+//a constructor with two arguments of type "Calendar" and "Clock" respectively
     public static LocalTime roundTime(LocalTime time, int minutes) {
         LocalTime t = time;
 
@@ -64,7 +72,7 @@ public abstract class Calendar extends JComponent {
 
         return t;
     }
-
+//a constructor with one argument of type "ArrayList<CalendarEvent>" that initializes the "events" instance variable to the passed ArrayList, and sets up the event listeners and timer for the calendar
     // Setup Event Listener
     private void setupEventListeners() {
         this.addMouseListener(new MouseAdapter() {
@@ -82,7 +90,7 @@ public abstract class Calendar extends JComponent {
             }
         });
     }
-
+//end of constructor section
     // Check Calendar Event Double Click
     private boolean checkCalendarEventDoubleClick(Point p) {
         double x0, x1, y0, y1;
@@ -150,7 +158,8 @@ public abstract class Calendar extends JComponent {
     public void addCalendarEventClickListener(CalendarEventClickListener l) {
         listenerList.add(CalendarEventClickListener.class, l);
     }
-
+//a static method that takes a "LocalTime" object and an integer representing the number of minutes
+    //and rounds the time to the nearest multiple of that number of minutes
     public void removeCalendarEventClickListener(CalendarEventClickListener l) {
         listenerList.remove(CalendarEventClickListener.class, l);
     }
@@ -172,7 +181,8 @@ public abstract class Calendar extends JComponent {
     }
 
     // CalendarEmptyClick methods
-
+//a method that sets up the event listeners for the calendar, including a mouse click listener that 
+    //checks for double clicks on events and empty areas of the calendar
     public void addCalendarEmptyClickListener(CalendarEmptyClickListener l) {
         listenerList.add(CalendarEmptyClickListener.class, l);
     }
@@ -210,7 +220,7 @@ public abstract class Calendar extends JComponent {
     }
 
     protected abstract int numDaysToShow();
-
+//method that takes a "Point" object representing a mouse click, and checks if the click was a double click on an event
     // Gives x val of left most pixel for day col
     protected abstract double dayToPixel(DayOfWeek dayOfWeek);
 
@@ -234,7 +244,7 @@ public abstract class Calendar extends JComponent {
         }
         return null;
     }
-
+//a method that takes a "CalendarEvent" object and shows the event goal in a pop-up window
     @Override
     protected void paintComponent(Graphics g) {
         calculateScaleVars();
@@ -411,7 +421,7 @@ public abstract class Calendar extends JComponent {
     }
 
     protected abstract void setRangeToToday();
-
+//a method that takes a "Point" object representing a mouse click, and checks if the click was on an event
     public void goToToday() {
         setRangeToToday();
         repaint();
@@ -432,7 +442,7 @@ public abstract class Calendar extends JComponent {
         this.events = events;
         repaint();
     }
-
+//an abstract method that takes a "LocalDate" object and returns a boolean indicating whether the date is within the range of dates displayed on the calendar
     public void setFontSize(int size) {
         Font font = getFont().deriveFont((float) size);
         setFont(font);
