@@ -1,0 +1,7 @@
+{
+    "java.project.referencedLibraries": [
+        "/Users/nikhilnambiarchengat/Downloads/mysql-connector-j-8.0.32/mysql-connector-j-8.0.32.jar",
+        "PlanPerfect/PlanPerfect/lib/mysql-connector-j-8.0.32.jar",
+        "test-lib/**/*.jar"
+    ]
+}
