@@ -12,7 +12,8 @@ public class DayCalendar extends Calendar {
         super(events);
         calDate = LocalDate.now();
     }
-
+//override methods using LocalDate object as input to output new date
+    
     @Override
     public boolean dateInRange(LocalDate date) {
         return calDate.equals(date);
