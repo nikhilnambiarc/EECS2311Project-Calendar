@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class JunitTesting {
+public class Testing {
 
     @Test
     public void testGetStart() {
