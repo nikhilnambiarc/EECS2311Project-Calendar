@@ -53,7 +53,9 @@ public class AddDeleteEditWeekCalendar extends JPanel {
    private void addWeekCalendar(String name) {
        WeekCalendar calendar = new WeekCalendar(events);
        calendars.add(calendar);
+      //For each tab, it checks whether the tab's title matches the calendar name entered by the user
        int index = tabbedPane.getTabCount();
+      //object is removed from the collection
        tabbedPane.addTab(name, calendar);
        tabbedPane.setTabComponentAt(index, new CalendarTabComponent(tabbedPane, name));
    }
