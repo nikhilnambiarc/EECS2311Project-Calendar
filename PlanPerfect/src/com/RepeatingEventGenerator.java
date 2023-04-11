@@ -48,7 +48,7 @@ public class RepeatingEventGenerator {
 
         return events;
     }
-
+//use switch cases for different event cases
     public static RepeatingEventGenerator.RepeatOption repeatOptionFromString(String option) {
         switch (option) {
             case "Every Day":
