@@ -3,6 +3,9 @@ import org.junit.Before;
 import org.junit.Test;
 import com.*;
 import com.Calendar;
+
+
+import java.sql.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -192,8 +195,45 @@ public class Testing {
         assertTrue(reminder.isCompleted());
     }
 
+    private ArrayList<CalendarEvent> events;
 
+    @Before
+    public void SQLDBsetUp() {
+        String url = "jdbc:mysql://localhost:3306/CA_Public_Holidays";
+        String user = "root";
+        String password = "EECS2311"; // replace ... with your password
 
+        events = new ArrayList<>();
+
+        try (Connection con = DriverManager.getConnection(url, user, password)) {
+            String[] queries = { "SELECT * FROM 2023_Holidays;", "SELECT * FROM 2024_Holidays;", "SELECT * FROM 2025_Holidays;" };
+
+            for (String query : queries) {
+                try (Statement statement = con.createStatement();
+                        ResultSet result = statement.executeQuery(query)) {
+                    while (result.next()) {
+                        String holiday_Name = result.getString("Holiday_Name");
+                        int day = result.getInt("day");
+                        int month = result.getInt("month");
+                        int year = result.getInt("year");
+
+                        events.add(new CalendarEvent(LocalDate.of(year, month, day), LocalTime.of(8, 0),
+                                LocalTime.of(9, 0), holiday_Name));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testDayCalendar() {
+        DayCalendar cal = new DayCalendar(events);
+        assertNotNull(cal);
+    }
+
+    
 
 
 
