@@ -20,6 +20,7 @@ public class ReminderItem extends JPanel {
        checkBox.addActionListener(e -> {
            reminder.setCompleted(checkBox.isSelected());
        });
+      //new checkBox added
        add(checkBox);
 
        nameLabel = new JLabel(reminder.getName());
@@ -34,7 +35,8 @@ public class ReminderItem extends JPanel {
        });
        add(nameLabel);
    }
-
+//fonts altered for labelling use
+   
    public void setFontSize(int size) {
        nameLabel.setFont(nameLabel.getFont().deriveFont((float) size));
    }
