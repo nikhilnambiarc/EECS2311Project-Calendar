@@ -69,12 +69,14 @@ public class MonthCalendar extends JFrame implements ActionListener {
     }
 
     private void addCalendarDays(JPanel panel) {
+        //uses this method to get the starting date of the current week and then adds the dates for each day of the week using a loop
         LocalDate firstDayOfMonth = currentDate.withDayOfMonth(1);
         LocalDate lastDayOfMonth = currentDate.withDayOfMonth(currentDate.lengthOfMonth());
 
         int startColumn = firstDayOfMonth.getDayOfWeek().getValue();
         int endColumn = startColumn + lastDayOfMonth.getDayOfMonth() - 1;
-
+//loop from reference above
+        
         int currentColumn = 0;
         for (int i = 1; i <= endColumn; i++) {
             if (i < startColumn) {
