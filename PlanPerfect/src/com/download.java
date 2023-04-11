@@ -1,12 +1,13 @@
 package com;
 
+//imports
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-
+//require BufferedReader for new CSV files
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
