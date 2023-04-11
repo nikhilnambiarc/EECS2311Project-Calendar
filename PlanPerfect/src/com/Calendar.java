@@ -65,6 +65,7 @@ public abstract class Calendar extends JComponent {
         LocalTime t = time;
 
         if (t.getMinute() % minutes > minutes / 2) {
+            //pass the string as a parameter
             t = t.plusMinutes(minutes - (t.getMinute() % minutes));
         } else if (t.getMinute() % minutes < minutes / 2) {
             t = t.minusMinutes(t.getMinute() % minutes);
@@ -75,6 +76,7 @@ public abstract class Calendar extends JComponent {
 //a constructor with one argument of type "ArrayList<CalendarEvent>" that initializes the "events" instance variable to the passed ArrayList, and sets up the event listeners and timer for the calendar
     // Setup Event Listener
     private void setupEventListeners() {
+        //new setup via object MouseAdapter
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
