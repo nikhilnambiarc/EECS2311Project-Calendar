@@ -7,6 +7,7 @@ public class CalendarEmptyClickEvent extends AWTEvent {
     private LocalDateTime dateTime;
 //declares a private instance variable called dateTime of type LocalDateTime. This variable will hold the date and time associated with the event
     public CalendarEmptyClickEvent(Object source, LocalDateTime dateTime) {
+        //super method of CalendarEmptyClickEvent to go over old method
         super(source, 0);
         this.dateTime = dateTime;
     }
