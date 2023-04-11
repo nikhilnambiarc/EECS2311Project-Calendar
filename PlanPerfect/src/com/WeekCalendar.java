@@ -43,7 +43,7 @@ public class WeekCalendar extends Calendar {
     protected DayOfWeek getStartDay() {
         return DayOfWeek.MONDAY;
     }
-
+//last day in week set of calendar in GUI display
     @Override
     protected DayOfWeek getEndDay() {
         return DayOfWeek.SUNDAY;
