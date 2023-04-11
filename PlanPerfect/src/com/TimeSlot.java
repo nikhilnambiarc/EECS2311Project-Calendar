@@ -1,5 +1,6 @@
 package com;
 
+//imports
 import java.time.LocalTime;
 //class that represents a time interval between a start time and an end time
 public class TimeSlot {
@@ -15,6 +16,7 @@ public class TimeSlot {
     public LocalTime getStart() {
         //class is a part of the java.time package
         LocalTime start = this.startTime;
+        //output time slot inputted by user
         return start;
     }
 //represents a time without a date or time zone
