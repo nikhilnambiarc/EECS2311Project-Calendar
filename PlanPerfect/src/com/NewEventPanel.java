@@ -3,7 +3,8 @@ import java.awt.*;
 import java.time.*;
 import java.time.format.*;
 import java.util.*;
- 
+ //imports
+
 import javax.swing.*;
  
 import static java.awt.GridBagConstraints.BASELINE_LEADING;
@@ -33,7 +34,7 @@ public final class NewEventPanel extends JPanel {
  //title and description fields can be accessed through public getter methods
     initializeComponents();
   }
- 
+ //new LocalDate object to be super-method later
   LocalDate date() {
     return date;
   }
