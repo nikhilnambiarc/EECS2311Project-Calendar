@@ -5,6 +5,7 @@ import java.awt.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
+
 public class ReminderDialog extends JDialog {
     private JTextField reminderNameField;
     private JComboBox<Integer> hourBox;
@@ -62,7 +63,7 @@ public class ReminderDialog extends JDialog {
         c.gridx = 1;
         add(timePanel, c);
 
-        // Buttons
+        // Buttons added
         saveButton = new JButton("Save");
         saveButton.addActionListener(e -> saveReminder());
         cancelButton = new JButton("Cancel");
@@ -79,6 +80,7 @@ public class ReminderDialog extends JDialog {
         setLocationRelativeTo(owner);
     }
 
+    //reminder registered into arraylist 
     private void saveReminder() {
         String name = reminderNameField.getText();
         LocalDate date = LocalDate.parse(dateField.getText(), DateTimeFormatter.ISO_LOCAL_DATE);
