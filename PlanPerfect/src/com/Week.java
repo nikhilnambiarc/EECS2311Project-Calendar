@@ -1,5 +1,6 @@
 package com;
 
+//imports
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class Week {
     public static LocalDate getStartOfWeek(LocalDate date) {
         LocalDate day = date;
         
+        //loop for cases where need to edit days in event over week period
         while (day.getDayOfWeek() != DayOfWeek.MONDAY) {
             
             day = day.minusDays(1);
