@@ -206,7 +206,7 @@ public class CalendarEvent {
             dispose();
         }
     }
-
+//program also provides error handling for cases where conflict occurs
     public boolean check_Conflict(CalendarEvent newEvent) {
         if (!date.equals(newEvent.date)) {
             return false;
