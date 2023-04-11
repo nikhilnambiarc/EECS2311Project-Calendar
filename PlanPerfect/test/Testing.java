@@ -233,6 +233,12 @@ public class Testing {
         assertNotNull(cal);
     }
 
+    @Test
+    public void testWeekCalendar() {
+        WeekCalendar cal = new WeekCalendar(events);
+        assertNotNull(cal);
+    }
+
     
 
 
