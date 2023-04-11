@@ -11,4 +11,5 @@ public interface CalendarEmptyClickListener extends EventListener {
     //Interface serves as a contract that any class that wishes to handle calendar empty click events must implement
     //Any class that implements this interface must provide an implementation
 }
+//action listener works similarly to the other method getter, except that it prompts to set it
 
