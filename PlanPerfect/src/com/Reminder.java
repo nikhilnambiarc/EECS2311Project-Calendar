@@ -17,7 +17,8 @@ public class Reminder {
        this.dateTime = dateTime;
        this.completed = false;
    }
-
+//name of Reminder - can be altered later
+   
    public String getName() {
        return name;
    }
