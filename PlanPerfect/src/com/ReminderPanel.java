@@ -11,6 +11,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class ReminderPanel extends JPanel {
+   //Have panel, message and box for no reminders case and for a list of reminders contained
    private JLabel titleLabel;
    private JLabel noRemindersLabel;
    private ArrayList<Reminder> reminders;
