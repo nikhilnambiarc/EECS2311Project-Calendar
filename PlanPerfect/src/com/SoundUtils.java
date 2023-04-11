@@ -1,5 +1,6 @@
 package com;
 
+//imports
 import javax.sound.midi.*;
 //sound is played using the MIDI (Musical Instrument Digital Interface) protocol
 public class SoundUtils {
