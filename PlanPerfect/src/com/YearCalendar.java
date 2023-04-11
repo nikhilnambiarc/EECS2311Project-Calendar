@@ -1,5 +1,6 @@
 package com;
 
+//imports
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -21,7 +22,7 @@ public class YearCalendar extends JFrame {
         currentYear = year;
         setTitle("Year View");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        // create a panel with a title
         JPanel headerPanel = new JPanel(new BorderLayout());
         JButton previousButton = new JButton("<");
         previousButton.addActionListener(new ActionListener() {
