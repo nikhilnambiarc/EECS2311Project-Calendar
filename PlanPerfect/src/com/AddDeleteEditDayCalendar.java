@@ -27,13 +27,18 @@ public class AddDeleteEditDayCalendar extends JPanel {
        JButton addCalendarButton = new JButton("Add a Calendar");
        addCalendarButton.addActionListener(e -> addCalendar("New Calendar"));
 
+         //assigns an action listener to each of them using Java lambda expressions
        JButton deleteCalendarButton = new JButton("Delete a Calendar");
+         //button has a text label "Add a Calendar"
+         //When this button is clicked, it will execute the addCalendar method and pass the string
        deleteCalendarButton.addActionListener(e -> {
            String calendarName = JOptionPane.showInputDialog("Enter the name of the calendar to delete:");
            if (calendarName != null && !calendarName.trim().isEmpty()) {
+                 //prompts the user to enter the name of the calendar to delete
                for (int i = 1; i < tabbedPane.getTabCount(); i++) {
                    if (tabbedPane.getTitleAt(i).equals(calendarName)) {
                        tabbedPane.remove(i);
+                         
                        calendars.remove(i);
                        break;
                    }
